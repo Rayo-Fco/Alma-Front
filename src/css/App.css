@@ -7,6 +7,10 @@
   pointer-events: none;
 }
 
+body{
+  font-size: 30px;
+}
+
 
 @media (prefers-reduced-motion: no-preference) {
   .App-logo {
