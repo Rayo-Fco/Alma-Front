@@ -9,7 +9,7 @@ export default function Navigation() {
     return (
         <ReactBootStrap.Navbar collapseOnSelect style={{background: "#fd9eef"}} expand="lg" className="br-dark dark">
             <Link to='/' className="navbar-brand">
-            <img src={logo} style={{width: "100px",height:"80px"}} />
+                <a><img src={logo} style={{width: "100px",height:"80px"}} /></a>
             </Link>
             <ReactBootStrap.Navbar.Toggle aria-controls="responsive-navbar-nav" />
         </ReactBootStrap.Navbar >

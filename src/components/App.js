@@ -19,7 +19,6 @@ function App() {
           </Navigation>
           <LoginForm></LoginForm>
           <div className="container" style={{marginBottom:"150px"}}>
-
           </div>
           <Footer />
         </Suspense>

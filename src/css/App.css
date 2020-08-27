@@ -91,7 +91,18 @@ body{
   margin-bottom:0;
 }
 
+.encuentranos{
+  font-size: 29px;
+  font-family: sans-serif;
+  margin: 20px;
+}
 
+.lii{
+  float: left;
+  height: 48px;
+  width: 160px;
+  margin: auto;
+}
 
 /* Other Classes for Page Styling */
 
