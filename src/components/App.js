@@ -13,21 +13,21 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 function App() {
   return (
     <>
-      <div className="App" style={{backgroundColor: "#fd9eef" ,color: "white"}}>
+      <div className="App" style={{backgroundColor: "white"}}>
         <Suspense fallback={null}>
           <Navigation>
           </Navigation>
-          <LoginForm></LoginForm>
-          <div className="container" style={{marginBottom:"150px"}}>
-          </div>
-          <Footer />
-        </Suspense>
-         {/* 
-         <Switch>
+          <Switch>
             <Route component={Main} exact path="/">
             </Route>
+            <Route component={LoginForm} exact path="/login">
+            </Route>
           </Switch>
-           */} 
+          <Footer />
+        </Suspense>
+        {/* 
+
+           */}
       </div>
     </>
   );

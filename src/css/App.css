@@ -7,7 +7,7 @@
   pointer-events: none;
 }
 
-body{
+body {
   font-size: 30px;
 }
 
@@ -33,75 +33,189 @@ body{
   color: #61dafb;
 }
 
+/*Login Classes*/
+
+#logins {
+  width: "500px";
+  margin-top: "100px";
+  background-color: "#fd9eef";
+}
+
 /* Sticky Footer Classes */
 
 .footer-basic {
-  padding:40px 0;
-  background-color:#fd9eef;
-  color:#4b4c4d;
+  padding: 40px 0;
+  background-color: #fd9eef;
+  color: #4b4c4d;
 }
 
 .footer-basic ul {
-  padding:0;
-  list-style:none;
-  font-size:18px;
-  line-height:1.6;
-  margin-bottom:0;
+  padding: 0;
+  list-style: none;
+  font-size: 18px;
+  line-height: 1.6;
+  margin-bottom: 0;
 }
 
 
 .footer-basic ul a {
-  color:inherit;
-  text-decoration:none;
-  opacity:0.8;
+  color: inherit;
+  text-decoration: none;
+  opacity: 0.8;
 }
 
 .footer-basic ul a:hover {
-  opacity:1;
+  opacity: 1;
 }
 
 .footer-basic .social {
-  text-align:center;
-  padding-bottom:25px;
+  text-align: center;
+  padding-bottom: 25px;
 }
 
-.footer-basic .social > a {
-  font-size:24px;
-  width:40px;
-  height:40px;
-  line-height:40px;
-  display:inline-block;
-  text-align:center;
-  border-radius:50%;
-  border:1px solid #ccc;
-  margin:0 8px;
-  color:inherit;
-  opacity:0.75;
+.footer-basic .social>a {
+  font-size: 24px;
+  width: 40px;
+  height: 40px;
+  line-height: 40px;
+  display: inline-block;
+  text-align: center;
+  border-radius: 50%;
+  border: 1px solid #ccc;
+  margin: 0 8px;
+  color: inherit;
+  opacity: 0.75;
 }
 
-.footer-basic .social > a:hover {
-  opacity:0.9;
+.footer-basic .social>a:hover {
+  opacity: 0.9;
 }
 
 .footer-basic .copyright {
-  margin-top:15px;
-  text-align:center;
-  font-size:13px;
-  color:#aaa;
-  margin-bottom:0;
+  margin-top: 15px;
+  text-align: center;
+  font-size: 13px;
+  color: #aaa;
+  margin-bottom: 0;
 }
 
-.encuentranos{
+.encuentranos {
   font-size: 29px;
   font-family: sans-serif;
   margin: 20px;
 }
 
-.lii{
+.lii {
   float: left;
   height: 48px;
   width: 160px;
   margin: auto;
+}
+
+/*content features*/
+.cont-features {
+  padding-right: 40px;
+  padding-left: 40px;
+  padding-top: 80px;
+  padding-bottom: 80px;
+
+}
+
+.w-container .w-row {
+  margin-left: -10px;
+  margin-right: -10px;
+}
+
+.feature-wrapper {
+  margin-bottom: 30px;
+}
+
+.feature-columns {
+  display: flex;
+  justify-content: space-around;
+}
+
+.w-col {
+  position: relative;
+  float: left;
+  width: 100%;
+  min-height: 1px;
+  padding-left: 10px;
+  padding-right: 10px;
+}
+
+.w-col-6 {
+  width: 50%;
+}
+
+.column-text {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  align-content: space-around;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+  -webkit-box-pack: center;
+  -webkit-box-align: start;
+}
+
+.column-image {
+  display: flex;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+}
+
+.feature-heading {
+  max-width: 400px;
+  font-size: 35px;
+  line-height: 40px;
+  font-weight: 400;
+  color: black;
+}
+
+h2 {
+  display: block;
+  font-size: 1.5em;
+  margin-block-start: 0.83em;
+  margin-block-end: 0.83em;
+  margin-inline-start: 0px;
+  margin-inline-end: 0px;
+  font-weight: bold;
+}
+
+div {
+  display: block;
+}
+
+.feature-lead {
+  max-width: 400px;
+  font-size: 25px;
+  line-height: 35px;
+  font-weight: 200;
+  text-align: initial;
+  color: black;
+
+}
+
+img {
+  border: 0;
+  vertical-align: middle;
+  display: inline-block;
+  max-width: 100%;
+}
+
+img {
+  vertical-align: middle;
+  border-style: none;
+}
+
+.feature-image {
+  margin-right: auto;
+  margin-left: auto;
 }
 
 /* Other Classes for Page Styling */
@@ -111,6 +225,7 @@ body{
   from {
     transform: rotate(0deg);
   }
+
   to {
     transform: rotate(360deg);
   }
