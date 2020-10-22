@@ -5,7 +5,7 @@ export default function login({ email, password }) {
         email: email,
         password: password
     }
-    return axios.post(`https://api.zarapito.xyz/login/`, user)
+    return axios.post(`http://localhost:3001/`, user)
         .then(res => {
             const { token } = res.data
             return token

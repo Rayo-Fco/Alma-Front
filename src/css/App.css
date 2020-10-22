@@ -41,6 +41,21 @@ body {
   background-color: "#fd9eef";
 }
 
+.link {
+  color: white;
+  text-decoration: none;
+}
+
+.link:hover {
+  color: white !important;
+  text-decoration: none !important;
+}
+
+a:hover {
+  color: white !important;
+  text-decoration: none !important;
+}
+
 /* Sticky Footer Classes */
 
 .footer-basic {
@@ -217,6 +232,7 @@ img {
   margin-right: auto;
   margin-left: auto;
 }
+
 
 /* Other Classes for Page Styling */
 

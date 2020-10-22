@@ -1,0 +1,132 @@
+{
+    "comunas":[
+        {
+            "id":1,
+            "name": "Cerrillos"     
+        },
+        {
+            "id":2,
+            "name": "Cerro Navia"   
+        },
+        {
+            "id":3,
+            "name": "Conchalí"   
+        },
+        {
+            "id":4,
+            "name": "El Bosque"    
+        },
+        {
+            "id":5,
+            "name": "Estación Central"     
+        },
+        {
+            "id":6,
+            "name": "Huechuraba"     
+        },
+        {
+            "id":7,
+            "name": "Independencia"     
+        },
+        {
+            "id":8,
+            "name": "La Cisterna"     
+        },
+        {
+            "id":9,
+            "name": "La Florida"     
+        },
+        {
+            "id":10,
+            "name": "La Granja"     
+        },
+        {
+            "id":11,
+            "name": "La Pintana"     
+        },
+        {
+            "id":12,
+            "name": "La Reina"     
+        },
+        {
+            "id":13,
+            "name": "Las Condes"     
+        },
+        {
+            "id":14,
+            "name": "Lo Barnechea"     
+        },
+        {
+            "id":15,
+            "name": "Lo Espejo"     
+        },
+        {
+            "id":16,
+            "name": "Lo Prado"     
+        },
+        {
+            "id":17,
+            "name": "Macul"     
+        },
+        {
+            "id":18,
+            "name": "Maipú"     
+        },
+        {
+            "id":19,
+            "name": "Ñuñoa"     
+        },
+        {
+            "id":20,
+            "name": "Pedro Aguirre Cerda"     
+        },
+        {
+            "id":21,
+            "name": "Peñalolén"     
+        },
+        {
+            "id":22,
+            "name": "Providencia"     
+        },
+        {
+            "id":23,
+            "name": "Pudahuel"     
+        },
+        {
+            "id":24,
+            "name": "Quilicura"     
+        },
+        {
+            "id":25,
+            "name": "Quinta Normal"     
+        },
+        {
+            "id":26,
+            "name": "Recoletal"     
+        },
+        {
+            "id":27,
+            "name": "Renca"     
+        },
+        {
+            "id":28,
+            "name": "San Joaquín"     
+        },
+        {
+            "id":29,
+            "name": "San Miguel"     
+        },
+        {
+            "id":30,
+            "name": "San Ramón"     
+        },
+        {
+            "id":31,
+            "name": "Santiago"     
+        },
+        {
+            "id":32,
+            "name": "Vitacura"     
+        }
+    ]
+}
