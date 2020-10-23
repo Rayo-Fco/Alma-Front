@@ -63,7 +63,6 @@ export default function CantUsuarios() {
                             <Grid item>
                                 <KeyboardDatePicker className={classes.dtpick}
                                     margin="normal"
-                                    id="date-picker-dialog"
                                     label="De:"
                                     format="dd/MM/yyyy"
                                     value={selectedDate}
@@ -76,7 +75,6 @@ export default function CantUsuarios() {
                             <Grid item>
                                 <KeyboardDatePicker className={classes.dtpick}
                                     margin="normal"
-                                    id="date-picker-dialog"
                                     label="Hasta:"
                                     format="dd/MM/yyyy"
                                     value={selectedDate}

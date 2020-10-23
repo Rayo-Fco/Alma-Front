@@ -3,9 +3,9 @@ import { Paper, Container, Grid, Typography, GridList } from '@material-ui/core'
 import { makeStyles } from '@material-ui/core/styles'
 import Avatar from '@material-ui/core/Avatar';
 import { deepOrange } from '@material-ui/core/colors';
-import GraficoBotones from './ButtonGraph';
-import GraficoUsuarios from './UserGraph';
-import ListComunas from './ListCommunes';
+import ButtonGraph from './ButtonGraph';
+import UserGraph from './UserGraph';
+import ListCommunes from './ListCommunes';
 import SeleccionFecha from './DateSelection' 
 
 const useStyles = makeStyles((theme) => ({
@@ -67,18 +67,18 @@ export default function PrincipalAdmin() {
                     </Grid>
                     <Grid item xs={6}>
                         <Paper className={classes.paper2}>
-                            <GraficoBotones />
+                            <ButtonGraph />
                         </Paper>
                     </Grid>
                     <Grid item xs={6}>
                         <Paper className={classes.paper2}>
-                            <GraficoUsuarios />
+                            <UserGraph />
                         </Paper>
                     </Grid>
                     <Grid item xs={12}>
                         <Paper className={classes.paper2}>
                             <GridList cellHeight={160} className={classes.gridList} cols={3}>
-                                <ListComunas />
+                                <ListCommunes />
                             </GridList>
                         </Paper>
                     </Grid>

@@ -15,6 +15,7 @@ import Grafico3 from './CommuneResult'
 import ListCommunes from './ListCommunes'
 import AddMarker from './AddMarker'
 import NavBar from './NavBar'
+import About from './About'
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { UserContextProvider } from '../context/UserContext';
 
@@ -43,6 +44,8 @@ function App() {
               <Route component={MainAdmin} exact path="/principal">
               </Route>
               <Route component={AddMarker} exact path="/add">
+              </Route>
+              <Route component={About} exact path="/about">
               </Route>
             </Switch>
             <Footer />

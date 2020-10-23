@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import '../css/App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import { Link } from 'wouter'
 
 class Footer extends Component {
     render() {
@@ -28,7 +29,7 @@ class Footer extends Component {
                                 <h5 className="font-weight-bold text-uppercase mt-3 mb-4">EMPRESAS</h5>
                                 <ul className="list-unstyled">
                                     <li>
-                                        <a href="#!">Sobre Nosotros</a>
+                                        <Link to='/about' className="link">Sobre ALMA</Link>
                                     </li>
                                     <li>
                                         <a href="#!">Contacto</a>
@@ -52,7 +53,7 @@ class Footer extends Component {
                                 <h5 className="font-weight-bold text-uppercase mt-3 mb-4">RECURSOS</h5>
                                 <ul className="list-unstyled">
                                     <li>
-                                        <a href="#!">Preguntas frecuentes</a>
+                                        <Link to='/faq' className="link">Preguntas frecuentes</Link>
                                     </li>
                                     <li>
                                         <a href="#!">Instagram</a>

@@ -112,7 +112,6 @@ function AddMarker({ latlng, sendLatLng }) {
                 </Grid>
             </Grid>
         </div>
-
     )
 }
 export default connect(mapStateToProps, { sendLatLng })(AddMarker)

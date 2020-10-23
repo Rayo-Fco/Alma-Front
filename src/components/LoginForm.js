@@ -33,7 +33,7 @@ export default function LoginForm() {
                     <h3 className="titulo">Iniciar sesión</h3>
                     {hasLoginError &&
                         <div className="alert alert-danger alert-styled-left">
-                            Correo o contraseña inválidos
+                            Correo y/o contraseña inválidos
                                     </div>
                     }
                     <div className="input">

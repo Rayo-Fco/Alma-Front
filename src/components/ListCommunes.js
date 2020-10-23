@@ -41,7 +41,7 @@ function ListComunas(props, { updateOpen }) {
                     <List>
                         {
                             comunas.map(comuna => (
-                                <Link to='/map' className="link">
+                                <Link to='/map' className="link" key={comuna.id}>
                                     <ListItem button >
                                         <ListItem>
                                             <ListItemAvatar>

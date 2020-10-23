@@ -58,7 +58,6 @@ function SeleccionFecha(props) {
                             <Grid item>
                                 <KeyboardDatePicker className={classes.dtpick}
                                     margin="normal"
-                                    id="date-picker-dialog"
                                     label="De:"
                                     format="dd/MM/yyyy"
                                     value={selectedDate}
@@ -71,7 +70,6 @@ function SeleccionFecha(props) {
                             <Grid item>
                                 <KeyboardDatePicker className={classes.dtpick}
                                     margin="normal"
-                                    id="date-picker-dialog"
                                     label="Hasta:"
                                     format="dd/MM/yyyy"
                                     value={selectedDate}

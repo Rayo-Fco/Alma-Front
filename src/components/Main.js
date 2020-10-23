@@ -18,8 +18,8 @@ function Main() {
                 </div>
 
                 <div className="container-sm" style={{ height: "48px", color: "black", width: "400px" }}>
-                    <a href="#" ><div className="lii"><img style={{ height: "48px", marginLeft: "20px" }} src={AppStore} alt="appstore"/></div></a>
-                    <a href="#"><div className="lii"><img style={{ height: "48px", marginLeft: "30px" }} src={GooglePlay} alt="googleplay"/></div></a>
+                    <a href="#!" ><div className="lii"><img style={{ height: "48px", marginLeft: "20px" }} src={AppStore} alt="appstore"/></div></a>
+                    <a href="#!"><div className="lii"><img style={{ height: "48px", marginLeft: "30px" }} src={GooglePlay} alt="googleplay"/></div></a>
                 </div>
             </div>
         </div>

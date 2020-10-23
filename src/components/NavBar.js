@@ -9,7 +9,6 @@ import DrawerC from './DrawerC'
 import { updateOpen } from '../actions/openDrawerAction'
 import { connect } from "react-redux";
 
-
 const useStyles = makeStyles((theme) => ({
 
     offset: theme.mixins.toolbar,
@@ -33,7 +32,6 @@ const useStyles = makeStyles((theme) => ({
 function NavBar({ updateOpen }) {
     const classes = useStyles();
 
-
     const { isLogged, logout } = useLogin()
     const handleLogout = e => {
         logout()
@@ -53,29 +51,25 @@ function NavBar({ updateOpen }) {
                                 <img src={logo} className={classes.imagen} alt="Logo"></img>
                             </IconButton>
                         </Link>
-
                     </div>
                     {
                         isLogged
                             ?
                             <Link to='/' onClick={handleLogout} className="link">
-
                                 <IconButton color="inherit" className={classes.btnLogin}>
                                     <ExitToAppIcon>
                                     </ExitToAppIcon>
                                     Cerrar Sesion
-                            </IconButton>
+                                </IconButton>
                             </Link>
                             :
                             <Link to='/login' className="link">
-
                                 <IconButton color="inherit" className={classes.btnLogin}>
                                     <ExitToAppIcon>
                                     </ExitToAppIcon>
                                         Login
-                            </IconButton>
+                                </IconButton>
                             </Link>
-
                     }
                 </Toolbar>
             </AppBar>

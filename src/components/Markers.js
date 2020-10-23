@@ -29,35 +29,65 @@ function Markers({ latlng, sendLatLng }) {
     })
 
     useEffect(() => {
-        const ac = new AbortController();
-        const datas = async () => {
-            const res = await axios.get('http://localhost:3001/markers/comisaria')
-            setComisaria({ markersC: res.data })
+        let isMounted = true
+        let source = axios.CancelToken.source();
+
+        axios.get('http://localhost:3001/markers/comisaria', {
+            cancelToken: source.token,
+        })
+            .then(res => {
+                if (isMounted) {
+                    setComisaria({ markersC: res.data })
+                }
+            }).catch(function (e) {
+                if (isMounted) {
+                    if (axios.isCancel(e)) {
+                    }
+                }
+            })
+        return function () {
+            isMounted = false;
         }
-        datas()
-        return () => ac.abort();
-    }, [setComisaria])
+
+    }, [setComisaria]);
 
     useEffect(() => {
-        const ac = new AbortController();
-        const datas = async () => {
-            const res = await axios.get('http://localhost:3001/markers/pdi')
-            setPdi({ markersP: res.data })
+        let isMounted = true
+        let source = axios.CancelToken.source();
+
+        axios.get('http://localhost:3001/markers/pdi', {
+            cancelToken: source.token,
+        })
+            .then(res => {
+                if (isMounted) {
+                    setPdi({ markersP: res.data })
+                }
+            }).catch(function (e) {
+                if (isMounted) {
+                    if (axios.isCancel(e)) {
+                    }
+                }
+            })
+        return function () {
+            isMounted = false;
         }
-        datas()
-        return () => ac.abort();
-    }, [setPdi])
+
+    }, [setPdi]);
 
     useEffect(() => {
+        let isMounted = true
         navigator.geolocation.getCurrentPosition(
             function (position) {
-                setState({
-                    longitude: position.coords.longitude,
-                    latitude: position.coords.latitude
-                })
+                if (isMounted) {
+
+                    setState({
+                        longitude: position.coords.longitude,
+                        latitude: position.coords.latitude
+                    })
+                }
             },
             function (error) {
-                alert("error")
+                console.log(error)
             },
             {
                 enableHighAccuracy: true
@@ -72,7 +102,9 @@ function Markers({ latlng, sendLatLng }) {
             }
             setState2({ currentLocation })
 
+
         }
+        return () => { isMounted = false }
     }, [state])
 
 
@@ -91,7 +123,7 @@ function Markers({ latlng, sendLatLng }) {
             { comisaria.markersC.map((markerC, index) => (
                 <Marker
                     key={index}
-                    position={JSON.parse("[" + markerC.latitude + ", "+ markerC.longitude +"]")}
+                    position={JSON.parse("[" + markerC.latitude + ", " + markerC.longitude + "]")}
                     icon={IconCarabineros} >
                     <Popup>
                         {markerC.title}
@@ -101,15 +133,15 @@ function Markers({ latlng, sendLatLng }) {
             ))
             }
             { pdi.markersP.map((markerP, index) => (
-                    <Marker
-                        key={index}
-                        position={JSON.parse("[" + markerP.latitude + ", "+ markerP.longitude +"]")}
-                        icon={IconPdi} >
-                        <Popup>
-                            {markerP.title}
+                <Marker
+                    key={index}
+                    position={JSON.parse("[" + markerP.latitude + ", " + markerP.longitude + "]")}
+                    icon={IconPdi} >
+                    <Popup>
+                        {markerP.title}
 
-                        </Popup>
-                    </Marker>
+                    </Popup>
+                </Marker>
             ))
             }
 
