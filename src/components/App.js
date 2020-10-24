@@ -17,6 +17,7 @@ import AddMarker from './AddMarker'
 import NavBar from './NavBar'
 import About from './About'
 import InfoComunas from './InfoComuna';
+import MapViewData from './MapViewData'
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { UserContextProvider } from '../context/UserContext';
 
@@ -49,6 +50,8 @@ function App() {
               <Route component={About} exact path="/about">
               </Route>
               <Route component={InfoComunas} exact path="/info">
+              </Route>
+              <Route component={MapViewData} exact path="/mapdata">
               </Route>
             </Switch>
             <Footer />

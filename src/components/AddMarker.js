@@ -4,9 +4,9 @@ import Paper from '@material-ui/core/Paper';
 import { Button, makeStyles, FormControl } from "@material-ui/core";
 import SaveIcon from '@material-ui/icons/Save';
 import MapView from './MapView'
-import { selectActiveLatLng } from '../reducers/LatLngDrawerReducer'
+import { selectActiveLatLng } from '../reducers/latLngReducer'
 import { connect } from "react-redux";
-import { sendLatLng } from '../actions/sendLatLngAction'
+import { sendLatLng } from '../actions/latLngAction'
 import InputAdornment from '@material-ui/core/InputAdornment';
 
 const useStyles = makeStyles((theme) => ({

@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from 'react'
 import { Marker, Popup } from 'react-leaflet'
 import { IconLocation, IconCarabineros, IconPdi } from './IconLocation'
-import { selectActiveLatLng } from '../reducers/LatLngDrawerReducer'
+import { selectActiveLatLng } from '../reducers/latLngReducer'
 import { connect } from "react-redux";
-import { sendLatLng } from '../actions/sendLatLngAction'
+import { sendLatLng } from '../actions/latLngAction'
 import axios from 'axios'
 const mapStateToProps = state => {
     return {

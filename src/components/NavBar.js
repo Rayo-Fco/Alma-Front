@@ -34,6 +34,7 @@ function NavBar({ updateOpen }) {
 
     const { isLogged, logout } = useLogin()
     const handleLogout = e => {
+        console.log(e + " akgo")
         logout()
     }
 

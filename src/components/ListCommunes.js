@@ -3,10 +3,10 @@ import { makeStyles } from '@material-ui/core/styles';
 import { Grid, List, ListItem, ListItemAvatar, Avatar, ListItemText, IconButton, Container, Paper } from '@material-ui/core'
 import RoomIcon from '@material-ui/icons/Room';
 import PlayCircleOutlineIcon from '@material-ui/icons/PlayCircleOutline';
-import { updateOpen } from '../actions/openDrawerAction'
 import { Link } from 'wouter'
 import { connect } from "react-redux"
 import { comunas } from '../assets/comunas.json';
+import { sendCommunes } from '../actions/communesAction'
 
 const useStyles = makeStyles((theme) => ({
     title: {
@@ -26,9 +26,11 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 
-function ListComunas(props, { updateOpen }) {
+function ListComunas({ sendCommunes }) {
     const classes = useStyles();
-
+    const handleMap = (comunas) => {
+        sendCommunes(comunas)
+    }
     return (
 
         <Container fixed>
@@ -41,7 +43,7 @@ function ListComunas(props, { updateOpen }) {
                     <List>
                         {
                             comunas.map(comuna => (
-                                <Link to='/map' className="link" key={comuna.id}>
+                                <Link to='/info' className="link" key={comuna.id} onClick={() => handleMap(comuna.name)}>
                                     <ListItem button >
                                         <ListItem>
                                             <ListItemAvatar>
@@ -49,8 +51,8 @@ function ListComunas(props, { updateOpen }) {
                                                     <RoomIcon />
                                                 </Avatar>
                                             </ListItemAvatar>
-                                            <ListItemText style={{width: '250px'}} primary={`${comuna.name}`} />
-                                            <ListItemText style={{color: 'red'}} primary={`${comuna.id}`} />
+                                            <ListItemText style={{ width: '250px' }} primary={`${comuna.name}`} />
+                                            <ListItemText style={{ color: 'red' }} primary={`${comuna.id}`} />
                                         </ListItem>
                                         <IconButton edge="end" aria-label="delete">
                                             <PlayCircleOutlineIcon />
@@ -67,4 +69,4 @@ function ListComunas(props, { updateOpen }) {
     );
 }
 
-export default connect(null, { updateOpen })(ListComunas)
+export default connect(null, { sendCommunes })(ListComunas)

@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react'
 import { Map, TileLayer } from 'react-leaflet'
 import 'leaflet/dist/leaflet.css'
 import Markets from './Markers'
-import { sendLatLng } from '../actions/sendLatLngAction'
+import { sendLatLng } from '../actions/latLngAction'
 import { connect } from "react-redux";
 
 function MapView({ sendLatLng }) {

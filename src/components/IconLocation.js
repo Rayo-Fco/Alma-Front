@@ -33,5 +33,16 @@ export const IconLocation = L.icon({
     className: 'Leaflet-venue-icon',
 })
 
+export const IconPin = L.icon({
+    iconUrl: require('../assets/mappin.svg'),
+    iconRetinaUrl: require('../assets/mappin.svg'),
+    iconAnchor: null,
+    shadowUrl:null,
+    shadowSize: null,
+    shadowAnchor: null,
+    iconSize: [40, 40],
+    className: 'Leaflet-venue-icon',
+})
+
 
 

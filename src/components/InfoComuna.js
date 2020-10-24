@@ -1,12 +1,12 @@
 import React, { useEffect } from 'react';
-import MapView from './MapView'
+import MapViewData from './MapViewData'
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
 import TableCell from '@material-ui/core/TableCell';
 import TableContainer from '@material-ui/core/TableContainer';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
-import { Grid, makeStyles, Paper, Typography } from "@material-ui/core";
+import { Grid, makeStyles, Paper } from "@material-ui/core";
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -33,6 +33,8 @@ const useStyles = makeStyles((theme) => ({
     pap: {
         marginTop: theme.spacing(2),
         height: 800,
+        width: 'auto'
+
     },
     grpap: {
         margin: 'auto',
@@ -63,9 +65,6 @@ const useStyles = makeStyles((theme) => ({
     },
     row: {
         height: 70
-    },
-    pap:{
-        width: 'auto'
     }
 }));
 
@@ -93,7 +92,7 @@ function InfoComuna({ latlng, sendLatLng }) {
         <div className={classes.root}>
             <Grid container spacing={2}>
                 <Grid item xs={8}>
-                    <MapView></MapView>
+                    <MapViewData></MapViewData>
                 </Grid>
                 <Grid item xs={4}>
                     <Paper className={classes.paper} elevation={15}>
