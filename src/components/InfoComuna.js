@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import MapViewData from './MapViewData'
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
@@ -80,13 +80,8 @@ const rows = [
     createData('Gingerbread', 356),
 ];
 
-function InfoComuna({ latlng, sendLatLng }) {
+function InfoComuna() {
     const classes = useStyles();
-
-    useEffect(() => {
-        console.log(latlng)
-
-    }, [latlng])
 
     return (
         <div className={classes.root}>

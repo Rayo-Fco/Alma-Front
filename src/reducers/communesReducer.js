@@ -1,4 +1,4 @@
-const initialState = { communes: " " };
+const initialState = { communes: "" };
 
 // action es el valor devuelto por el action
 //action.payload será el valor que quiero añadir, borrar, etc
