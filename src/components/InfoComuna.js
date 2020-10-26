@@ -13,10 +13,6 @@ const useStyles = makeStyles((theme) => ({
         flexGrow: 1,
         margin: 'auto',
     },
-    gr: {
-        marginTop: theme.spacing(3),
-
-    },
     paper: {
         height: '92%',
         backgroundColor: '#e0dfdf',
@@ -50,8 +46,6 @@ const useStyles = makeStyles((theme) => ({
     gridform: {
         margin: 'auto',
         height: '100%',
-
-
     },
     paperform: {
         padding: '15px',
@@ -60,7 +54,11 @@ const useStyles = makeStyles((theme) => ({
         width: '200px'
     },
     container: {
-        marginTop: 200,
+        height: theme.spacing(51),
+        marginTop: theme.spacing(15),
+        width: 'auto'
+    },
+    map: {
         width: 'auto'
     },
     row: {
@@ -86,36 +84,36 @@ function InfoComuna() {
     return (
         <div className={classes.root}>
             <Grid container spacing={2}>
-                <Grid item xs={8}>
+                <Grid className={classes.map} item xs={8}>
                     <MapViewData></MapViewData>
                 </Grid>
                 <Grid item xs={4}>
-                    <Paper className={classes.paper} elevation={15}>
-                        <Grid container className={classes.gr} alignItems="flex-end">
-                            <Grid item className={classes.gridform} >
-                                <TableContainer className={classes.container} component={Paper}>
-                                    <Table className={classes.table} aria-label="simple table">
-                                        <TableHead>
-                                            <TableRow>
-                                                <TableCell align="center"><b>Titulo</b></TableCell>
-                                                <TableCell align="center"><b>Informacion</b></TableCell>
+
+                    <Grid container>
+                        <Grid item className={classes.gridform} >
+                            <TableContainer className={classes.container} component={Paper}>
+                                <Table className={classes.table} style={{ backgroundColor: '#fafafa'}} aria-label="simple table">
+                                    <TableHead>
+                                        <TableRow>
+                                            <TableCell align="center"><b>Titulo</b></TableCell>
+                                            <TableCell align="center"><b>Informacion</b></TableCell>
+                                        </TableRow>
+                                    </TableHead>
+                                    <TableBody>
+                                        {rows.map((row) => (
+                                            <TableRow className={classes.row} key={row.name}>
+                                                <TableCell component="th" scope="row">
+                                                    {row.name}
+                                                </TableCell>
+                                                <TableCell align="center"><b style={{ color: 'red' }}>{row.info}</b></TableCell>
                                             </TableRow>
-                                        </TableHead>
-                                        <TableBody>
-                                            {rows.map((row) => (
-                                                <TableRow className={classes.row} key={row.name}>
-                                                    <TableCell component="th" scope="row">
-                                                        {row.name}
-                                                    </TableCell>
-                                                    <TableCell align="center"><b style={{ color: 'red' }}>{row.info}</b></TableCell>
-                                                </TableRow>
-                                            ))}
-                                        </TableBody>
-                                    </Table>
-                                </TableContainer>
-                            </Grid>
+                                        ))}
+                                    </TableBody>
+                                </Table>
+                            </TableContainer>
                         </Grid>
-                    </Paper>
+                    </Grid>
+
                 </Grid>
             </Grid>
         </div>
