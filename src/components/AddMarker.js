@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import { Select, TextField, Grid, MenuItem, InputLabel } from '@material-ui/core';
 import Paper from '@material-ui/core/Paper';
-import { Button, makeStyles, FormControl } from "@material-ui/core";
+import { Button, makeStyles, FormControl, Typography } from "@material-ui/core";
 import SaveIcon from '@material-ui/icons/Save';
 import MapView from './MapView'
 import { selectActiveLatLng } from '../reducers/latLngReducer'
@@ -42,14 +42,17 @@ const useStyles = makeStyles((theme) => ({
     button: {
         margin: theme.spacing(1),
         marginBottom: theme.spacing(2),
-
+        width: '100%',
+        marginLeft: theme.spacing(0),
     },
     input: {
         marginBottom: theme.spacing(2),
+        width: '100%'
     },
     gridform: {
         margin: 'auto',
-        height: '100%'
+        height: '100%',
+        width: '80%'
 
     },
     paperform: {
@@ -60,6 +63,10 @@ const useStyles = makeStyles((theme) => ({
     formControl: {
         minWidth: 120,
     },
+    typo: {
+        fontFamily: 'helvetica',
+        fontSize: 36,
+    }
 }));
 
 const mapStateToProps = state => {
@@ -95,63 +102,74 @@ function AddMarker({ latlng, sendLatLng }) {
                     <MapView></MapView>
                 </Grid>
                 <Grid item xs={4}>
-                    <Paper className={classes.paper} elevation={15}>
-                        <Grid container className={classes.gr} alignItems="flex-end">
-                            <Grid item className={classes.gridform} >
-                                <Paper className={classes.paperform} elevation={15}>
-                                    <FormControl>
-                                        <h1>Agregar marcador</h1>
-                                        {hasAddError &&
-                                            <div className="alert alert-danger alert-styled-left">
-                                               {errorMsj.map(error => {
-                                                    return (
-                                                        <div key={error}>
-                                                            *{error} <br />
-                                                        </div>
-                                                    )
-                                                })}
+                    <Grid item className={classes.gridform} >
+                        <Paper className={classes.paperform} elevation={15}>
+                            <FormControl>
+                                <Typography className={classes.typo}>
+                                    Agregar marcador
+                                </Typography>
+                                {hasAddError &&
+                                    <div className="alert alert-danger alert-styled-left">
+                                        {errorMsj.map(error => {
+                                            return (
+                                                <div key={error}>
+                                                    *{error} <br />
+                                                </div>
+                                            )
+                                        })}
+                                    </div>
+                                }
+                                {succeedAdd &&
+                                    <div className="alert alert-success alert-styled-left">
+                                        Se ha eliminado el producto
                                             </div>
-                                        }
-                                        {succeedAdd &&
-                                            <div className="alert alert-success alert-styled-left">
-                                                Se ha eliminado el producto
-                                            </div>
-                                        }
+                                }
+                                <Grid container style={{marginTop: '8px'}}wrap="nowrap" spacing={3}>
+                                    <Grid item xs zeroMinWidth>
                                         <TextField className={classes.input} label="Titulo" variant="outlined" onChange={(e) => setTitle(e.target.value)} />
+                                    </Grid>
+                                </Grid>
+                                <Grid container wrap="nowrap" spacing={3}>
+                                    <Grid item xs zeroMinWidth>
                                         <TextField className={classes.input} value={latlng.lng || ''} label="Longitud" variant="outlined" onChange={(e) => setLongitude(e.target.value)} InputProps={{
                                             startAdornment: <InputAdornment position="start">Lng</InputAdornment>,
                                         }} />
+                                    </Grid>
+                                </Grid>
+                                <Grid container wrap="nowrap" spacing={3}>
+                                    <Grid item xs zeroMinWidth>
                                         <TextField className={classes.input} value={latlng.lat || ''} label="Latitud" variant="outlined" onChange={(e) => setLatitude(e.target.value)} InputProps={{
                                             startAdornment: <InputAdornment position="start">Lat</InputAdornment>,
                                         }} />
-                                        <FormControl className={classes.formControl} variant="outlined">
-                                            <InputLabel htmlFor="outlined-age-native-simple">Tipo</InputLabel>
-                                            <Select
-                                                className={classes.input}
-                                                label="Tipo"
-                                                value={category}
-                                                onChange={(e) => setCategory(e.target.value)}>
-                                                <MenuItem value="">
-                                                    <em>Ninguno</em>
-                                                </MenuItem>
-                                                <MenuItem value={'comisaria'}>Comisaria</MenuItem>
-                                                <MenuItem value={'pdi'}>PDI</MenuItem>
-                                            </Select>
-                                        </FormControl>
-                                        <Button
-                                            variant="contained"
-                                            color="primary"
-                                            size="large"
-                                            className={classes.button}
-                                            onClick={() => handleSubmit()}
-                                            startIcon={<SaveIcon />}>
-                                            Agregar
+                                    </Grid>
+                                </Grid>
+
+                                <FormControl className={classes.formControl} variant="outlined">
+                                    <InputLabel htmlFor="outlined-age-native-simple">Tipo</InputLabel>
+                                    <Select
+                                        className={classes.input}
+                                        label="Tipo"
+                                        value={category}
+                                        onChange={(e) => setCategory(e.target.value)}>
+                                        <MenuItem value="">
+                                            <em>Ninguno</em>
+                                        </MenuItem>
+                                        <MenuItem value={'comisaria'}>Comisaria</MenuItem>
+                                        <MenuItem value={'pdi'}>PDI</MenuItem>
+                                    </Select>
+                                </FormControl>
+                                <Button
+                                    variant="contained"
+                                    color="primary"
+                                    size="large"
+                                    className={classes.button}
+                                    onClick={() => handleSubmit()}
+                                    startIcon={<SaveIcon />}>
+                                    Agregar
                                          </Button>
-                                    </FormControl>
-                                </Paper>
-                            </Grid>
-                        </Grid>
-                    </Paper>
+                            </FormControl>
+                        </Paper>
+                    </Grid>
                 </Grid>
             </Grid>
         </div>
