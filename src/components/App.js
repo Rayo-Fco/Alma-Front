@@ -20,6 +20,7 @@ import InfoComunas from './InfoComuna';
 import MapViewData from './MapViewData'
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { UserContextProvider } from '../context/UserContext';
+import RegisterAdmin from './RegisterAdmin';
 
 function App() {
   return (
@@ -52,6 +53,8 @@ function App() {
               <Route component={InfoComunas} exact path="/info">
               </Route>
               <Route component={MapViewData} exact path="/mapdata">
+              </Route>
+              <Route component={RegisterAdmin} exact path="/regAdmin">
               </Route>
             </Switch>
             <Footer />
