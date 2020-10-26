@@ -23,7 +23,6 @@ const useStyles = makeStyles((theme) => ({
         height: '92%',
         backgroundColor: '#e0dfdf',
         marginRight: '15px'
-
     },
     dtpick: {
         marginLeft: 60,
@@ -53,7 +52,6 @@ const useStyles = makeStyles((theme) => ({
         margin: 'auto',
         height: '100%',
         width: '80%'
-
     },
     paperform: {
         padding: '15px',
@@ -76,7 +74,7 @@ const mapStateToProps = state => {
 }
 
 
-function AddMarker({ latlng, sendLatLng }) {
+function AddMarker({ latlng }) {
     const classes = useStyles();
     const [category, setCategory] = useState('')
     const [title, setTitle] = useState('')
@@ -85,7 +83,6 @@ function AddMarker({ latlng, sendLatLng }) {
     const { addmarker, hasAddError, succeedAdd, errorMsj } = useAddMarker()
 
     useEffect(() => {
-
         setLatitude(latlng.lat)
         setLongitude(latlng.lng)
     }, [latlng])
@@ -122,9 +119,9 @@ function AddMarker({ latlng, sendLatLng }) {
                                 {succeedAdd &&
                                     <div className="alert alert-success alert-styled-left">
                                         Se ha eliminado el producto
-                                            </div>
+                                    </div>
                                 }
-                                <Grid container style={{marginTop: '8px'}}wrap="nowrap" spacing={3}>
+                                <Grid container style={{ marginTop: '8px' }} wrap="nowrap" spacing={3}>
                                     <Grid item xs zeroMinWidth>
                                         <TextField className={classes.input} label="Titulo" variant="outlined" onChange={(e) => setTitle(e.target.value)} />
                                     </Grid>
@@ -143,7 +140,6 @@ function AddMarker({ latlng, sendLatLng }) {
                                         }} />
                                     </Grid>
                                 </Grid>
-
                                 <FormControl className={classes.formControl} variant="outlined">
                                     <InputLabel htmlFor="outlined-age-native-simple">Tipo</InputLabel>
                                     <Select

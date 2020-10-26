@@ -196,8 +196,6 @@ function MapViewData({ communes }) {
             setCount({ c })
         }
 
-        console.log(communes)
-
     }, [count, state2, communes, navigate]);
 
     return (

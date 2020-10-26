@@ -1,7 +1,5 @@
 import React from 'react'
 import MapIcon from '@material-ui/icons/Map'
-import PieChartIcon from '@material-ui/icons/PieChart'
-import BarChartIcon from '@material-ui/icons/BarChart'
 import HomeIcon from '@material-ui/icons/Home'
 import AddCircleIcon from '@material-ui/icons/AddCircle'
 import FormatListNumberedRoundedIcon from '@material-ui/icons/FormatListNumberedRounded';
@@ -47,22 +45,6 @@ function ListItemDrawer({ updateOpen }) {
                             <MapIcon />
                         </ListItemIcon>
                         <ListItemText primary='Mapa'></ListItemText>
-                    </ListItem>
-                </Link>
-                <Link to='/grafico1' className="link" onClick={() => { updateOpen(false) }} >
-                    <ListItem button>
-                        <ListItemIcon>
-                            <BarChartIcon />
-                        </ListItemIcon>
-                        <ListItemText primary='Grafico de usuarios'></ListItemText>
-                    </ListItem>
-                </Link>
-                <Link to='/grafico2' className="link" onClick={() => { updateOpen(false) }} >
-                    <ListItem button>
-                        <ListItemIcon>
-                            <PieChartIcon />
-                        </ListItemIcon>
-                        <ListItemText primary='Grafico del uso del boton'></ListItemText>
                     </ListItem>
                 </Link>
                 <Link to='/comunas' className="link" onClick={() => { updateOpen(false) }} >

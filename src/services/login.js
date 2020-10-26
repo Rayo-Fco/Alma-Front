@@ -5,7 +5,7 @@ export default function login({ email, password }) {
         email: email,
         password: password
     }
-    return axios.post(`http://localhost:3001/login`, user)
+    return axios.post(`http://localhost:3001/admin/login`, user)
         .then(res => {
             const { token } = res.data
             return token

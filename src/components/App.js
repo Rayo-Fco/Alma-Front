@@ -18,9 +18,9 @@ import NavBar from './NavBar'
 import About from './About'
 import InfoComunas from './InfoComuna';
 import MapViewData from './MapViewData'
+import RegisterAdmin from './RegisterAdmin'
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { UserContextProvider } from '../context/UserContext';
-import RegisterAdmin from './RegisterAdmin';
 
 function App() {
   return (
