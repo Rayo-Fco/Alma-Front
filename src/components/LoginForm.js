@@ -24,7 +24,6 @@ export default function LoginForm() {
         }
     }, [isLogged, navigate])
 
-
     return (
         <div>
             <div className="container-sm" style={{ width: "500px", marginTop: "35px", marginBottom: "35px", backgroundColor: "#fd9eef", padding: "40px", borderRadius: "15px" }}>
@@ -34,7 +33,7 @@ export default function LoginForm() {
                     {hasLoginError &&
                         <div className="alert alert-danger alert-styled-left">
                             Correo y/o contraseña inválidos
-                                    </div>
+                        </div>
                     }
                     <div className="input">
                         <span className="fa fa-envelope-o" aria-hidden="true"></span>

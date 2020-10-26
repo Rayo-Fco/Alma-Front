@@ -3,16 +3,14 @@ import { makeStyles } from '@material-ui/core/styles';
 
 const useStyles = makeStyles((theme) => ({
     container: {
-        height: '100%',
+        height: '100vh',
         width: '99%',
         display: 'grid',
-        paddingBottom: theme.spacing(10),
-        paddingTop: theme.spacing(4),
+        paddingTop: theme.spacing(10),
     },
     containerFeature: {
-        marginBottom: theme.spacing(20)
+        marginBottom: theme.spacing(15)
     }
-
 
 }));
 

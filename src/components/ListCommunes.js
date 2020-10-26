@@ -18,10 +18,11 @@ const useStyles = makeStyles((theme) => ({
     container: {
         margin: 'auto',
         marginBottom: theme.spacing(2),
+        width: '500px'
     },
     paper2: {
         padding: theme.spacing(1),
-        marginTop: theme.spacing(3)
+        marginTop: theme.spacing(3),
     }
 }));
 

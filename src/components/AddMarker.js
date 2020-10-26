@@ -1,5 +1,5 @@
-import React, { useEffect } from 'react'
-import { TextField, Grid, MenuItem } from '@material-ui/core';
+import React, { useState, useEffect } from 'react'
+import { Select, TextField, Grid, MenuItem, InputLabel } from '@material-ui/core';
 import Paper from '@material-ui/core/Paper';
 import { Button, makeStyles, FormControl } from "@material-ui/core";
 import SaveIcon from '@material-ui/icons/Save';
@@ -8,6 +8,7 @@ import { selectActiveLatLng } from '../reducers/latLngReducer'
 import { connect } from "react-redux";
 import { sendLatLng } from '../actions/latLngAction'
 import InputAdornment from '@material-ui/core/InputAdornment';
+import useAddMarker from '../hooks/useAddMarker';
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -55,7 +56,10 @@ const useStyles = makeStyles((theme) => ({
         padding: '15px',
         marginTop: theme.spacing(3),
         height: '80'
-    }
+    },
+    formControl: {
+        minWidth: 120,
+    },
 }));
 
 const mapStateToProps = state => {
@@ -67,12 +71,23 @@ const mapStateToProps = state => {
 
 function AddMarker({ latlng, sendLatLng }) {
     const classes = useStyles();
+    const [category, setCategory] = useState('')
+    const [title, setTitle] = useState('')
+    const [latitude, setLatitude] = useState('')
+    const [longitude, setLongitude] = useState('')
+    const { addmarker, hasAddError, succeedAdd, errorMsj } = useAddMarker()
 
     useEffect(() => {
-        console.log(latlng)
 
+        setLatitude(latlng.lat)
+        setLongitude(latlng.lng)
     }, [latlng])
 
+    const handleSubmit = () => {
+        console.log("llego" + category + "cat", title + "tit", latitude + "lat", longitude + "lng")
+        addmarker({ category, title, latitude, longitude })
+
+    };
     return (
         <div className={classes.root}>
             <Grid container spacing={2}>
@@ -85,22 +100,50 @@ function AddMarker({ latlng, sendLatLng }) {
                             <Grid item className={classes.gridform} >
                                 <Paper className={classes.paperform} elevation={15}>
                                     <FormControl>
-                                        <TextField className={classes.input} label="Titulo" variant="outlined" />
-                                        <TextField className={classes.input} value={latlng.lng} label="Longitud" variant="outlined" InputProps={{
+                                        <h1>Agregar marcador</h1>
+                                        {hasAddError &&
+                                            <div className="alert alert-danger alert-styled-left">
+                                               {errorMsj.map(error => {
+                                                    return (
+                                                        <div key={error}>
+                                                            *{error} <br />
+                                                        </div>
+                                                    )
+                                                })}
+                                            </div>
+                                        }
+                                        {succeedAdd &&
+                                            <div className="alert alert-success alert-styled-left">
+                                                Se ha eliminado el producto
+                                            </div>
+                                        }
+                                        <TextField className={classes.input} label="Titulo" variant="outlined" onChange={(e) => setTitle(e.target.value)} />
+                                        <TextField className={classes.input} value={latlng.lng || ''} label="Longitud" variant="outlined" onChange={(e) => setLongitude(e.target.value)} InputProps={{
                                             startAdornment: <InputAdornment position="start">Lng</InputAdornment>,
                                         }} />
-                                        <TextField className={classes.input} value={latlng.lat} label="Latitud" variant="outlined" InputProps={{
+                                        <TextField className={classes.input} value={latlng.lat || ''} label="Latitud" variant="outlined" onChange={(e) => setLatitude(e.target.value)} InputProps={{
                                             startAdornment: <InputAdornment position="start">Lat</InputAdornment>,
                                         }} />
-                                        <TextField className={classes.input} id="select" label="Tipo" select variant="outlined">
-                                            <MenuItem value="10">Comisarias</MenuItem>
-                                            <MenuItem value="20">PDI</MenuItem>
-                                        </TextField>
+                                        <FormControl className={classes.formControl} variant="outlined">
+                                            <InputLabel htmlFor="outlined-age-native-simple">Tipo</InputLabel>
+                                            <Select
+                                                className={classes.input}
+                                                label="Tipo"
+                                                value={category}
+                                                onChange={(e) => setCategory(e.target.value)}>
+                                                <MenuItem value="">
+                                                    <em>Ninguno</em>
+                                                </MenuItem>
+                                                <MenuItem value={'comisaria'}>Comisaria</MenuItem>
+                                                <MenuItem value={'pdi'}>PDI</MenuItem>
+                                            </Select>
+                                        </FormControl>
                                         <Button
                                             variant="contained"
                                             color="primary"
-                                            size="small"
+                                            size="large"
                                             className={classes.button}
+                                            onClick={() => handleSubmit()}
                                             startIcon={<SaveIcon />}>
                                             Agregar
                                          </Button>
