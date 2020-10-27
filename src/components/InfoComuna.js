@@ -91,26 +91,28 @@ function InfoComuna() {
                 <Grid item xs={4}>
                     <Grid container>
                         <Grid item className={classes.gridform} >
-                            <TableContainer className={classes.container} component={Paper}>
-                                <Table className={classes.table} style={{ backgroundColor: '#fafafa'}} aria-label="simple table">
-                                    <TableHead>
-                                        <TableRow>
-                                            <TableCell align="center"><b>Titulo</b></TableCell>
-                                            <TableCell align="center"><b>Informacion</b></TableCell>
-                                        </TableRow>
-                                    </TableHead>
-                                    <TableBody>
-                                        {rows.map((row) => (
-                                            <TableRow className={classes.row} key={row.name}>
-                                                <TableCell component="th" scope="row">
-                                                    {row.name}
-                                                </TableCell>
-                                                <TableCell align="center"><b style={{ color: 'red' }}>{row.info}</b></TableCell>
+                            <Paper elevation={15}>
+                                <TableContainer className={classes.container} component={Paper}>
+                                    <Table className={classes.table} style={{ backgroundColor: '#fafafa' }} aria-label="simple table">
+                                        <TableHead>
+                                            <TableRow>
+                                                <TableCell align="center"><b>Titulo</b></TableCell>
+                                                <TableCell align="center"><b>Informacion</b></TableCell>
                                             </TableRow>
-                                        ))}
-                                    </TableBody>
-                                </Table>
-                            </TableContainer>
+                                        </TableHead>
+                                        <TableBody>
+                                            {rows.map((row) => (
+                                                <TableRow className={classes.row} key={row.name}>
+                                                    <TableCell component="th" scope="row">
+                                                        {row.name}
+                                                    </TableCell>
+                                                    <TableCell align="center"><b style={{ color: 'red' }}>{row.info}</b></TableCell>
+                                                </TableRow>
+                                            ))}
+                                        </TableBody>
+                                    </Table>
+                                </TableContainer>
+                            </Paper>
                         </Grid>
                     </Grid>
 
