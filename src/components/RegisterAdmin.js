@@ -12,19 +12,20 @@ const usesStyles = makeStyles((theme) => ({
         marginBottom: theme.spacing(5),
         paddingTop: theme.spacing(4),
         height: 'auto',
-        width: '40%',
+        width: '65%',
     },
     grdC: {
         margin: 'auto',
-        width: '85%'
+        width: '85%',
+        marginTop: 20,
     },
     input: {
         marginTop: theme.spacing(1)
     },
-    
-    typograph:{
-        marginBottom: theme.spacing(3),
-    }
+    typ: {
+        fontSize: 50,
+        fontFamily: 'Arial',
+    },
 }))
 
 function RegisterAdmin(props) {
@@ -43,7 +44,7 @@ function RegisterAdmin(props) {
 
     return (
         <Paper className={classes.container} elevation={15}>
-            <Typography className={classes.typograph} variant="h2" color="initial">
+            <Typography className={classes.typ} color="primary">
                 Registro de Admin
             </Typography>
             {hasSignError &&
