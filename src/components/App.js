@@ -19,9 +19,11 @@ import About from './About'
 import InfoComunas from './InfoComuna';
 import MapViewData from './MapViewData'
 import RegisterAdmin from './RegisterAdmin'
-import RegistroComuna from './RegistroComuna'
+import RegistroComuna from './RegistroComuna';
+import ListCheckIns from './ListCheckIns';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { UserContextProvider } from '../context/UserContext';
+import InfoCheckIn from "./InfoCheckIn";
 
 function App() {
   return (
@@ -58,6 +60,10 @@ function App() {
               <Route component={RegisterAdmin} exact path="/regAdmin">
               </Route>
               <Route component={RegistroComuna} exact path="/regComuna">
+              </Route>
+              <Route component={ListCheckIns} exact path="/checkins">
+              </Route>
+              <Route component={InfoCheckIn} exact path="/info-checkin">
               </Route>
             </Switch>
             <Footer />
