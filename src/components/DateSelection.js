@@ -5,7 +5,6 @@ import SearchIcon from '@material-ui/icons/Search'
 import { MuiPickersUtilsProvider, KeyboardDatePicker } from '@material-ui/pickers';
 import DateFnsUtils from '@date-io/date-fns';
 
-
 const useStyles = makeStyles((theme) => ({
     root: {
         flexGrow: 1,
@@ -34,9 +33,6 @@ const useStyles = makeStyles((theme) => ({
     }
 }));
 
-
-
-
 function SeleccionFecha(props) {
 
     const classes = useStyles();
@@ -47,7 +43,6 @@ function SeleccionFecha(props) {
         //aqui se recibe la fecha
         console.log(date);
     };
-
 
     return (
         <div className={classes.root} >

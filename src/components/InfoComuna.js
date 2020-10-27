@@ -55,7 +55,8 @@ const useStyles = makeStyles((theme) => ({
     },
     container: {
         height: theme.spacing(51),
-        marginTop: theme.spacing(15),
+        marginTop: theme.spacing(10),
+        marginBottom: theme.spacing(8),
         width: 'auto'
     },
     map: {
@@ -88,7 +89,6 @@ function InfoComuna() {
                     <MapViewData></MapViewData>
                 </Grid>
                 <Grid item xs={4}>
-
                     <Grid container>
                         <Grid item className={classes.gridform} >
                             <TableContainer className={classes.container} component={Paper}>

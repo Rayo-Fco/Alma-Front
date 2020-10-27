@@ -13,6 +13,7 @@ const useStyles = makeStyles((theme) => ({
     root: {
         flexGrow: 1,
         margin: 'auto',
+        height: 'auto'
     },
     gr: {
         marginTop: theme.spacing(4),

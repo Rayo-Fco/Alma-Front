@@ -88,9 +88,7 @@ function AddMarker({ latlng }) {
     }, [latlng])
 
     const handleSubmit = () => {
-        console.log("llego" + category + "cat", title + "tit", latitude + "lat", longitude + "lng")
         addmarker({ category, title, latitude, longitude })
-
     };
     return (
         <div className={classes.root}>
