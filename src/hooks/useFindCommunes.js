@@ -1,18 +1,18 @@
 import { useState } from 'react';
-import addmarkerservices from '../services/addmarker';
+import findcommunesservices from '../services/findcommunes';
 export default function useAddMarker() {
     const [state, setState] = useState({ succeed: false, error: false, errormsj: '' })
 
-    const addmarker = ({ category, title, latitude, longitude }) => {
-        addmarkerservices({ category, title, latitude, longitude })
-            .then(markerres => {
-                if (markerres === "ok") {
+    const findcommunes = ({ category, title, latitude, longitude }) => {
+        findcommunesservices({ category, title, latitude, longitude })
+            .then(findres => {
+                if (findres === "ok") {
                     setState({ succeed: true, error: false, errormsj: '' })
 
                 } else {
                     let errores = []
-                    for (let i = 0; i < markerres.message.length; i++) {
-                        errores.push(markerres.message[i].message)
+                    for (let i = 0; i < findres.message.length; i++) {
+                        errores.push(findres.message[i].message)
                     }
                     setState({ succeed: false, error: true, errormsj: errores })
                 }
@@ -24,7 +24,7 @@ export default function useAddMarker() {
     }
 
     return {
-        addmarker,
+        findcommunes,
         hasAddError: state.error,
         succeedAdd: state.succeed,
         errorMsj: state.errormsj
