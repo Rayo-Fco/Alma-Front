@@ -64,7 +64,7 @@ export default function PrincipalAdmin() {
                             </div>
                         </Paper>
                     </Grid>
-                    <Grid item xs={12}>
+                    <Grid item xs={6}>
                         <Paper className={classes.paper2}>
                             <UserGraph />
                         </Paper>

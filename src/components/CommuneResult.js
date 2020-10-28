@@ -51,8 +51,6 @@ export default function CantUsuarios() {
         console.log(date);
     };
 
-
-
     return (
         <div>
 

@@ -1,13 +1,9 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
-import { Grid, Container, Paper, Typography, List, ListItem, ListItemAvatar, Avatar, ListItemText, IconButton, TextField, Button } from '@material-ui/core';
-import { green } from '@material-ui/core/colors';
-import { usuarios } from '../assets/checkins.json';
-import { Link } from 'wouter'
-import VerifiedUserIcon from '@material-ui/icons/VerifiedUser';
-import PlayCircleOutlineIcon from '@material-ui/icons/PlayCircleOutline';
+import { Grid, Container, Paper, Typography, TextField, Button } from '@material-ui/core';
 import SearchIcon from '@material-ui/icons/Search';
-
+import axios from 'axios'
+import { Accordion, Card } from 'react-bootstrap';
 
 
 const useStyles = makeStyles((theme) => ({
@@ -33,6 +29,29 @@ const useStyles = makeStyles((theme) => ({
 
 function ListCheckIns(props) {
     const classes = useStyles();
+    const [checkins, setCheckins] = useState({ User: [] })
+
+    useEffect(() => {
+        let isMounted = true
+        const token = window.sessionStorage.getItem('tokenadmin')
+        axios.get('http://localhost:3001/checkin/all2', {
+            headers: { Authorization: "Bearer " + token }
+        })
+            .then(res => {
+                if (isMounted) {
+                    setCheckins({ User: res.data })
+                    console.log(res.data[0].user[0].rut)
+                }
+            }).catch(function (e) {
+                if (isMounted) {
+                    if (axios.isCancel(e)) {
+                    }
+                }
+            })
+        return function () {
+            isMounted = false;
+        }
+    }, [setCheckins])
 
     return (
         <Container fixed>
@@ -55,31 +74,29 @@ function ListCheckIns(props) {
                             variant="contained"
                             color="primary"
                             startIcon={<SearchIcon />}>
-                            Buscar
+                            Buscar 
                         </Button>
                     </Grid>
                     <Grid item xs={12}>
-                        <List>
+                    <Accordion defaultActiveKey="0">
                             {
-                                usuarios.map(usuario => (
-                                    <Link to='/map' className="link" key={usuario.id}>
-                                        <ListItem button >
-                                            <ListItem>
-                                                <ListItemAvatar>
-                                                    <VerifiedUserIcon style={{ color: green[500] }} />
-                                                </ListItemAvatar>
-                                                <ListItemText style={{ width: '250px',fontSize: '40px' }} primary={`${usuario.name}`} />
-                                                <ListItemText style={{ color: 'green' }} primary={`${usuario.date}`} />
-                                            </ListItem>
-                                            <IconButton edge="end" aria-label="delete">
-                                                <PlayCircleOutlineIcon />
-                                            </IconButton>
-                                        </ListItem>
-                                    </Link>
+                                checkins.User.map((checkin, index) => (
+                                    <Paper elevation={15} key={index}>
+                                        <Accordion.Toggle as={Card.Header} eventKey={index}>
+                                            <Grid item xs={6}>
+                                                {checkin.user[0].rut}
+                                            </Grid>
+                                        </Accordion.Toggle>
+                                        <Accordion.Collapse eventKey={index}>
+                                            <Card.Body>Hello! I'm the body
 
+                                            {checkin.user.rut}
+                                            </Card.Body>
+                                        </Accordion.Collapse>
+                                    </Paper>
                                 ))
                             }
-                        </List>
+                        </Accordion>
                     </Grid>
                 </Grid>
             </Paper>
