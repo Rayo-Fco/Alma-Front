@@ -24,7 +24,7 @@ const useStyles = makeStyles((theme) => ({
         fontSize: 20,
     },
     b: {
-        textAlign: 'left'
+        fontSize: 20
     },
     container: {
         paddingBottom: theme.spacing(3),
@@ -62,6 +62,13 @@ function ListCheckIns(props) {
             isMounted = false;
         }
     }, [setCheckins])
+
+
+    function splitfecha(fecha) {
+        fecha.split("T")
+        return fecha[0]
+    }
+
 
     return (
         <Container fixed className={classes.cnt}>
@@ -107,30 +114,44 @@ function ListCheckIns(props) {
                                         </Accordion.Toggle>
                                         <Accordion.Collapse className={classes.acordionCollapse} eventKey={index + 1}>
                                             <Card >
-                                                <Card.Body>
-                                                    <Card.Title>
-                                                        Comuna:
-                                                    </Card.Title>
-                                                    <Card.Text>
-                                                        {checkin.comuna}
-                                                    </Card.Text>
-                                                    {
-                                                        checkin.info[0].numero_depto
-                                                            ?
-                                                            <Card.Title>
-                                                                Informacion Adicional:
-                                                             <Card.Text>
-                                                                    {
-                                                                        checkin.info[0].numero_depto
-                                                                    }
-                                                                </Card.Text>
-                                                            </Card.Title>
-                                                            :
-                                                            <></>
+                                                <Grid xs={6}>
 
-                                                    }
+                                                    <Grid item xs zeroMinWidth>
+                                                        <Typography noWrap><b className={classes.b}>Comuna: </b>{checkin.comuna}</Typography>
 
-                                                </Card.Body>
+                                                    </Grid>
+                                                    <Grid item xs zeroMinWidth>
+                                                        {
+                                                            checkin.info[0].numero_depto
+                                                                ?
+                                                                <Typography noWrap><b className={classes.b}>Numero departamento: </b>{checkin.info[0].numero_depto}</Typography>
+
+                                                                :
+                                                                <></>
+                                                        }
+                                                    </Grid>
+                                                    <Grid item xs zeroMinWidth>
+                                                        {
+                                                            checkin.info[0].numero_piso
+                                                                ?
+                                                                <Typography noWrap><b className={classes.b}>Numero de Piso: </b>{checkin.info[0].numero_piso}</Typography>
+                                                                :
+                                                                <></>
+                                                        }
+                                                    </Grid>
+                                                    <Grid item xs zeroMinWidth>
+                                                        {
+                                                            checkin.info[0].extra
+                                                                ?
+                                                                <Typography noWrap><b className={classes.b}>Extra: </b>{checkin.info[0].extra}</Typography>
+                                                                :
+                                                                <></>
+                                                        }
+                                                    </Grid>
+                                                    <Grid item xs zeroMinWidth>
+                                                        <Typography noWrap><b className={classes.b}>Fecha: </b>{checkin.date.split("T")}</Typography>
+                                                    </Grid>
+                                                </Grid>
                                             </Card>
                                         </Accordion.Collapse>
                                     </Paper>
