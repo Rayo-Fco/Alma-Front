@@ -19,7 +19,7 @@ import About from './About'
 import InfoComunas from './InfoComuna';
 import MapViewData from './MapViewData'
 import RegisterAdmin from './RegisterAdmin'
-import RegistroComuna from './RegistroComuna';
+import RegistroComuna from './AddCommune';
 import ListCheckIns from './ListCheckIns';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { UserContextProvider } from '../context/UserContext';

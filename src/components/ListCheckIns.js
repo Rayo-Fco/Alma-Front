@@ -7,7 +7,8 @@ import { Accordion, Card } from 'react-bootstrap';
 import { Map, TileLayer } from 'react-leaflet'
 import { Marker, Popup } from 'react-leaflet'
 import { IconPin } from './IconLocation'
-
+import useFindCheckin from '../hooks/useFindCheckin';
+ 
 const useStyles = makeStyles((theme) => ({
     typ: {
         margin: 'auto',
@@ -49,6 +50,8 @@ const useStyles = makeStyles((theme) => ({
 function ListCheckIns(props) {
     const classes = useStyles();
     const [checkins, setCheckins] = useState({ User: [] })
+    const [rut, setRut] = useState("")
+    const { findcheckin, checkin } = useFindCheckin()
 
     useEffect(() => {
         let isMounted = true
@@ -59,7 +62,6 @@ function ListCheckIns(props) {
             .then(res => {
                 if (isMounted) {
                     setCheckins({ User: res.data })
-                    console.log(res.data[0].coordinates)
                 }
             }).catch(function (e) {
                 if (isMounted) {
@@ -81,6 +83,12 @@ function ListCheckIns(props) {
         return currentLocation
     }
 
+    const handleSubmit = e => {
+        console.log(rut)
+        findcheckin({ rut })
+        console.log(checkin)
+    };
+
 
     return (
         <Container fixed className={classes.cnt}>
@@ -97,12 +105,14 @@ function ListCheckIns(props) {
                             id=""
                             label="Rut"
                             variant="outlined"
+                            onChange={(e) => setRut(e.target.value)}
                         />
                         <Button
                             className={classes.button}
                             variant="contained"
                             color="primary"
-                            startIcon={<SearchIcon />}>
+                            startIcon={<SearchIcon />}
+                            onClick={() => handleSubmit()}>
                             Buscar
                         </Button>
                     </Grid>
