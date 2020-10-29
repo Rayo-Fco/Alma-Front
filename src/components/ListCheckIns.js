@@ -4,8 +4,12 @@ import { Grid, Container, Paper, Typography, TextField, Button } from '@material
 import SearchIcon from '@material-ui/icons/Search';
 import axios from 'axios'
 import { Accordion, Card } from 'react-bootstrap';
-
-
+import { Map, TileLayer } from 'react-leaflet'
+import { Marker, Popup } from 'react-leaflet'
+import { sendCommunes } from '../actions/communesAction'
+import { connect } from "react-redux";
+import { selectActiveCommunes } from '../reducers/communesReducer'
+import { IconPin } from './IconLocation'
 const useStyles = makeStyles((theme) => ({
     typ: {
         margin: 'auto',
@@ -50,7 +54,7 @@ function ListCheckIns(props) {
             .then(res => {
                 if (isMounted) {
                     setCheckins({ User: res.data })
-                    console.log(res.data[0].user[0].rut)
+                    console.log(res.data[0].coordinates)
                 }
             }).catch(function (e) {
                 if (isMounted) {
@@ -64,9 +68,12 @@ function ListCheckIns(props) {
     }, [setCheckins])
 
 
-    function splitfecha(fecha) {
-        fecha.split("T")
-        return fecha[0]
+    function currentLocation(latitude, longitude) {
+        let currentLocation = {
+            lat: latitude,
+            lng: longitude
+        }
+        return currentLocation
     }
 
 
@@ -149,7 +156,27 @@ function ListCheckIns(props) {
                                                         }
                                                     </Grid>
                                                     <Grid item xs zeroMinWidth>
-                                                        <Typography noWrap><b className={classes.b}>Fecha: </b>{checkin.date.split("T")}</Typography>
+                                                        <Typography noWrap><b className={classes.b}>Fecha: </b>{checkin.date.split("T")[0]}</Typography>
+                                                    </Grid>
+                                                    <Grid item xs zeroMinWidth>
+                                                        <Typography noWrap><b className={classes.b}>Hora: </b>{checkin.date.split("T")[1].split("7Z")[0].split(".")[0]}</Typography>
+                                                    </Grid>
+                                                </Grid>
+                                                <Grid xs={6}>
+                                                    <Grid item xs zeroMinWidth>
+
+                                                        <Map center={currentLocation(checkin.coordinates[0].latitude, checkin.coordinates[0].longitude)} zoom={20} style={{ width: '100px', height: '100px' }}>
+                                                            <TileLayer url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+                                                                attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors' />
+                                                            <Marker
+                                                                position={currentLocation(checkin.coordinates[0].latitude, checkin.coordinates[0].longitude)}
+                                                                icon={IconPin} >
+                                                                <Popup>
+                                                                    {checkin.comuna}
+                                                                </Popup>
+                                                            </Marker>
+                                                        </Map>
+
                                                     </Grid>
                                                 </Grid>
                                             </Card>
