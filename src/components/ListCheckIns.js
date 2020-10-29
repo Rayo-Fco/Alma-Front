@@ -80,14 +80,14 @@ function ListCheckIns(props) {
                     <Grid item xs={12}>
                     <Accordion defaultActiveKey="0">
                             {
-                                checkins.User.map((checkin, index) => (
+                                checkins.User.map((checkin, index ) => (
                                     <Paper elevation={15} key={index}>
-                                        <Accordion.Toggle as={Card.Header} eventKey={index}>
+                                        <Accordion.Toggle as={Card.Header} eventKey={index+1}>
                                             <Grid item xs={6}>
                                                 {checkin.user[0].rut}
                                             </Grid>
                                         </Accordion.Toggle>
-                                        <Accordion.Collapse eventKey={index}>
+                                        <Accordion.Collapse eventKey={index+1}>
                                             <Card.Body>Hello! I'm the body
 
                                             {checkin.user.rut}
