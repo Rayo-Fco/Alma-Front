@@ -96,6 +96,7 @@ function ListCheckIns(props) {
                                             <Grid item xs={6} >
                                                 <Typography className={classes.typho}>
                                                     <b className={classes.b}>Usuario: </b>{checkin.user[0].email}
+                                                    {console.log(checkin)}
                                                 </Typography>
                                             </Grid>
                                             <Grid item xs={6}>
@@ -113,9 +114,22 @@ function ListCheckIns(props) {
                                                     <Card.Text>
                                                         {checkin.comuna}
                                                     </Card.Text>
-                                                    <Card.Title>
-                                                        Informacion Adicional:
-                                                    </Card.Title>                 
+                                                    {
+                                                        checkin.info[0].numero_depto
+                                                            ?
+                                                            <Card.Title>
+                                                                Informacion Adicional:
+                                                             <Card.Text>
+                                                                    {
+                                                                        checkin.info[0].numero_depto
+                                                                    }
+                                                                </Card.Text>
+                                                            </Card.Title>
+                                                            :
+                                                            <></>
+
+                                                    }
+
                                                 </Card.Body>
                                             </Card>
                                         </Accordion.Collapse>
