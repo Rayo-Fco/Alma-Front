@@ -6,6 +6,7 @@ import { deepOrange } from '@material-ui/core/colors';
 import UserGraph from './UserGraph';
 import ListCommunes from './ListCommunes';
 import SeleccionFecha from './DateSelection'
+import ListCheckIns from './ListCheckIns'
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -19,13 +20,14 @@ const useStyles = makeStyles((theme) => ({
     },
     paper: {
         width: 'auto',
-        height: 1350,
+        height: 'auto',
         padding: theme.spacing(2),
         backgroundColor: '#ECE9E8',
         marginBottom: 50,
     },
     paper2: {
         color: theme.palette.text.secondary,
+        height: 'auto',
     },
     tittle: {
         textAlign: 'left'
@@ -36,8 +38,11 @@ const useStyles = makeStyles((theme) => ({
     },
     gridList: {
         width: 'auto',
-        height: 500,
+        height: 550,
     },
+    gr: {
+        height: 455
+    }
 }))
 
 
@@ -69,10 +74,17 @@ export default function PrincipalAdmin() {
                             <UserGraph />
                         </Paper>
                     </Grid>
+                    <Grid  item xs={6}>
+                        <Paper className={classes.paper2}>
+                            <GridList className={classes.gr}>
+                                <ListCheckIns />
+                            </GridList>
+                        </Paper>
+                    </Grid>
                     <Grid item xs={12} >
                         <Paper className={classes.paper2}>
                             <GridList cellHeight={130} className={classes.gridList} cols={3}>
-                                <ListCommunes/>
+                                <ListCommunes />
                             </GridList>
                         </Paper>
                     </Grid>
