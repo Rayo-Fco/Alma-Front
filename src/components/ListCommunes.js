@@ -53,7 +53,6 @@ function ListComunas({ sendCommunes }) {
                                                 </Avatar>
                                             </ListItemAvatar>
                                             <ListItemText style={{ width: '250px' }} primary={`${comuna.name}`} />
-                                            <ListItemText style={{ color: 'red' }} primary={`${comuna.id}`} />
                                         </ListItem>
                                         <IconButton edge="end" aria-label="delete">
                                             <PlayCircleOutlineIcon />

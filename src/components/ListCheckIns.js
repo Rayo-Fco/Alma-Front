@@ -11,11 +11,6 @@ const useStyles = makeStyles((theme) => ({
         margin: 'auto',
         fontSize: 55
     },
-    cnt: {
-        width: '90%',
-        margin: 'auto',
-        marginTop: '20px'
-    },
     input: {
         width: '50%'
     },
@@ -24,6 +19,21 @@ const useStyles = makeStyles((theme) => ({
         height: 55,
         marginLeft: '2%',
         fontSize: 20
+    },
+    typho: {
+        fontSize: 20,
+    },
+    b: {
+        textAlign: 'left'
+    },
+    container: {
+        paddingBottom: theme.spacing(3),
+    },
+    cnt: {
+        minHeight: 650
+    },
+    acordionCollapse: {
+        height: 'auto'
     }
 }))
 
@@ -54,8 +64,8 @@ function ListCheckIns(props) {
     }, [setCheckins])
 
     return (
-        <Container fixed>
-            <Paper className={classes.cnt} elevation={15}>
+        <Container fixed className={classes.cnt}>
+            <Paper className={classes.cnt} elevation={3} style={{ cursor: 'pointer' }}>
                 <Grid container spacing={3}>
                     <Grid item xs={12}>
                         <Typography className={classes.typ} color="primary">
@@ -74,30 +84,46 @@ function ListCheckIns(props) {
                             variant="contained"
                             color="primary"
                             startIcon={<SearchIcon />}>
-                            Buscar 
+                            Buscar
                         </Button>
                     </Grid>
-                    <Grid item xs={12}>
-                    <Accordion defaultActiveKey="0">
+                    <Container fixed className={classes.container}>
+                        <Accordion defaultActiveKey="0">
                             {
-                                checkins.User.map((checkin, index ) => (
-                                    <Paper elevation={15} key={index}>
-                                        <Accordion.Toggle as={Card.Header} eventKey={index+1}>
+                                checkins.User.map((checkin, index) => (
+                                    <Paper key={index}>
+                                        <Accordion.Toggle as={Card.Header} eventKey={index + 1} style={{ display: 'flex' }}>
+                                            <Grid item xs={6} >
+                                                <Typography className={classes.typho}>
+                                                    <b className={classes.b}>Usuario: </b>{checkin.user[0].email}
+                                                </Typography>
+                                            </Grid>
                                             <Grid item xs={6}>
-                                                {checkin.user[0].rut}
+                                                <Typography className={classes.typho}>
+                                                    <b>Rut: </b>{checkin.user[0].rut}
+                                                </Typography>
                                             </Grid>
                                         </Accordion.Toggle>
-                                        <Accordion.Collapse eventKey={index+1}>
-                                            <Card.Body>Hello! I'm the body
-
-                                            {checkin.user.rut}
-                                            </Card.Body>
+                                        <Accordion.Collapse className={classes.acordionCollapse} eventKey={index + 1}>
+                                            <Card >
+                                                <Card.Body>
+                                                    <Card.Title>
+                                                        Comuna:
+                                                    </Card.Title>
+                                                    <Card.Text>
+                                                        {checkin.comuna}
+                                                    </Card.Text>
+                                                    <Card.Title>
+                                                        Informacion Adicional:
+                                                    </Card.Title>                 
+                                                </Card.Body>
+                                            </Card>
                                         </Accordion.Collapse>
                                     </Paper>
                                 ))
                             }
                         </Accordion>
-                    </Grid>
+                    </Container>
                 </Grid>
             </Paper>
         </Container>

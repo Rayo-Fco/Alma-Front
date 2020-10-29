@@ -8,6 +8,8 @@ import { Link } from 'wouter'
 import { updateOpen } from '../actions/openDrawerAction'
 import { connect } from "react-redux"
 import useLogin from '../hooks/useLogin';
+import PostAddIcon from '@material-ui/icons/PostAdd';
+import CheckCircleOutlinedIcon from '@material-ui/icons/CheckCircleOutlined';
 
 function ListItemDrawer({ updateOpen }) {
     const { isLogged } = useLogin()
@@ -53,6 +55,22 @@ function ListItemDrawer({ updateOpen }) {
                             <FormatListNumberedRoundedIcon />
                         </ListItemIcon>
                         <ListItemText primary='Lista de comunas'></ListItemText>
+                    </ListItem>
+                </Link>
+                <Link to='/regComuna' className="link" onClick={() => { updateOpen(false) }} >
+                    <ListItem button>
+                        <ListItemIcon>
+                            <PostAddIcon />
+                        </ListItemIcon>
+                        <ListItemText primary='Agregar comuna'></ListItemText>
+                    </ListItem>
+                </Link>
+                <Link to='/checkins' className="link" onClick={() => { updateOpen(false) }} >
+                    <ListItem button>
+                        <ListItemIcon>
+                            <CheckCircleOutlinedIcon />
+                        </ListItemIcon>
+                        <ListItemText primary='Check ins'></ListItemText>
                     </ListItem>
                 </Link>
                 <Divider />
