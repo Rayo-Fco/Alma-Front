@@ -57,15 +57,8 @@ export default function PrincipalAdmin() {
                             <div className={classes.root}>
                                 <Avatar className={classes.orange}>A</Avatar>
                                 <Typography variant="h4" className={classes.tittle}>
-                                    Admin
+                                    {localStorage.getItem('email')}
                             </Typography>
-                            </div>
-                        </Paper>
-                    </Grid>
-                    <Grid item xs={12}>
-                        <Paper className={classes.paper2} >
-                            <div className={classes.root} >
-                                <SeleccionFecha style={{ margin: 'auto' }} />
                             </div>
                         </Paper>
                     </Grid>
@@ -74,7 +67,7 @@ export default function PrincipalAdmin() {
                             <UserGraph />
                         </Paper>
                     </Grid>
-                    <Grid  item xs={6}>
+                    <Grid item xs={6}>
                         <Paper className={classes.paper2}>
                             <GridList className={classes.gr}>
                                 <ListCheckIns />

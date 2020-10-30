@@ -21,7 +21,7 @@ const useStyles = makeStyles((theme) => ({
         width: '20%',
         height: 55,
         marginLeft: '2%',
-        fontSize: 20
+        fontSize: '70%'
     },
     typho: {
         fontSize: 20,
