@@ -57,7 +57,7 @@ export default function PrincipalAdmin() {
                             <div className={classes.root}>
                                 <Avatar className={classes.orange}>A</Avatar>
                                 <Typography variant="h4" className={classes.tittle}>
-                                    {localStorage.getItem('email')}
+                                {localStorage.getItem('email')}
                             </Typography>
                             </div>
                         </Paper>
