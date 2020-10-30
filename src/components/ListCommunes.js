@@ -13,7 +13,6 @@ const useStyles = makeStyles((theme) => ({
         margin: theme.spacing(4, 0, 2),
         fontFamily: 'helvetica',
         fontSize: 36,
-
     },
     container: {
         margin: 'auto',

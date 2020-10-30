@@ -9,6 +9,7 @@ import { connect } from "react-redux";
 import { sendLatLng } from '../actions/latLngAction'
 import InputAdornment from '@material-ui/core/InputAdornment';
 import useAddMarker from '../hooks/useAddMarker';
+import { useLocation } from 'wouter';
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -80,12 +81,25 @@ function AddMarker({ latlng }) {
     const [title, setTitle] = useState('')
     const [latitude, setLatitude] = useState('')
     const [longitude, setLongitude] = useState('')
+    const [, navigate] = useLocation()
     const { addmarker, hasAddError, succeedAdd, errorMsj } = useAddMarker()
 
     useEffect(() => {
         setLatitude(latlng.lat)
         setLongitude(latlng.lng)
     }, [latlng])
+
+    useEffect(() => {
+        const ac = new AbortController();
+        console.log(sessionStorage.getItem('tokenadmin'))
+        if (!sessionStorage.getItem('tokenadmin')){
+            navigate('/')
+
+        }
+        return () => ac.abort();
+    },  [navigate])
+    
+
 
     const handleSubmit = () => {
         addmarker({ category, title, latitude, longitude })

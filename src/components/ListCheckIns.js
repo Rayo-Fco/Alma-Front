@@ -8,6 +8,7 @@ import { Map, TileLayer } from 'react-leaflet'
 import { Marker, Popup } from 'react-leaflet'
 import { IconPin } from './IconLocation'
 import useFindCheckin from '../hooks/useFindCheckin';
+import { useLocation } from 'wouter';
 
 const useStyles = makeStyles((theme) => ({
     typ: {
@@ -51,7 +52,7 @@ function ListCheckIns(props) {
     const classes = useStyles();
     const [checkins2, setCheckins2] = useState({ User: [] })
     const [checkins, setCheckins] = useState({ User: [] })
-
+    const [, navigate] = useLocation()
     const [rut, setRut] = useState("")
     const { findcheckin, checkin } = useFindCheckin()
 
@@ -78,6 +79,15 @@ function ListCheckIns(props) {
         }
     }, [checkin,setCheckins])
 
+    useEffect(() => {
+        const ac = new AbortController();
+        console.log(sessionStorage.getItem('tokenadmin'))
+        if (!sessionStorage.getItem('tokenadmin')){
+            navigate('/')
+
+        }
+        return () => ac.abort();
+    },  [navigate])
 
     function currentLocation(latitude, longitude) {
         let currentLocation = {

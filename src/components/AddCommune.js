@@ -1,9 +1,9 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Paper, Grid, FormControl, TextField, Button, Typography } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles'
 import SaveIcon from '@material-ui/icons/Save';
 import useAddCommunes from '../hooks/useAddCommunes';
-
+import { useLocation } from 'wouter';
 const usesStyles = makeStyles((theme) => ({
     container: {
         margin: 'auto',
@@ -36,12 +36,25 @@ function RegistroComuna() {
     const [phone, setPhone] = useState('')
     const [latitude, setLatitude] = useState('')
     const [longitude, setLongitude] = useState('')
+    const [, navigate] = useLocation()
+
 
     const classes = usesStyles();
 
     const handleSubmit = () => {
         addcommunes({ commune, phone, latitude, longitude})
     };
+
+    useEffect(() => {
+        const ac = new AbortController();
+        console.log(sessionStorage.getItem('tokenadmin'))
+        if (!sessionStorage.getItem('tokenadmin')){
+            navigate('/')
+
+        }
+        return () => ac.abort();
+    },  [navigate])
+
 
     return (
         <>

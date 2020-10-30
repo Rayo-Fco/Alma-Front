@@ -1,12 +1,12 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { Paper, Container, Grid, Typography, GridList } from '@material-ui/core'
 import { makeStyles } from '@material-ui/core/styles'
 import Avatar from '@material-ui/core/Avatar';
 import { deepOrange } from '@material-ui/core/colors';
 import UserGraph from './UserGraph';
 import ListCommunes from './ListCommunes';
-import SeleccionFecha from './DateSelection'
 import ListCheckIns from './ListCheckIns'
+import { useLocation } from 'wouter';
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -47,6 +47,17 @@ const useStyles = makeStyles((theme) => ({
 
 
 export default function PrincipalAdmin() {
+    const [, navigate] = useLocation()
+
+    useEffect(() => {
+        const ac = new AbortController();
+        if (!sessionStorage.getItem('tokenadmin')) {
+            navigate('/')
+
+        }
+        return () => ac.abort();
+    }, [navigate])
+
     const classes = useStyles()
     return (
         <Container maxWidth="xl" fixed className={classes.container}>
