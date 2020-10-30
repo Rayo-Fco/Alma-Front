@@ -1,15 +1,22 @@
-import { useCallback, useState } from 'react';
+import { useState } from 'react';
 import findcheckServices from '../services/findcheckin';
 
 export default function useFindCheckin() {
-    const [state, setState] = useState({ succeed: false, error: false, errormsj: '', product:''})
+    const [state, setState] = useState({ succeed: false, error: false, errormsj: '', checkin: '' })
 
-    const findcheckin = useCallback(({ rut }) => {
+    const findcheckin = ({ rut }) => {
         findcheckServices({ rut })
             .then(checkinres => {
                 console.log(rut)
                 if (checkinres) {
-                    setState({ succeed: true, error: false, errormsj: '', checkin: checkinres})
+                    console.log(checkinres)
+                    if (checkinres.length < 1){
+                        setState({ succeed: true, error: false, errormsj: '', checkin: '' })
+
+                    }else{
+                        setState({ succeed: true, error: false, errormsj: '', checkin: checkinres })
+
+                    }
 
                 } else {
                     let errores = []
@@ -30,7 +37,7 @@ export default function useFindCheckin() {
                 setState({ succeed: false, error: true, errormsj: err, checkin: '' })
                 console.log(err)
             })
-    })
+    }
 
     return {
         findcheckin,

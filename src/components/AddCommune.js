@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Paper, Grid, FormControl, TextField, Button, Typography, Container } from '@material-ui/core';
+import { Paper, Grid, FormControl, TextField, Button, Typography } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles'
 import SaveIcon from '@material-ui/icons/Save';
 import useAddCommunes from '../hooks/useAddCommunes';
@@ -30,7 +30,7 @@ const usesStyles = makeStyles((theme) => ({
 }))
 
 
-function RegistroComuna(props) {
+function RegistroComuna() {
     const { addcommunes, hasAddError, errorMsj, succeedAdd } = useAddCommunes()
     const [commune, setCommune] = useState('')
     const [phone, setPhone] = useState('')
@@ -40,12 +40,11 @@ function RegistroComuna(props) {
     const classes = usesStyles();
 
     const handleSubmit = () => {
-        console.log(commune, phone, latitude, longitude)
         addcommunes({ commune, phone, latitude, longitude})
     };
 
     return (
-        <div>
+        <>
             <Paper className={classes.container} elevation={15}>
                 <Grid className={classes.cntainer} item xs={12}>
                     <Typography className={classes.typ} color="primary">
@@ -72,21 +71,18 @@ function RegistroComuna(props) {
                     <FormControl className={classes.grdC}>
                         <TextField
                             className={classes.input}
-                            id=""
                             label="Nombre comuna"
                             variant="outlined"
                             onChange={(e) => setCommune(e.target.value)}
                         />
                         <TextField
                             className={classes.input}
-                            id=""
                             label="Telefono"
                             variant="outlined"
                             onChange={(e) => setPhone(e.target.value)}
                         />
                         <TextField
                             className={classes.input}
-                            id=""
                             label="Latitud"
                             variant="outlined"
                             onChange={(e) => setLatitude(e.target.value)}
@@ -110,9 +106,9 @@ function RegistroComuna(props) {
                     </FormControl>
                 </Grid>
             </Paper>
-            <Container style={{ height: '150px' }}>
-            </Container>
-        </div>
+            <div style={{ height: '150px' }}>
+            </div>
+        </>
     );
 }
 

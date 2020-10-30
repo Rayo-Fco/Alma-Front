@@ -22,7 +22,6 @@ export default function addcommunes({ commune, phone, latitude, longitude  }) {
             return "ok"
         })
         .catch(err => {
-            console.log(err)
-            return err.response.data.error[0]
+            return "error"
         })
 }

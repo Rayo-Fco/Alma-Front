@@ -22,7 +22,11 @@ export default function useAddCommune() {
                 }
             })
             .catch(err => {
-                console.log(err)
+                let errores = []
+
+                errores.push('La comuna '+ commune +' ya ha sido registrado')
+                setState({ succeed: false, error: true, errormsj: errores })
+
             })
     }
 

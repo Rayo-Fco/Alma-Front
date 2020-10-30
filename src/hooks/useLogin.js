@@ -12,13 +12,13 @@ export default function useUser() {
         .then( token => {
             if (token != null){
                 localStorage.setItem('email', email);
-                window.sessionStorage.setItem('token', token)
+                window.sessionStorage.setItem('tokenadmin', token)
 
                 setState({loading: false, error: false})
                 setTOKEN(token);
             }else{
                 localStorage.removeItem('email');
-                window.sessionStorage.removeItem('token')
+                window.sessionStorage.removeItem('tokenadmin')
                 setState({loading: false, error: true})
             }
            
@@ -26,7 +26,7 @@ export default function useUser() {
         })
         .catch(err => {
             localStorage.removeItem('email');
-            window.sessionStorage.removeItem('token')
+            window.sessionStorage.removeItem('tokenadmin')
             setState({loading: false, error: true})
             
         })
@@ -34,7 +34,7 @@ export default function useUser() {
 
     const logout = useCallback(() =>{
         localStorage.removeItem('email');
-        window.sessionStorage.removeItem('token')
+        window.sessionStorage.removeItem('tokenadmin')
         localStorage.clear()
         window.sessionStorage.clear()
         setTOKEN(null)

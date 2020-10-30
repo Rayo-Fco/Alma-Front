@@ -8,7 +8,7 @@ import { Map, TileLayer } from 'react-leaflet'
 import { Marker, Popup } from 'react-leaflet'
 import { IconPin } from './IconLocation'
 import useFindCheckin from '../hooks/useFindCheckin';
- 
+
 const useStyles = makeStyles((theme) => ({
     typ: {
         margin: 'auto',
@@ -40,7 +40,7 @@ const useStyles = makeStyles((theme) => ({
         height: 'auto'
     },
     grd: {
-        width: '90%',
+        width: '100%',
         height: 150,
         marginTop: theme.spacing(1),
         marginBottom: theme.spacing(1)
@@ -49,18 +49,22 @@ const useStyles = makeStyles((theme) => ({
 
 function ListCheckIns(props) {
     const classes = useStyles();
+    const [checkins2, setCheckins2] = useState({ User: [] })
     const [checkins, setCheckins] = useState({ User: [] })
+
     const [rut, setRut] = useState("")
     const { findcheckin, checkin } = useFindCheckin()
 
     useEffect(() => {
         let isMounted = true
         const token = window.sessionStorage.getItem('tokenadmin')
+        console.log(checkin)
         axios.get('http://localhost:3001/checkin/all2', {
             headers: { Authorization: "Bearer " + token }
         })
             .then(res => {
                 if (isMounted) {
+                    console.log(res.data)
                     setCheckins({ User: res.data })
                 }
             }).catch(function (e) {
@@ -72,7 +76,7 @@ function ListCheckIns(props) {
         return function () {
             isMounted = false;
         }
-    }, [setCheckins])
+    }, [checkin,setCheckins])
 
 
     function currentLocation(latitude, longitude) {
@@ -83,10 +87,21 @@ function ListCheckIns(props) {
         return currentLocation
     }
 
+
+    useEffect(() => {
+        if (checkin) {
+            setCheckins2({ User: checkin })
+        }
+    }, [checkin])
+
     const handleSubmit = e => {
-        console.log(rut)
         findcheckin({ rut })
+        
+     
         console.log(checkin)
+
+        console.log("algo")
+
     };
 
 
@@ -119,6 +134,91 @@ function ListCheckIns(props) {
                     <Container fixed className={classes.container}>
                         <Accordion>
                             {
+                                checkin
+                                ?
+                                <>
+                                {
+                                    checkins2.User.map((check, index) => (
+                                        <Paper key={index} elevation={0} style={{backgroundColor: '#fafafa'}}>
+                                            <Accordion.Toggle as={Card.Header} eventKey={index + 1} style={{ display: 'flex' }}>
+                                                <Grid item xs={6} >
+                                                <Typography className={classes.typho} color="primary">
+                                                <b className={classes.b}>Usuario: </b>{check.user[0].email}
+                                                    </Typography>
+                                                </Grid>
+                                                <Grid item xs={6}>
+                                                    <Typography color="primary" className={classes.typho}>
+                                                        <b className={classes.b}>Rut: </b>{check.user[0].rut}
+                                                    </Typography>
+                                                </Grid>
+                                            </Accordion.Toggle>
+                                            <Accordion.Collapse className={classes.acordionCollapse} eventKey={index + 1}>
+                                                <Card>
+                                                    <Grid container spacing={1}>
+                                                        <Grid xs={6}>
+    
+                                                            <Grid item xs zeroMinWidth>
+                                                                <Typography noWrap><b className={classes.b}>Comuna: </b>{check.comuna}</Typography>
+    
+                                                            </Grid>
+                                                            <Grid item xs zeroMinWidth>
+                                                                {
+                                                                    check.info[0].numero_depto
+                                                                        ?
+                                                                        <Typography noWrap><b className={classes.b}>Numero departamento: </b>{check.info[0].numero_depto}</Typography>
+    
+                                                                        :
+                                                                        <></>
+                                                                }
+                                                            </Grid>
+                                                            <Grid item xs zeroMinWidth>
+                                                                {
+                                                                    check.info[0].numero_piso
+                                                                        ?
+                                                                        <Typography noWrap><b className={classes.b}>Numero de Piso: </b>{check.info[0].numero_piso}</Typography>
+                                                                        :
+                                                                        <></>
+                                                                }
+                                                            </Grid>
+                                                            <Grid item xs zeroMinWidth>
+                                                                {
+                                                                    check.info[0].extra
+                                                                        ?
+                                                                        <Typography noWrap><b className={classes.b}>Extra: </b>{check.info[0].extra}</Typography>
+                                                                        :
+                                                                        <></>
+                                                                }
+                                                            </Grid>
+                                                            <Grid item xs zeroMinWidth>
+                                                                <Typography noWrap><b className={classes.b}>Fecha: </b>{check.date.split("T")[0]}</Typography>
+                                                            </Grid>
+                                                            <Grid item xs zeroMinWidth>
+                                                                <Typography noWrap><b className={classes.b}>Hora: </b>{check.date.split("T")[1].split("7Z")[0].split(".")[0]}</Typography>
+                                                            </Grid>
+                                                        </Grid>
+                                                        <Grid xs={6} >
+                                                            <Grid item xs zeroMinWidth>
+                                                                <Map center={currentLocation(check.coordinates[0].latitude, check.coordinates[0].longitude)} zoom={15} className={classes.grd}>
+                                                                    <TileLayer url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+                                                                        attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors' />
+                                                                    <Marker
+                                                                        position={currentLocation(check.coordinates[0].latitude, check.coordinates[0].longitude)}
+                                                                        icon={IconPin} >
+                                                                        <Popup>
+                                                                          
+                                                                        </Popup>
+                                                                    </Marker>
+                                                                </Map>
+                                                            </Grid>
+                                                        </Grid>
+                                                    </Grid>
+                                                </Card>
+                                            </Accordion.Collapse>
+                                        </Paper>
+                                    ))
+                                }
+                                </>
+                                :
                                 checkins.User.map((checkin, index) => (
                                     <Paper key={index} elevation={0} style={{backgroundColor: '#fafafa'}}>
                                         <Accordion.Toggle as={Card.Header} eventKey={index + 1} style={{ display: 'flex' }}>
@@ -190,7 +290,6 @@ function ListCheckIns(props) {
                                                                     </Popup>
                                                                 </Marker>
                                                             </Map>
-
                                                         </Grid>
                                                     </Grid>
                                                 </Grid>
