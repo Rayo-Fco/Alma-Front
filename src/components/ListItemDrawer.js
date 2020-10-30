@@ -37,6 +37,22 @@ function ListItemDrawer({ updateOpen }) {
                                     <ListItemText primary='Agregar Comisaria/PDI'></ListItemText>
                                 </ListItem>
                             </Link>
+                            <Link to='/regComuna' className="link" onClick={() => { updateOpen(false) }} >
+                                <ListItem button>
+                                    <ListItemIcon>
+                                        <PostAddIcon />
+                                    </ListItemIcon>
+                                    <ListItemText primary='Agregar comuna'></ListItemText>
+                                </ListItem>
+                            </Link>
+                            <Link to='/checkins' className="link" onClick={() => { updateOpen(false) }} >
+                                <ListItem button>
+                                    <ListItemIcon>
+                                        <CheckCircleOutlinedIcon />
+                                    </ListItemIcon>
+                                    <ListItemText primary='Check ins'></ListItemText>
+                                </ListItem>
+                            </Link>
                         </>
                         :
                         <></>
@@ -55,22 +71,6 @@ function ListItemDrawer({ updateOpen }) {
                             <FormatListNumberedRoundedIcon />
                         </ListItemIcon>
                         <ListItemText primary='Lista de comunas'></ListItemText>
-                    </ListItem>
-                </Link>
-                <Link to='/regComuna' className="link" onClick={() => { updateOpen(false) }} >
-                    <ListItem button>
-                        <ListItemIcon>
-                            <PostAddIcon />
-                        </ListItemIcon>
-                        <ListItemText primary='Agregar comuna'></ListItemText>
-                    </ListItem>
-                </Link>
-                <Link to='/checkins' className="link" onClick={() => { updateOpen(false) }} >
-                    <ListItem button>
-                        <ListItemIcon>
-                            <CheckCircleOutlinedIcon />
-                        </ListItemIcon>
-                        <ListItemText primary='Check ins'></ListItemText>
                     </ListItem>
                 </Link>
                 <Divider />
