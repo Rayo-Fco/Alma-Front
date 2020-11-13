@@ -5,6 +5,8 @@ import { selectActiveLatLng } from '../reducers/latLngReducer'
 import { connect } from "react-redux";
 import { sendLatLng } from '../actions/latLngAction'
 import axios from 'axios'
+import { useLocation } from 'wouter'
+import { isFirefox } from 'react-device-detect'
 const mapStateToProps = state => {
     return {
         latlng: selectActiveLatLng(state)
@@ -13,6 +15,7 @@ const mapStateToProps = state => {
 
 
 function Markers({ latlng, sendLatLng }) {
+    const [, navigate] = useLocation()
     const [comisaria, setComisaria] = useState({ markersC: [] })
     const [pdi, setPdi] = useState({ markersP: [] })
     const [state, setState] = useState({
@@ -76,36 +79,41 @@ function Markers({ latlng, sendLatLng }) {
 
     useEffect(() => {
         let isMounted = true
-        navigator.geolocation.getCurrentPosition(
-            function (position) {
-                if (isMounted) {
+        if (isFirefox) {
+            console.log(true)
+        }
+        else {
+            navigator.geolocation.getCurrentPosition(
+                function (position) {
+                    if (isMounted) {
 
-                    setState({
-                        longitude: position.coords.longitude,
-                        latitude: position.coords.latitude
-                    })
+                        setState({
+                            longitude: position.coords.longitude,
+                            latitude: position.coords.latitude
+                        })
+                    }
+                },
+                function (error) {
+                    navigate('/')
+                },
+                {
+                    enableHighAccuracy: true
                 }
-            },
-            function (error) {
-                console.log(error)
-            },
-            {
-                enableHighAccuracy: true
-            }
-        )
-        if (state.latitude && state.longitude) {
-            const currentLocation = {
-                "you": [
-                    state.latitude,
-                    state.longitude
-                ]
-            }
-            setState2({ currentLocation })
+            )
+            if (state.latitude && state.longitude) {
+                const currentLocation = {
+                    "you": [
+                        state.latitude,
+                        state.longitude
+                    ]
+                }
+                setState2({ currentLocation })
 
 
+            }
         }
         return () => { isMounted = false }
-    }, [state])
+    }, [state, navigate])
 
 
 

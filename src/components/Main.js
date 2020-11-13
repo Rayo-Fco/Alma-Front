@@ -4,6 +4,8 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import AppStore from '../img/AppStore.png'
 import GooglePlay from '../img/GooglePlay.png'
 import Features from './Features'
+import { isFirefox } from 'react-device-detect'
+console.log(isFirefox)
 
 function Main() {
     return (

@@ -3,11 +3,14 @@ import { Map, TileLayer } from 'react-leaflet'
 import 'leaflet/dist/leaflet.css'
 import Markets from './Markers'
 import { sendLatLng } from '../actions/latLngAction'
-import { connect } from "react-redux";
+import { connect } from "react-redux"
+import { useLocation } from 'wouter'
+import { isFirefox } from 'react-device-detect'
 
 function MapView({ sendLatLng }) {
 
     const [count, setCount] = useState({ c: 0 })
+    const [, navigate] = useLocation()
     const [state, setState] = useState({
         longitude: 0,
         latitude: 0,
@@ -18,38 +21,44 @@ function MapView({ sendLatLng }) {
     })
     useEffect(() => {
         let isMounted = true
-        navigator.geolocation.getCurrentPosition(
-            function (position) {
-                if (isMounted) {
-
-                    setState({
-                        longitude: position.coords.longitude,
-                        latitude: position.coords.latitude
-                    })
-                }
-            },
-            function (error) {
-                alert("error")
-            },
-            {
-                enableHighAccuracy: true
-            }
-        )
-        if (state.latitude && state.longitude) {
-            const currentLocation = {
-                lat: state.latitude,
-                lng: state.longitude
-            }
-            const c = 2
-
-            if (count.c <= 1) {
-                setState2({ currentLocation })
-                setCount({ c })
-            }
+        if (isFirefox) {
+            console.log(true)
         }
+        else {
+            console.log("igual entra...")
+            navigator.geolocation.getCurrentPosition(
+                function (position) {
+                    if (isMounted) {
 
+                        setState({
+                            longitude: position.coords.longitude,
+                            latitude: position.coords.latitude
+                        })
+                    }
+                },
+                function (error) {
+                    navigate('/')
+                },
+                {
+                    enableHighAccuracy: true
+                }
+            )
+            if (state.latitude && state.longitude) {
+                const currentLocation = {
+                    lat: state.latitude,
+                    lng: state.longitude
+                }
+                const c = 2
+
+                if (count.c <= 1) {
+                    setState2({ currentLocation })
+                    setCount({ c })
+                }
+            }
+            console.log("llega aqui ")
+        }
         return () => { isMounted = false }
-    }, [state, count])
+    }, [state, count, navigate])
 
     return (
         <div style={{ height: '100vh' }}>
