@@ -4,7 +4,7 @@ const Context = React.createContext({});
 
 export function UserContextProvider({ children }) {
     const [token, setTOKEN] = useState(
-        () => window.sessionStorage.getItem('token')
+        () => window.sessionStorage.getItem('tokenadmin')
     )
 
     return <Context.Provider value={{

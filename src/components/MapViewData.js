@@ -3,10 +3,11 @@ import { Map, TileLayer } from 'react-leaflet'
 import 'leaflet/dist/leaflet.css'
 import { Marker, Popup } from 'react-leaflet'
 import { sendCommunes } from '../actions/communesAction'
-import { connect } from "react-redux";
+import { connect } from "react-redux"
 import { selectActiveCommunes } from '../reducers/communesReducer'
 import { IconPin } from './IconLocation'
-import { useLocation } from 'wouter';
+import { useLocation } from 'wouter'
+import LocateControl from './LocateControl'
 
 const mapStateToProps = state => {
     return {
@@ -210,6 +211,8 @@ function MapViewData({ communes }) {
                         {communeName}
                     </Popup>
                 </Marker>
+                <LocateControl startDirectly/>
+
             </Map>
         </div>
     )

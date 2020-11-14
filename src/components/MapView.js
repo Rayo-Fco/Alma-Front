@@ -1,64 +1,20 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState } from 'react'
 import { Map, TileLayer } from 'react-leaflet'
 import 'leaflet/dist/leaflet.css'
 import Markets from './Markers'
 import { sendLatLng } from '../actions/latLngAction'
 import { connect } from "react-redux"
-import { useLocation } from 'wouter'
-import { isFirefox } from 'react-device-detect'
+import LocateControl from './LocateControl';
 
 function MapView({ sendLatLng }) {
 
-    const [count, setCount] = useState({ c: 0 })
-    const [, navigate] = useLocation()
-    const [state, setState] = useState({
-        longitude: 0,
-        latitude: 0,
+  
+      // console.log(lc);
+    
+    const [state2] = useState({
+        currentLocation: { lat: -33.4372, lng:  -70.6506 },
+        zoom: 12
     })
-    const [state2, setState2] = useState({
-        currentLocation: { lat: 0, lng: 0 },
-        zoom: 23
-    })
-    useEffect(() => {
-        let isMounted = true
-        if (isFirefox) {
-            console.log(true)
-        }
-        else {
-            console.log("igual entra...")
-            navigator.geolocation.getCurrentPosition(
-                function (position) {
-                    if (isMounted) {
-
-                        setState({
-                            longitude: position.coords.longitude,
-                            latitude: position.coords.latitude
-                        })
-                    }
-                },
-                function (error) {
-                    navigate('/')
-                },
-                {
-                    enableHighAccuracy: true
-                }
-            )
-            if (state.latitude && state.longitude) {
-                const currentLocation = {
-                    lat: state.latitude,
-                    lng: state.longitude
-                }
-                const c = 2
-
-                if (count.c <= 1) {
-                    setState2({ currentLocation })
-                    setCount({ c })
-                }
-            }
-            console.log("llega aqui ")
-        }
-        return () => { isMounted = false }
-    }, [state, count, navigate])
 
     return (
         <div style={{ height: '100vh' }}>
@@ -66,6 +22,8 @@ function MapView({ sendLatLng }) {
                 <TileLayer url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
                     attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors' />
                 <Markets />
+                <LocateControl startDirectly/>
+
             </Map>
         </div>
     )

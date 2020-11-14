@@ -41,7 +41,7 @@ const useStyles = makeStyles((theme) => ({
         height: 'auto'
     },
     grd: {
-        width: '100%',
+        width: '160px',
         height: 150,
         marginTop: theme.spacing(1),
         marginBottom: theme.spacing(1)
@@ -77,17 +77,17 @@ function ListCheckIns(props) {
         return function () {
             isMounted = false;
         }
-    }, [checkin,setCheckins])
+    }, [checkin, setCheckins])
 
     useEffect(() => {
         const ac = new AbortController();
         console.log(sessionStorage.getItem('tokenadmin'))
-        if (!sessionStorage.getItem('tokenadmin')){
+        if (!sessionStorage.getItem('tokenadmin')) {
             navigate('/')
 
         }
         return () => ac.abort();
-    },  [navigate])
+    }, [navigate])
 
     function currentLocation(latitude, longitude) {
         let currentLocation = {
@@ -106,8 +106,8 @@ function ListCheckIns(props) {
 
     const handleSubmit = e => {
         findcheckin({ rut })
-        
-     
+
+
         console.log(checkin)
 
         console.log("algo")
@@ -145,20 +145,101 @@ function ListCheckIns(props) {
                         <Accordion>
                             {
                                 checkin
-                                ?
-                                <>
-                                {
-                                    checkins2.User.map((check, index) => (
-                                        <Paper key={index} elevation={0} style={{backgroundColor: '#fafafa'}}>
+                                    ?
+                                    <>
+                                        {
+                                            checkins2.User.map((check, index) => (
+                                                <Paper key={index} elevation={0} style={{ backgroundColor: '#fafafa' }}>
+                                                    <Accordion.Toggle as={Card.Header} eventKey={index + 1} style={{ display: 'flex' }}>
+                                                        <Grid item xs={6} >
+                                                            <Typography className={classes.typho} color="primary">
+                                                                <b className={classes.b}>Usuario: </b>{check.user[0].email}
+                                                            </Typography>
+                                                        </Grid>
+                                                        <Grid item xs={6}>
+                                                            <Typography color="primary" className={classes.typho}>
+                                                                <b className={classes.b}>Rut: </b>{check.user[0].rut}
+                                                            </Typography>
+                                                        </Grid>
+                                                    </Accordion.Toggle>
+                                                    <Accordion.Collapse className={classes.acordionCollapse} eventKey={index + 1}>
+                                                        <Card>
+                                                            <Grid container spacing={1}>
+                                                                <Grid xs={6}>
+
+                                                                    <Grid item xs zeroMinWidth>
+                                                                        <Typography noWrap><b className={classes.b}>Comuna: </b>{check.comuna}</Typography>
+
+                                                                    </Grid>
+                                                                    <Grid item xs zeroMinWidth>
+                                                                        {
+                                                                            check.info[0].numero_depto
+                                                                                ?
+                                                                                <Typography noWrap><b className={classes.b}>Numero departamento: </b>{check.info[0].numero_depto}</Typography>
+
+                                                                                :
+                                                                                <></>
+                                                                        }
+                                                                    </Grid>
+                                                                    <Grid item xs zeroMinWidth>
+                                                                        {
+                                                                            check.info[0].numero_piso
+                                                                                ?
+                                                                                <Typography noWrap><b className={classes.b}>Numero de Piso: </b>{check.info[0].numero_piso}</Typography>
+                                                                                :
+                                                                                <></>
+                                                                        }
+                                                                    </Grid>
+                                                                    <Grid item xs zeroMinWidth>
+                                                                        {
+                                                                            check.info[0].extra
+                                                                                ?
+                                                                                <Typography noWrap><b className={classes.b}>Extra: </b>{check.info[0].extra}</Typography>
+                                                                                :
+                                                                                <></>
+                                                                        }
+                                                                    </Grid>
+                                                                    <Grid item xs zeroMinWidth>
+                                                                        <Typography noWrap><b className={classes.b}>Fecha: </b>{check.date.split("T")[0]}</Typography>
+                                                                    </Grid>
+                                                                    <Grid item xs zeroMinWidth>
+                                                                        <Typography noWrap><b className={classes.b}>Hora: </b>{check.date.split("T")[1].split("7Z")[0].split(".")[0]}</Typography>
+                                                                    </Grid>
+                                                                </Grid>
+                                                                <Grid xs={6} >
+                                                                    <Grid item xs zeroMinWidth>
+                                                                        <Map center={currentLocation(check.coordinates[0].latitude, check.coordinates[0].longitude)} zoom={25} className={classes.grd}>
+                                                                            <TileLayer url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+                                                                                attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors' />
+                                                                            <Marker
+                                                                                position={currentLocation(check.coordinates[0].latitude, check.coordinates[0].longitude)}
+                                                                                icon={IconPin} >
+                                                                                <Popup>
+
+                                                                                </Popup>
+                                                                            </Marker>
+                                                                        </Map>
+                                                                    </Grid>
+                                                                </Grid>
+                                                            </Grid>
+                                                        </Card>
+                                                    </Accordion.Collapse>
+                                                </Paper>
+                                            ))
+                                        }
+                                    </>
+                                    :
+                                    checkins.User.map((checkin, index) => (
+                                        <Paper key={index} elevation={0} style={{ backgroundColor: '#fafafa' }}>
                                             <Accordion.Toggle as={Card.Header} eventKey={index + 1} style={{ display: 'flex' }}>
                                                 <Grid item xs={6} >
-                                                <Typography className={classes.typho} color="primary">
-                                                <b className={classes.b}>Usuario: </b>{check.user[0].email}
+                                                    <Typography className={classes.typho} color="primary">
+                                                        <b className={classes.b}>Usuario: </b>{checkin.user[0].email}
                                                     </Typography>
                                                 </Grid>
                                                 <Grid item xs={6}>
                                                     <Typography color="primary" className={classes.typho}>
-                                                        <b className={classes.b}>Rut: </b>{check.user[0].rut}
+                                                        <b className={classes.b}>Rut: </b>{checkin.user[0].rut}
                                                     </Typography>
                                                 </Grid>
                                             </Accordion.Toggle>
@@ -166,56 +247,56 @@ function ListCheckIns(props) {
                                                 <Card>
                                                     <Grid container spacing={1}>
                                                         <Grid xs={6}>
-    
+
                                                             <Grid item xs zeroMinWidth>
-                                                                <Typography noWrap><b className={classes.b}>Comuna: </b>{check.comuna}</Typography>
-    
+                                                                <Typography noWrap><b className={classes.b}>Comuna: </b>{checkin.comuna}</Typography>
+
                                                             </Grid>
                                                             <Grid item xs zeroMinWidth>
                                                                 {
-                                                                    check.info[0].numero_depto
+                                                                    checkin.info[0].numero_depto
                                                                         ?
-                                                                        <Typography noWrap><b className={classes.b}>Numero departamento: </b>{check.info[0].numero_depto}</Typography>
-    
+                                                                        <Typography noWrap><b className={classes.b}>Numero departamento: </b>{checkin.info[0].numero_depto}</Typography>
+
                                                                         :
                                                                         <></>
                                                                 }
                                                             </Grid>
                                                             <Grid item xs zeroMinWidth>
                                                                 {
-                                                                    check.info[0].numero_piso
+                                                                    checkin.info[0].numero_piso
                                                                         ?
-                                                                        <Typography noWrap><b className={classes.b}>Numero de Piso: </b>{check.info[0].numero_piso}</Typography>
+                                                                        <Typography noWrap><b className={classes.b}>Numero de Piso: </b>{checkin.info[0].numero_piso}</Typography>
                                                                         :
                                                                         <></>
                                                                 }
                                                             </Grid>
                                                             <Grid item xs zeroMinWidth>
                                                                 {
-                                                                    check.info[0].extra
+                                                                    checkin.info[0].extra
                                                                         ?
-                                                                        <Typography noWrap><b className={classes.b}>Extra: </b>{check.info[0].extra}</Typography>
+                                                                        <Typography noWrap><b className={classes.b}>Extra: </b>{checkin.info[0].extra}</Typography>
                                                                         :
                                                                         <></>
                                                                 }
                                                             </Grid>
                                                             <Grid item xs zeroMinWidth>
-                                                                <Typography noWrap><b className={classes.b}>Fecha: </b>{check.date.split("T")[0]}</Typography>
+                                                                <Typography noWrap><b className={classes.b}>Fecha: </b>{checkin.date.split("T")[0]}</Typography>
                                                             </Grid>
                                                             <Grid item xs zeroMinWidth>
-                                                                <Typography noWrap><b className={classes.b}>Hora: </b>{check.date.split("T")[1].split("7Z")[0].split(".")[0]}</Typography>
+                                                                <Typography noWrap><b className={classes.b}>Hora: </b>{checkin.date.split("T")[1].split("7Z")[0].split(".")[0]}</Typography>
                                                             </Grid>
                                                         </Grid>
                                                         <Grid xs={6} >
                                                             <Grid item xs zeroMinWidth>
-                                                                <Map center={currentLocation(check.coordinates[0].latitude, check.coordinates[0].longitude)} zoom={15} className={classes.grd}>
+                                                                <Map center={currentLocation(checkin.coordinates[0].latitude, checkin.coordinates[0].longitude)} zoom={25} className={classes.grd}>
                                                                     <TileLayer url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
                                                                         attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors' />
                                                                     <Marker
-                                                                        position={currentLocation(check.coordinates[0].latitude, check.coordinates[0].longitude)}
+                                                                        position={currentLocation(checkin.coordinates[0].latitude, checkin.coordinates[0].longitude)}
                                                                         icon={IconPin} >
                                                                         <Popup>
-                                                                          
+                                                                            {checkin.comuna}
                                                                         </Popup>
                                                                     </Marker>
                                                                 </Map>
@@ -226,87 +307,6 @@ function ListCheckIns(props) {
                                             </Accordion.Collapse>
                                         </Paper>
                                     ))
-                                }
-                                </>
-                                :
-                                checkins.User.map((checkin, index) => (
-                                    <Paper key={index} elevation={0} style={{backgroundColor: '#fafafa'}}>
-                                        <Accordion.Toggle as={Card.Header} eventKey={index + 1} style={{ display: 'flex' }}>
-                                            <Grid item xs={6} >
-                                            <Typography className={classes.typho} color="primary">
-                                            <b className={classes.b}>Usuario: </b>{checkin.user[0].email}
-                                                </Typography>
-                                            </Grid>
-                                            <Grid item xs={6}>
-                                                <Typography color="primary" className={classes.typho}>
-                                                    <b className={classes.b}>Rut: </b>{checkin.user[0].rut}
-                                                </Typography>
-                                            </Grid>
-                                        </Accordion.Toggle>
-                                        <Accordion.Collapse className={classes.acordionCollapse} eventKey={index + 1}>
-                                            <Card>
-                                                <Grid container spacing={1}>
-                                                    <Grid xs={6}>
-
-                                                        <Grid item xs zeroMinWidth>
-                                                            <Typography noWrap><b className={classes.b}>Comuna: </b>{checkin.comuna}</Typography>
-
-                                                        </Grid>
-                                                        <Grid item xs zeroMinWidth>
-                                                            {
-                                                                checkin.info[0].numero_depto
-                                                                    ?
-                                                                    <Typography noWrap><b className={classes.b}>Numero departamento: </b>{checkin.info[0].numero_depto}</Typography>
-
-                                                                    :
-                                                                    <></>
-                                                            }
-                                                        </Grid>
-                                                        <Grid item xs zeroMinWidth>
-                                                            {
-                                                                checkin.info[0].numero_piso
-                                                                    ?
-                                                                    <Typography noWrap><b className={classes.b}>Numero de Piso: </b>{checkin.info[0].numero_piso}</Typography>
-                                                                    :
-                                                                    <></>
-                                                            }
-                                                        </Grid>
-                                                        <Grid item xs zeroMinWidth>
-                                                            {
-                                                                checkin.info[0].extra
-                                                                    ?
-                                                                    <Typography noWrap><b className={classes.b}>Extra: </b>{checkin.info[0].extra}</Typography>
-                                                                    :
-                                                                    <></>
-                                                            }
-                                                        </Grid>
-                                                        <Grid item xs zeroMinWidth>
-                                                            <Typography noWrap><b className={classes.b}>Fecha: </b>{checkin.date.split("T")[0]}</Typography>
-                                                        </Grid>
-                                                        <Grid item xs zeroMinWidth>
-                                                            <Typography noWrap><b className={classes.b}>Hora: </b>{checkin.date.split("T")[1].split("7Z")[0].split(".")[0]}</Typography>
-                                                        </Grid>
-                                                    </Grid>
-                                                    <Grid xs={6} >
-                                                        <Grid item xs zeroMinWidth>
-                                                            <Map center={currentLocation(checkin.coordinates[0].latitude, checkin.coordinates[0].longitude)} zoom={15} className={classes.grd}>
-                                                                <TileLayer url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-                                                                    attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors' />
-                                                                <Marker
-                                                                    position={currentLocation(checkin.coordinates[0].latitude, checkin.coordinates[0].longitude)}
-                                                                    icon={IconPin} >
-                                                                    <Popup>
-                                                                        {checkin.comuna}
-                                                                    </Popup>
-                                                                </Marker>
-                                                            </Map>
-                                                        </Grid>
-                                                    </Grid>
-                                                </Grid>
-                                            </Card>
-                                        </Accordion.Collapse>
-                                    </Paper>
-                                ))
                             }
                         </Accordion>
                     </Container>
