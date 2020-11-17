@@ -3,12 +3,12 @@ import addcommunesservices from '../services/addcommunes';
 export default function useAddCommune() {
     const [state, setState] = useState({ succeed: false, loading: false, error: false, errormsj: '' })
 
-    const addcommunes = ({ commune, phone, latitude, longitude }) => {
+    const addcommunes = ({ commune, phone, coordinates }) => {
         setState({ succeed: false, loading: true, error: false, errormsj: '' })
-        if (commune !== '' && phone !== '' && latitude !== '' && longitude !== '') {
+        if (commune !== '' && phone !== '' && coordinates !== '') {
 
-            console.log(commune + " " + phone + " " + latitude + " " + longitude)
-            addcommunesservices({ commune, phone, latitude, longitude })
+            console.log(commune + " " + phone + " " + coordinates)
+            addcommunesservices({ commune, phone, coordinates })
                 .then(communeres => {
                     if (communeres === "ok") {
                         console.log('llego')

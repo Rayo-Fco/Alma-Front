@@ -1,17 +1,13 @@
 import axios from 'axios';
 
-export default function addcommunes({ commune, phone, latitude, longitude  }) {
+export default function addcommunes({ commune, phone, coordinates }) {
 
-    let latitudefloat = latitude.toString()
-    let longitudefloat = longitude.toString()
-    console.log(commune, phone, latitude, longitude)
+
+    console.log(commune, phone, coordinates)
     const comuna = {
         comuna: commune,
         phone: phone,
-        coordinates: [{
-            latitude: latitudefloat,
-            longitude: longitudefloat,
-        }]
+        coordinates: coordinates
     }
     const token = window.sessionStorage.getItem('tokenadmin')
 

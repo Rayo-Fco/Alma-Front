@@ -5,6 +5,9 @@ import SaveIcon from '@material-ui/icons/Save';
 import useAddCommunes from '../hooks/useAddCommunes'
 import { useLocation } from 'wouter'
 import CircularProgress from '@material-ui/core/CircularProgress'
+import IconButton from '@material-ui/core/IconButton';
+import DeleteIcon from '@material-ui/icons/Delete';
+import AddCircleIcon from '@material-ui/icons/AddCircle';
 
 const usesStyles = makeStyles((theme) => ({
     container: {
@@ -40,18 +43,18 @@ const usesStyles = makeStyles((theme) => ({
 
 
 function RegistroComuna() {
-    const { addcommunes,isAddLoading ,hasAddError, errorMsj, succeedAdd } = useAddCommunes()
+    const { addcommunes, isAddLoading, hasAddError, errorMsj, succeedAdd } = useAddCommunes()
     const [commune, setCommune] = useState('')
     const [phone, setPhone] = useState('')
-    const [latitude, setLatitude] = useState('')
-    const [longitude, setLongitude] = useState('')
     const [, navigate] = useLocation()
-
+    const [coordinates, setCoordinates] = useState([
+        { latitude: "", longitude: "" }
+    ])
 
     const classes = usesStyles();
 
     const handleSubmit = () => {
-        addcommunes({ commune, phone, latitude, longitude })
+        addcommunes({ commune, phone, coordinates })
     };
 
     useEffect(() => {
@@ -63,6 +66,22 @@ function RegistroComuna() {
         return () => ac.abort();
     }, [navigate])
 
+    const handleChange = (e, index) => {
+        const { name, value } = e.target
+        const list = [...coordinates]
+        list[index][name] = value
+        setCoordinates(list)
+    }
+
+
+    const handleAddInput = () => {
+        setCoordinates([...coordinates, { latitude: "", longitude: "" }])
+    }
+    const handleRemoveInput = index => {
+        const list = [...coordinates]
+        list.splice(index, 1)
+        setCoordinates(list)
+    }
 
     return (
         <>
@@ -108,19 +127,43 @@ function RegistroComuna() {
                                 variant="outlined"
                                 onChange={(e) => setPhone(e.target.value)}
                             />
-                            <TextField
-                                className={classes.input}
-                                label="Latitud"
-                                variant="outlined"
-                                onChange={(e) => setLatitude(e.target.value)}
-                            />
-                            <TextField
-                                className={classes.input}
-                                id=""
-                                label="Longitud"
-                                variant="outlined"
-                                onChange={(e) => setLongitude(e.target.value)}
-                            />
+                            {coordinates.map((item, i) => {
+                                return (
+                                    <div key={i} style={{ margin: 'auto', width: '100%' }}>
+                                        <TextField
+                                            name="latitude"
+                                            style={{ width: '40%', marginRight: '10px', float: 'left' }}
+                                            className={classes.input}
+                                            label="Latitud"
+                                            variant="outlined"
+                                            value={item.latitude}
+                                            onChange={e => handleChange(e, i)}
+                                        />
+                                        <TextField
+                                            name="longitude"
+                                            style={{ width: '40%', marginRight: '10px', float: 'left' }}
+                                            className={classes.input}
+                                            label="Longitud"
+                                            variant="outlined"
+                                            value={item.longitude}
+                                            onChange={e => handleChange(e, i)}
+                                        />
+                                        <div style={{ paddingTop: '10px' }}>
+                                            {coordinates.length - 1 === i && 
+                                            <IconButton aria-label="Agregar" className={classes.margin} onClick={handleAddInput} style={{ float: 'left' }}>
+                                                <AddCircleIcon />
+                                            </IconButton>
+                                            }
+                                            {coordinates.length !== 1 && 
+                                            <IconButton aria-label="Eliminar" className={classes.margin} onClick={() => handleRemoveInput(i)} style={{ float: 'left' }}>
+                                                <DeleteIcon />
+                                            </IconButton>
+                                            }
+                                        </div>
+
+                                    </div>
+                                )
+                            })}
                             <Button
                                 variant="contained"
                                 className={classes.input}
