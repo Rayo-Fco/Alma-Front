@@ -4,14 +4,11 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import AppStore from '../img/AppStore.png'
 import GooglePlay from '../img/GooglePlay.png'
 import Features from './Features'
-import { isFirefox } from 'react-device-detect'
-console.log(isFirefox)
 
 function Main() {
     return (
         <div style={{ height: "auto"}}>
             <Features>
-
             </Features>
             <div className="container-fluid" style={{ height: "176px",padding:"20px" ,backgroundColor: "#f8f7f4"  }}>
 

@@ -1,32 +1,43 @@
 import { useState } from 'react';
 import addmarkerservices from '../services/addmarker';
 export default function useAddMarker() {
-    const [state, setState] = useState({ succeed: false, error: false, errormsj: '' })
-
+    const [state, setState] = useState({ succeed: false, loading: false, error: false, errormsj: '' })
+   
     const addmarker = ({ category, title, latitude, longitude }) => {
-        addmarkerservices({ category, title, latitude, longitude })
-            .then(markerres => {
-                if (markerres === "ok") {
-                    setState({ succeed: true, error: false, errormsj: '' })
+        setState({ loading: true, error: false })
+        let errores = []
+        if (latitude !== undefined && longitude !== undefined) {
 
-                } else {
-                    let errores = []
-                    for (let i = 0; i < markerres.message.length; i++) {
-                        errores.push(markerres.message[i].message)
+
+            addmarkerservices({ category, title, latitude, longitude })
+                .then(markerres => {
+                    if (markerres === "ok") {
+                        setState({ succeed: true, loading: false, error: false, errormsj: '' })
+
+                    } else {
+                        for (let i = 0; i < markerres.message.length; i++) {
+                            errores.push(markerres.message[i].message)
+                        }
+                        setState({ succeed: false, loading: false, error: true, errormsj: errores })
                     }
-                    setState({ succeed: false, error: true, errormsj: errores })
-                }
-            })
-            .catch(err => {
+                })
+                .catch(err => {
+                    setState({ succeed: false, loading: false, error: true, errormsj: '' })
+                    console.log(err)
+                })
+        } else {
+            errores.push("Ingrese una Longitud y Latitud")
+            setState({ succeed: false, loading: false, error: true, errormsj: errores })
 
-                console.log(err)
-            })
+        }
     }
 
     return {
         addmarker,
         hasAddError: state.error,
         succeedAdd: state.succeed,
+        isAddLoading: state.loading,
         errorMsj: state.errormsj
+
     }
 }

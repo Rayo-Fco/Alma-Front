@@ -1,39 +1,49 @@
 import { useState } from 'react';
 import addcommunesservices from '../services/addcommunes';
 export default function useAddCommune() {
-    const [state, setState] = useState({ succeed: false, error: false, errormsj: '' })
+    const [state, setState] = useState({ succeed: false, loading: false, error: false, errormsj: '' })
 
     const addcommunes = ({ commune, phone, latitude, longitude }) => {
-        addcommunesservices({ commune, phone, latitude, longitude  })
-            .then(communeres => {
-                if (communeres === "ok") {
-                    console.log('llego')
-                    setState({ succeed: true, error: false, errormsj: '' })
+        setState({ succeed: false, loading: true, error: false, errormsj: '' })
+        if (commune !== '' && phone !== '' && latitude !== '' && longitude !== '') {
 
-                } else {
-                    let errores = []
-                    console.log('llego 2')
+            console.log(commune + " " + phone + " " + latitude + " " + longitude)
+            addcommunesservices({ commune, phone, latitude, longitude })
+                .then(communeres => {
+                    if (communeres === "ok") {
+                        console.log('llego')
+                        setState({ succeed: true, loading: false, error: false, errormsj: '' })
 
-                    for (let i = 0; i < communeres.message.length; i++) {
-                        errores.push(communeres.message[i].message)
-                        console.log(communeres.message[i].message)
+                    } else {
+                        let errores = []
+                        console.log('llego 2')
+
+                        for (let i = 0; i < communeres.message.length; i++) {
+                            errores.push(communeres.message[i].message)
+                            console.log(communeres.message[i].message)
+                        }
+                        setState({ succeed: false, loading: false, error: true, errormsj: errores })
+
                     }
-                    setState({ succeed: false, error: true, errormsj: errores })
-                }
-            })
-            .catch(err => {
-                let errores = []
+                })
+                .catch(err => {
+                    let errores = []
+                    errores.push('La comuna ' + commune + ' ya ha sido registrado')
+                    setState({ succeed: false, loading: false, error: true, errormsj: errores })
 
-                errores.push('La comuna '+ commune +' ya ha sido registrado')
-                setState({ succeed: false, error: true, errormsj: errores })
-
-            })
+                })
+        }else{
+            let errores = []
+            errores.push('Llene todo el formulario')
+            setState({ succeed: false, loading: false, error: true, errormsj: errores })
+        }
     }
 
     return {
         addcommunes,
         hasAddError: state.error,
         succeedAdd: state.succeed,
+        isAddLoading: state.loading,
         errorMsj: state.errormsj
     }
 }

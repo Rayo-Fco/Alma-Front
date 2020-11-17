@@ -10,6 +10,7 @@ import { sendLatLng } from '../actions/latLngAction'
 import InputAdornment from '@material-ui/core/InputAdornment';
 import useAddMarker from '../hooks/useAddMarker';
 import { useLocation } from 'wouter';
+import CircularProgress from '@material-ui/core/CircularProgress';
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -65,6 +66,13 @@ const useStyles = makeStyles((theme) => ({
     typo: {
         fontFamily: 'helvetica',
         fontSize: 36,
+    },
+    progress: {
+        height: '80vh',
+        paddingTop: '70%'
+    },
+    circular: {
+        color: '#fd9eef'
     }
 }));
 
@@ -82,7 +90,7 @@ function AddMarker({ latlng }) {
     const [latitude, setLatitude] = useState('')
     const [longitude, setLongitude] = useState('')
     const [, navigate] = useLocation()
-    const { addmarker, hasAddError, succeedAdd, errorMsj } = useAddMarker()
+    const { addmarker, hasAddError, succeedAdd, isAddLoading, errorMsj } = useAddMarker()
 
     useEffect(() => {
         setLatitude(latlng.lat)
@@ -91,21 +99,21 @@ function AddMarker({ latlng }) {
 
     useEffect(() => {
         const ac = new AbortController();
-        console.log(sessionStorage.getItem('tokenadmin'))
-        if (!sessionStorage.getItem('tokenadmin')){
+        if (!sessionStorage.getItem('tokenadmin')) {
             navigate('/')
-
         }
         return () => ac.abort();
-    },  [navigate])
-    
+    }, [navigate])
+
 
 
     const handleSubmit = () => {
         addmarker({ category, title, latitude, longitude })
     };
     return (
+
         <div className={classes.root}>
+
             <Grid container spacing={2}>
                 <Grid item xs={8}>
                     <MapView></MapView>
@@ -113,73 +121,83 @@ function AddMarker({ latlng }) {
                 <Grid item xs={4}>
                     <Grid item className={classes.gridform} >
                         <Paper className={classes.paperform} elevation={15}>
-                            <FormControl>
-                                <Typography className={classes.typo}>
-                                    Agregar marcador
+                            {isAddLoading &&
+                                <div className={classes.progress}>
+                                    <CircularProgress className={classes.circular} style={{ width: '20%', height: '20%', }} />
+                                </div>
+                            }
+                            {!isAddLoading &&
+                                <FormControl>
+                                    <Typography className={classes.typo}>
+                                        Agregar marcador
                                 </Typography>
-                                {hasAddError &&
-                                    <div className="alert alert-danger alert-styled-left">
-                                        {errorMsj.map(error => {
-                                            return (
-                                                <div key={error}>
-                                                    *{error} <br />
-                                                </div>
-                                            )
-                                        })}
+                                    {hasAddError &&
+                                        <div className="alert alert-danger alert-styled-left">
+                                            {errorMsj.map(error => {
+                                                return (
+                                                    <div key={error}>
+                                                        *{error} <br />
+                                                    </div>
+                                                )
+                                            })}
+                                        </div>
+                                    }
+                                    {succeedAdd &&
+                                        <div className="alert alert-success alert-styled-left">
+                                            Se ha agregado el marcador
                                     </div>
-                                }
-                                {succeedAdd &&
-                                    <div className="alert alert-success alert-styled-left">
-                                        Se ha eliminado el producto
-                                    </div>
-                                }
-                                <Grid container style={{ marginTop: '8px' }} wrap="nowrap" spacing={3}>
-                                    <Grid item xs zeroMinWidth>
-                                        <TextField className={classes.input} label="Titulo" variant="outlined" onChange={(e) => setTitle(e.target.value)} />
+                                    }
+                                    <Grid container style={{ marginTop: '8px' }} wrap="nowrap" spacing={3}>
+                                        <Grid item xs zeroMinWidth>
+                                            <TextField className={classes.input} label="Titulo" variant="outlined" onChange={(e) => setTitle(e.target.value)} />
+                                        </Grid>
                                     </Grid>
-                                </Grid>
-                                <Grid container wrap="nowrap" spacing={3}>
-                                    <Grid item xs zeroMinWidth>
-                                        <TextField className={classes.input} value={latlng.lng || ''} label="Longitud" variant="outlined" onChange={(e) => setLongitude(e.target.value)} InputProps={{
-                                            startAdornment: <InputAdornment position="start">Lng</InputAdornment>,
-                                        }} />
+                                    <Grid container wrap="nowrap" spacing={3}>
+                                        <Grid item xs zeroMinWidth>
+                                            <TextField className={classes.input} value={latlng.lng || ''} label="Longitud" variant="outlined" onChange={(e) => setLongitude(e.target.value)} InputProps={{
+                                                startAdornment: <InputAdornment position="start">Lng</InputAdornment>,
+                                            }} />
+                                        </Grid>
                                     </Grid>
-                                </Grid>
-                                <Grid container wrap="nowrap" spacing={3}>
-                                    <Grid item xs zeroMinWidth>
-                                        <TextField className={classes.input} value={latlng.lat || ''} label="Latitud" variant="outlined" onChange={(e) => setLatitude(e.target.value)} InputProps={{
-                                            startAdornment: <InputAdornment position="start">Lat</InputAdornment>,
-                                        }} />
+                                    <Grid container wrap="nowrap" spacing={3}>
+                                        <Grid item xs zeroMinWidth>
+                                            <TextField className={classes.input} value={latlng.lat || ''} label="Latitud" variant="outlined" onChange={(e) => setLatitude(e.target.value)} InputProps={{
+                                                startAdornment: <InputAdornment position="start">Lat</InputAdornment>,
+                                            }} />
+                                        </Grid>
                                     </Grid>
-                                </Grid>
-                                <FormControl className={classes.formControl} variant="outlined">
-                                    <InputLabel htmlFor="outlined-age-native-simple">Tipo</InputLabel>
-                                    <Select
-                                        className={classes.input}
-                                        label="Tipo"
-                                        value={category}
-                                        onChange={(e) => setCategory(e.target.value)}>
-                                        <MenuItem value="">
-                                            <em>Ninguno</em>
-                                        </MenuItem>
-                                        <MenuItem value={'comisaria'}>Comisaria</MenuItem>
-                                        <MenuItem value={'pdi'}>PDI</MenuItem>
-                                    </Select>
-                                </FormControl>
-                                <Button
-                                    variant="contained"
-                                    color="primary"
-                                    size="large"
-                                    className={classes.button}
-                                    onClick={() => handleSubmit()}
-                                    startIcon={<SaveIcon />}>
-                                    Agregar
+                                    <FormControl className={classes.formControl} variant="outlined">
+                                        <InputLabel htmlFor="outlined-age-native-simple">Tipo</InputLabel>
+                                        <Select
+                                            className={classes.input}
+                                            label="Tipo"
+                                            value={category}
+                                            onChange={(e) => setCategory(e.target.value)}>
+                                            <MenuItem value="">
+                                                <em>Ninguno</em>
+                                            </MenuItem>
+                                            <MenuItem value={'comisaria'}>Comisaria</MenuItem>
+                                            <MenuItem value={'pdi'}>PDI</MenuItem>
+                                        </Select>
+                                    </FormControl>
+                                    <Button
+                                        variant="contained"
+                                        color="primary"
+                                        size="large"
+                                        className={classes.button}
+                                        onClick={() => handleSubmit()}
+                                        startIcon={<SaveIcon />}>
+                                        Agregar
                                          </Button>
-                            </FormControl>
+                                </FormControl>
+                            }
                         </Paper>
+
                     </Grid>
+
                 </Grid>
             </Grid>
+
         </div>
     )
 }

@@ -59,13 +59,11 @@ function ListCheckIns(props) {
     useEffect(() => {
         let isMounted = true
         const token = window.sessionStorage.getItem('tokenadmin')
-        console.log(checkin)
-        axios.get('http://localhost:3001/checkin/all2', {
+        axios.get('http://localhost:3001/checkin/all', {
             headers: { Authorization: "Bearer " + token }
         })
             .then(res => {
                 if (isMounted) {
-                    console.log(res.data)
                     setCheckins({ User: res.data })
                 }
             }).catch(function (e) {
@@ -81,7 +79,6 @@ function ListCheckIns(props) {
 
     useEffect(() => {
         const ac = new AbortController();
-        console.log(sessionStorage.getItem('tokenadmin'))
         if (!sessionStorage.getItem('tokenadmin')) {
             navigate('/')
 
