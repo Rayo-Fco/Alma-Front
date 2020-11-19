@@ -13,8 +13,8 @@ const usesStyles = makeStyles((theme) => ({
     container: {
         margin: 'auto',
         marginTop: theme.spacing(5),
-        paddingBot: theme.spacing(5),
-        height: 470,
+        paddingBottom: theme.spacing(5),
+        height: 'auto',
         width: '65%',
     },
     grdC: {

@@ -16,7 +16,8 @@ const useStyles = makeStyles((theme) => ({
         marginRight: theme.spacing(1),
     },
     tittle: {
-        flexGrow: 1
+        flexGrow: 1,
+        margin: 'auto'
     },
     btnLogin: {
         fontSize: 20
@@ -25,7 +26,8 @@ const useStyles = makeStyles((theme) => ({
         background: "#fd9eef",
     },
     imagen: {
-        height: theme.spacing(6)
+        height: theme.spacing(6),
+        margin: 'auto'
     },
 }));
 
@@ -34,6 +36,7 @@ function NavBar({ updateOpen }) {
 
     const { isLogged, logout } = useLogin()
     const handleLogout = e => {
+        updateOpen(false)
         logout()
     }
 
@@ -41,35 +44,47 @@ function NavBar({ updateOpen }) {
         <div>
             <AppBar className={classes.fondoappbar} position="fixed" color="primary">
                 <Toolbar>
-                    <IconButton className={classes.menuButton} aria-label="menu" color="inherit" onClick={() => { updateOpen(true) }}>
-                        <MenuIcon  >
-                        </MenuIcon>
-                    </IconButton>
-                    <div className={classes.tittle}>
-                        <Link to='/' className="link">
-                            <IconButton >
-                                <img src={logo} className={classes.imagen} alt="Logo"></img>
-                            </IconButton>
-                        </Link>
-                    </div>
+
                     {
                         isLogged
                             ?
-                            <Link to='/' onClick={handleLogout} className="link">
-                                <IconButton color="inherit" className={classes.btnLogin}>
-                                    <ExitToAppIcon>
-                                    </ExitToAppIcon>
+                            <>
+                                <IconButton className={classes.menuButton} aria-label="menu" color="inherit" onClick={() => { updateOpen(true) }}>
+                                    <MenuIcon  >
+                                    </MenuIcon>
+                                </IconButton>
+                                <div className={classes.tittle}>
+                                    <Link to='/' className="link">
+                                        <IconButton >
+                                            <img src={logo} className={classes.imagen} alt="Logo"></img>
+                                        </IconButton>
+                                    </Link>
+                                </div>
+                                <Link to='/' onClick={handleLogout} className="link">
+                                    <IconButton color="inherit" className={classes.btnLogin}>
+                                        <ExitToAppIcon>
+                                        </ExitToAppIcon>
                                     Cerrar Sesion
                                 </IconButton>
-                            </Link>
+                                </Link>
+                            </>
                             :
-                            <Link to='/login' className="link">
-                                <IconButton color="inherit" className={classes.btnLogin}>
-                                    <ExitToAppIcon>
-                                    </ExitToAppIcon>
+                            <>
+                                <div className={classes.tittle}>
+                                    <Link to='/' className="link">
+                                        <IconButton >
+                                            <img src={logo} className={classes.imagen} alt="Logo"></img>
+                                        </IconButton>
+                                    </Link>
+                                </div>
+                                <Link to='/login' className="link">
+                                    <IconButton color="inherit" className={classes.btnLogin}>
+                                        <ExitToAppIcon>
+                                        </ExitToAppIcon>
                                         Login
                                 </IconButton>
-                            </Link>
+                                </Link>
+                            </>
                     }
                 </Toolbar>
             </AppBar>

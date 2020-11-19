@@ -53,26 +53,27 @@ function ListItemDrawer({ updateOpen }) {
                                     <ListItemText primary='Check ins'></ListItemText>
                                 </ListItem>
                             </Link>
+                            <Link to='/map' className="link" onClick={() => { updateOpen(false) }}>
+                                <ListItem button>
+                                    <ListItemIcon>
+                                        <MapIcon />
+                                    </ListItemIcon>
+                                    <ListItemText primary='Mapa'></ListItemText>
+                                </ListItem>
+                            </Link>
+                            <Link to='/comunas' className="link" onClick={() => { updateOpen(false) }} >
+                                <ListItem button>
+                                    <ListItemIcon>
+                                        <FormatListNumberedRoundedIcon />
+                                    </ListItemIcon>
+                                    <ListItemText primary='Lista de comunas'></ListItemText>
+                                </ListItem>
+                            </Link>
                         </>
                         :
                         <></>
                 }
-                <Link to='/map' className="link" onClick={() => { updateOpen(false) }}>
-                    <ListItem button>
-                        <ListItemIcon>
-                            <MapIcon />
-                        </ListItemIcon>
-                        <ListItemText primary='Mapa'></ListItemText>
-                    </ListItem>
-                </Link>
-                <Link to='/comunas' className="link" onClick={() => { updateOpen(false) }} >
-                    <ListItem button>
-                        <ListItemIcon>
-                            <FormatListNumberedRoundedIcon />
-                        </ListItemIcon>
-                        <ListItemText primary='Lista de comunas'></ListItemText>
-                    </ListItem>
-                </Link>
+
                 <Divider />
             </List>
         </div>
