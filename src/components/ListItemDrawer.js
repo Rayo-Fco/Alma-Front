@@ -2,14 +2,15 @@ import React from 'react'
 import MapIcon from '@material-ui/icons/Map'
 import HomeIcon from '@material-ui/icons/Home'
 import AddCircleIcon from '@material-ui/icons/AddCircle'
-import FormatListNumberedRoundedIcon from '@material-ui/icons/FormatListNumberedRounded';
+import FormatListNumberedRoundedIcon from '@material-ui/icons/FormatListNumberedRounded'
+import HighlightOffIcon from '@material-ui/icons/HighlightOff'
 import { List, ListItem, ListItemIcon, ListItemText, Divider } from '@material-ui/core'
 import { Link } from 'wouter'
 import { updateOpen } from '../actions/openDrawerAction'
 import { connect } from "react-redux"
-import useLogin from '../hooks/useLogin';
-import PostAddIcon from '@material-ui/icons/PostAdd';
-import CheckCircleOutlinedIcon from '@material-ui/icons/CheckCircleOutlined';
+import useLogin from '../hooks/useLogin'
+import PostAddIcon from '@material-ui/icons/PostAdd'
+import CheckCircleOutlinedIcon from '@material-ui/icons/CheckCircleOutlined'
 
 function ListItemDrawer({ updateOpen }) {
     const { isLogged } = useLogin()
@@ -35,6 +36,14 @@ function ListItemDrawer({ updateOpen }) {
                                         <AddCircleIcon />
                                     </ListItemIcon>
                                     <ListItemText primary='Agregar Comisaria/PDI'></ListItemText>
+                                </ListItem>
+                            </Link>
+                            <Link to='/delete' className="link" onClick={() => { updateOpen(false) }}>
+                                <ListItem button>
+                                    <ListItemIcon>
+                                        <HighlightOffIcon />
+                                    </ListItemIcon>
+                                    <ListItemText primary='Eliminar Comisaria/PDI'></ListItemText>
                                 </ListItem>
                             </Link>
                             <Link to='/regComuna' className="link" onClick={() => { updateOpen(false) }} >

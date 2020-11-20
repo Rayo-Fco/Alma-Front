@@ -44,7 +44,6 @@ function NavBar({ updateOpen }) {
         <div>
             <AppBar className={classes.fondoappbar} position="fixed" color="primary">
                 <Toolbar>
-
                     {
                         isLogged
                             ?
