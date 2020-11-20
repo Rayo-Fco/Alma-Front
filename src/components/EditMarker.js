@@ -1,15 +1,15 @@
 import React, { useState, useEffect } from 'react'
-import { TextField, Grid } from '@material-ui/core'
+import { Select, TextField, Grid, MenuItem, InputLabel } from '@material-ui/core'
 import Paper from '@material-ui/core/Paper'
 import { Button, makeStyles, FormControl, Typography } from "@material-ui/core"
+import SaveIcon from '@material-ui/icons/Save'
 import MapView from './MapView'
-import { selectActiveIdMarker } from '../reducers/IdMarkerReducer'
 import { connect } from "react-redux"
 import { sendIdMarker } from '../actions/IdMarkerAction'
-import useDeleteMarker from '../hooks/useDeleteMarker'
+import useEditMarker from '../hooks/useEditMarker'
 import { useLocation } from 'wouter'
 import CircularProgress from '@material-ui/core/CircularProgress'
-import DeleteForeverIcon from '@material-ui/icons/DeleteForever'
+
 const useStyles = makeStyles((theme) => ({
     root: {
         flexGrow: 1,
@@ -74,22 +74,15 @@ const useStyles = makeStyles((theme) => ({
     }
 }));
 
-const mapStateToProps = state => {
-    return {
-        idmarker: selectActiveIdMarker(state)
-    }
-}
 
-function DeleteMarker({ idmarker }) {
+
+function EditMarker() {
     const classes = useStyles();
-    const [idMarker, setIdMarker] = useState('')
+    const [category, setCategory] = useState('')
+    const [title, setTitle] = useState('')
     const [, navigate] = useLocation()
-    const { deletemarker, hasDeleteError, succeedDelete, isDeleteLoading, errorMsj } = useDeleteMarker()
+    const { editmarker, hasEditError, succeedEdit, isEditLoading, errorMsj } = useEditMarker()
 
-    useEffect(() => {
-        setIdMarker(idmarker)
-
-    }, [idmarker])
 
     useEffect(() => {
         const ac = new AbortController();
@@ -99,8 +92,10 @@ function DeleteMarker({ idmarker }) {
         return () => ac.abort();
     }, [navigate])
 
+
+
     const handleSubmit = () => {
-        deletemarker({ idMarker })
+        editmarker({ category, title })
     };
     return (
 
@@ -113,17 +108,17 @@ function DeleteMarker({ idmarker }) {
                 <Grid item xs={4}>
                     <Grid item className={classes.gridform} >
                         <Paper className={classes.paperform} elevation={15}>
-                            {isDeleteLoading &&
+                            {isEditLoading &&
                                 <div className={classes.progress}>
                                     <CircularProgress className={classes.circular} style={{ width: '20%', height: '20%', }} />
                                 </div>
                             }
-                            {!isDeleteLoading &&
+                            {!isEditLoading &&
                                 <FormControl>
                                     <Typography className={classes.typo}>
-                                        Eliminar marcador
+                                        Agregar marcador
                                 </Typography>
-                                    {hasDeleteError &&
+                                    {hasEditError &&
                                         <div className="alert alert-danger alert-styled-left">
                                             {errorMsj.map(error => {
                                                 return (
@@ -134,25 +129,46 @@ function DeleteMarker({ idmarker }) {
                                             })}
                                         </div>
                                     }
-                                    {succeedDelete &&
+                                    {succeedEdit &&
                                         <div className="alert alert-success alert-styled-left">
-                                            Se ha eliminado el marcador
+                                            Se ha agregado el marcador
                                     </div>
                                     }
+
                                     <Grid container style={{ marginTop: '8px' }} wrap="nowrap" spacing={3}>
                                         <Grid item xs zeroMinWidth>
-                                            <TextField className={classes.input} label="ID del marcador" variant="outlined" onChange={(e) => setIdMarker(e.target.value)} />
+                                            <TextField className={classes.input} label="ID del marcador" variant="outlined" onChange={(e) => setTitle(e.target.value)} />
                                         </Grid>
                                     </Grid>
+
+                                    <Grid container style={{ marginTop: '8px' }} wrap="nowrap" spacing={3}>
+                                        <Grid item xs zeroMinWidth>
+                                            <TextField className={classes.input} label="Titulo" variant="outlined" onChange={(e) => setTitle(e.target.value)} />
+                                        </Grid>
+                                    </Grid>
+                                    <FormControl className={classes.formControl} variant="outlined">
+                                        <InputLabel htmlFor="outlined-age-native-simple">Tipo</InputLabel>
+                                        <Select
+                                            className={classes.input}
+                                            label="Tipo"
+                                            value={category}
+                                            onChange={(e) => setCategory(e.target.value)}>
+                                            <MenuItem value="">
+                                                <em>Ninguno</em>
+                                            </MenuItem>
+                                            <MenuItem value={'comisaria'}>Comisaria</MenuItem>
+                                            <MenuItem value={'pdi'}>PDI</MenuItem>
+                                        </Select>
+                                    </FormControl>
                                     <Button
                                         variant="contained"
                                         color="primary"
                                         size="large"
                                         className={classes.button}
                                         onClick={() => handleSubmit()}
-                                        startIcon={<DeleteForeverIcon />}>
-                                        Eliminar
-                                    </Button>
+                                        startIcon={<SaveIcon />}>
+                                        Agregar
+                                         </Button>
                                 </FormControl>
                             }
                         </Paper>
@@ -165,4 +181,4 @@ function DeleteMarker({ idmarker }) {
         </div>
     )
 }
-export default connect(mapStateToProps, { sendIdMarker })(DeleteMarker)
+export default connect(null, { sendIdMarker })(EditMarker)

@@ -25,7 +25,6 @@ function MapViewData({ communes }) {
         zoom: 15
     })
 
-
     useEffect(() => {
         let currentLocation = {
             lat: 0,
@@ -212,7 +211,6 @@ function MapViewData({ communes }) {
                     </Popup>
                 </Marker>
                 <LocateControl startDirectly/>
-
             </Map>
         </div>
     )

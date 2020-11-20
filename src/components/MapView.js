@@ -7,9 +7,6 @@ import { connect } from "react-redux"
 import LocateControl from './LocateControl';
 
 function MapView({ sendLatLng }) {
-
-  
-      // console.log(lc);
     
     const [state2] = useState({
         currentLocation: { lat: -33.4372, lng:  -70.6506 },

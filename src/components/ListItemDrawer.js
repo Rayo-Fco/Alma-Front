@@ -4,6 +4,7 @@ import HomeIcon from '@material-ui/icons/Home'
 import AddCircleIcon from '@material-ui/icons/AddCircle'
 import FormatListNumberedRoundedIcon from '@material-ui/icons/FormatListNumberedRounded'
 import HighlightOffIcon from '@material-ui/icons/HighlightOff'
+import EditIcon from '@material-ui/icons/Edit';
 import { List, ListItem, ListItemIcon, ListItemText, Divider } from '@material-ui/core'
 import { Link } from 'wouter'
 import { updateOpen } from '../actions/openDrawerAction'
@@ -36,6 +37,14 @@ function ListItemDrawer({ updateOpen }) {
                                         <AddCircleIcon />
                                     </ListItemIcon>
                                     <ListItemText primary='Agregar Comisaria/PDI'></ListItemText>
+                                </ListItem>
+                            </Link>
+                            <Link to='/edit' className="link" onClick={() => { updateOpen(false) }}>
+                                <ListItem button>
+                                    <ListItemIcon>
+                                        <EditIcon />
+                                    </ListItemIcon>
+                                    <ListItemText primary='Editar Comisaria/PDI'></ListItemText>
                                 </ListItem>
                             </Link>
                             <Link to='/delete' className="link" onClick={() => { updateOpen(false) }}>
@@ -82,7 +91,6 @@ function ListItemDrawer({ updateOpen }) {
                         :
                         <></>
                 }
-
                 <Divider />
             </List>
         </div>

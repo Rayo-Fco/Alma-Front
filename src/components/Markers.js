@@ -4,15 +4,16 @@ import { IconCarabineros, IconPdi } from './IconLocation'
 import { selectActiveLatLng } from '../reducers/latLngReducer'
 import { connect } from "react-redux";
 import { sendLatLng } from '../actions/latLngAction'
+import { sendIdMarker } from '../actions/IdMarkerAction'
 import axios from 'axios'
+
 const mapStateToProps = state => {
     return {
         latlng: selectActiveLatLng(state)
     }
 }
 
-
-function Markers({ latlng, sendLatLng }) {
+function Markers({ latlng, sendLatLng, sendIdMarker}) {
     const [comisaria, setComisaria] = useState({ markersC: [] })
     const [pdi, setPdi] = useState({ markersP: [] })
 
@@ -67,14 +68,14 @@ function Markers({ latlng, sendLatLng }) {
 
     }, [setPdi]);
 
-
     return (
         <div>
             { comisaria.markersC.map((markerC, index) => (
                 <Marker
+                    icon={IconCarabineros}
                     key={index}
                     position={JSON.parse("[" + markerC.latitude + ", " + markerC.longitude + "]")}
-                    icon={IconCarabineros} >
+                    onClick={(markersC) => { console.log(markersC) }}>
                     <Popup>
                         {markerC.title}
                     </Popup>
@@ -84,12 +85,12 @@ function Markers({ latlng, sendLatLng }) {
             }
             { pdi.markersP.map((markerP, index) => (
                 <Marker
+                    icon={IconPdi}
                     key={index}
                     position={JSON.parse("[" + markerP.latitude + ", " + markerP.longitude + "]")}
-                    icon={IconPdi} >
+                    onClick={(markersP) => { alert(markersP._id) }}>
                     <Popup>
                         {markerP.title}
-
                     </Popup>
                 </Marker>
             ))
@@ -99,4 +100,4 @@ function Markers({ latlng, sendLatLng }) {
         </div>
     )
 }
-export default connect(mapStateToProps, { sendLatLng })(Markers)
+export default connect(mapStateToProps, { sendLatLng, sendIdMarker })(Markers)

@@ -13,7 +13,6 @@ export default function useUser() {
             if (token != null){
                 localStorage.setItem('email', email);
                 window.sessionStorage.setItem('tokenadmin', token)
-
                 setState({loading: false, error: false})
                 setTOKEN(token);
             }else{
@@ -21,7 +20,6 @@ export default function useUser() {
                 window.sessionStorage.removeItem('tokenadmin')
                 setState({loading: false, error: true})
             }
-           
             
         })
         .catch(err => {
@@ -42,7 +40,6 @@ export default function useUser() {
 
 
     return {
-        
         isLogged: Boolean(token),
         isLoginLoading: state.loading,
         hasLoginError: state.error, 

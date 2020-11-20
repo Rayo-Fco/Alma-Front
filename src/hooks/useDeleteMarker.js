@@ -1,14 +1,13 @@
 import { useState } from 'react';
-import addmarkerservices from '../services/addmarker';
+import deletemarkerservices from '../services/deletemarker';
 export default function useDeleteMarker() {
     const [state, setState] = useState({ succeed: false, loading: false, error: false, errormsj: '' })
    
-    const deletemarker = ({ category, title, latitude, longitude }) => {
+    const deletemarker = ({ idMarker }) => {
         setState({ loading: true, error: false })
         let errores = []
-        if (latitude !== undefined && longitude !== undefined) {
 
-            addmarkerservices({ category, title, latitude, longitude })
+            deletemarkerservices({ idMarker })
                 .then(markerres => {
                     if (markerres === "ok") {
                         setState({ succeed: true, loading: false, error: false, errormsj: '' })
@@ -24,11 +23,6 @@ export default function useDeleteMarker() {
                     setState({ succeed: false, loading: false, error: true, errormsj: '' })
                     console.log(err)
                 })
-        } else {
-            errores.push("Ingrese una Longitud y Latitud")
-            setState({ succeed: false, loading: false, error: true, errormsj: errores })
-
-        }
     }
 
     return {

@@ -14,6 +14,7 @@ import Grafico2 from './ButtonResult'
 import Grafico3 from './CommuneResult'
 import ListCommunes from './ListCommunes'
 import AddMarker from './AddMarker'
+import EditMarker from './EditMarker'
 import DeleteMarker from './DeleteMarker'
 import NavBar from './NavBar'
 import About from './About'
@@ -50,6 +51,8 @@ function App() {
               <Route component={MainAdmin} exact path="/principal">
               </Route>
               <Route component={AddMarker} exact path="/add">
+              </Route>
+              <Route component={EditMarker} exact path="/edit">
               </Route>
               <Route component={DeleteMarker} exact path="/delete">
               </Route>
