@@ -1,10 +1,8 @@
 import axios from 'axios';
 
-export default function findcommunes({ helptoken }) {
+export default function findhelptoken({ helpToken }) {
 
-
-
-    return axios.post(`http://localhost:3001/${helptoken}`, {
+    return axios.get(`http://localhost:3001/gethelp/${helpToken}`, {
     })
         .then(res => {
             return "ok"

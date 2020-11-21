@@ -2,7 +2,7 @@ import { createStore, combineReducers } from 'redux';
 import OpenReducer from './reducers/openDrawerReducer';
 import LatLngReducer from './reducers/latLngReducer';
 import CommunesReducer from './reducers/communesReducer';
-import IdMarkerReducer from './reducers/IdMarkerReducer';
+import IdMarkerReducer from './reducers/idMarkerReducer';
 
 const reducers = combineReducers({
     OpenReducer,

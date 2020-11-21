@@ -3,9 +3,9 @@ import { TextField, Grid } from '@material-ui/core'
 import Paper from '@material-ui/core/Paper'
 import { Button, makeStyles, FormControl, Typography } from "@material-ui/core"
 import MapView from './MapView'
-import { selectActiveIdMarker } from '../reducers/IdMarkerReducer'
+import { selectActiveIdMarker } from '../reducers/idMarkerReducer'
 import { connect } from "react-redux"
-import { sendIdMarker } from '../actions/IdMarkerAction'
+import { sendIdMarker } from '../actions/idMarkerAction'
 import useDeleteMarker from '../hooks/useDeleteMarker'
 import { useLocation } from 'wouter'
 import CircularProgress from '@material-ui/core/CircularProgress'
@@ -51,7 +51,9 @@ const useStyles = makeStyles((theme) => ({
     gridform: {
         margin: 'auto',
         height: '100%',
-        width: '80%'
+        width: '80%',
+        maxWidth: 500,
+        marginBottom: 30
     },
     paperform: {
         padding: '15px',
@@ -106,11 +108,11 @@ function DeleteMarker({ idmarker }) {
 
         <div className={classes.root}>
 
-            <Grid container spacing={2}>
-                <Grid item xs={8}>
+            <Grid container >
+                <Grid item xs={12} sm={7}>
                     <MapView></MapView>
                 </Grid>
-                <Grid item xs={4}>
+                <Grid item xs={8} sm={5} id="gridAddmarker">
                     <Grid item className={classes.gridform} >
                         <Paper className={classes.paperform} elevation={15}>
                             {isDeleteLoading &&

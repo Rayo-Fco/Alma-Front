@@ -1,6 +1,6 @@
 import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
-import { Grid, List, ListItem, ListItemAvatar, Avatar, ListItemText, IconButton, Container, Paper } from '@material-ui/core'
+import { Grid, List, ListItem, ListItemAvatar, Avatar, ListItemText, IconButton, Container, Paper, Typography } from '@material-ui/core'
 import RoomIcon from '@material-ui/icons/Room';
 import PlayCircleOutlineIcon from '@material-ui/icons/PlayCircleOutline';
 import { Link } from 'wouter'
@@ -20,9 +20,16 @@ const useStyles = makeStyles((theme) => ({
         width: '500px'
     },
     paper2: {
-        padding: theme.spacing(1),
         marginTop: theme.spacing(3),
-    }
+        maxWidth: 550,
+        minWidth: 290,
+        margin: 'auto'
+    },
+    typ: {
+        margin: 'auto',
+        paddingTop: 25,
+        fontSize: 40
+    },
 }));
 
 
@@ -35,33 +42,42 @@ function ListComunas({ sendCommunes }) {
 
         <Container fixed>
 
-            <Grid className={classes.container} item xs={12} md={6}>
-                <Paper elevation={3} className={classes.paper2}>
-                    <p className={classes.title}>
-                        Comunas
-                    </p>
-                    <List>
-                        {
-                            comunas.map(comuna => (
-                                <Link to='/info' className="link" key={comuna.id} onClick={() => handleMap(comuna.name)}>
-                                    <ListItem button >
-                                        <ListItem>
-                                            <ListItemAvatar>
-                                                <Avatar>
-                                                    <RoomIcon />
-                                                </Avatar>
-                                            </ListItemAvatar>
-                                            <ListItemText style={{ width: '250px' }} primary={`${comuna.name}`} />
+            <Grid container>
+                <Grid item xs={12}>
+                    <Paper elevation={3} className={classes.paper2}>
+                        <Typography className={classes.typ} color="primary">
+                            Comunas
+                    </Typography>
+                        <List>
+                            {
+                                comunas.map(comuna => (
+                                    <Link to='/info' className="link" key={comuna.id} onClick={() => handleMap(comuna.name)}>
+                                        <ListItem button >
+                                            <ListItem>
+                                                <Grid item xs={3}>
+                                                    <ListItemAvatar>
+                                                        <Avatar>
+                                                            <RoomIcon />
+                                                        </Avatar>
+                                                    </ListItemAvatar>
+                                                </Grid>
+                                                <Grid  item xs={3}>
+                                                    <ListItemText primary={`${comuna.name}`} />
+                                                </Grid>
+
+                                            </ListItem>
+                                            <Grid  item xs={3}>
+                                                <IconButton edge="end" aria-label="delete">
+                                                    <PlayCircleOutlineIcon />
+                                                </IconButton>
+                                            </Grid>
                                         </ListItem>
-                                        <IconButton edge="end" aria-label="delete">
-                                            <PlayCircleOutlineIcon />
-                                        </IconButton>
-                                    </ListItem>
-                                </Link>
-                            ))
-                        }
-                    </List>
-                </Paper>
+                                    </Link>
+                                ))
+                            }
+                        </List>
+                    </Paper>
+                </Grid>
             </Grid>
         </Container>
 

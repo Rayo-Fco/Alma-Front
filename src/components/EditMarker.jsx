@@ -5,7 +5,7 @@ import { Button, makeStyles, FormControl, Typography } from "@material-ui/core"
 import SaveIcon from '@material-ui/icons/Save'
 import MapView from './MapView'
 import { connect } from "react-redux"
-import { sendIdMarker } from '../actions/IdMarkerAction'
+import { sendIdMarker } from '../actions/idMarkerAction'
 import useEditMarker from '../hooks/useEditMarker'
 import { useLocation } from 'wouter'
 import CircularProgress from '@material-ui/core/CircularProgress'
@@ -49,9 +49,12 @@ const useStyles = makeStyles((theme) => ({
         width: '100%'
     },
     gridform: {
+        minWidth: 350,
         margin: 'auto',
         height: '100%',
-        width: '80%'
+        width: '80%',
+        maxWidth: 500,
+        marginBottom: 30
     },
     paperform: {
         padding: '15px',
@@ -60,6 +63,7 @@ const useStyles = makeStyles((theme) => ({
     },
     formControl: {
         minWidth: 120,
+        width: '100%'
     },
     typo: {
         fontFamily: 'helvetica',
@@ -101,11 +105,11 @@ function EditMarker() {
 
         <div className={classes.root}>
 
-            <Grid container spacing={2}>
-                <Grid item xs={8}>
+            <Grid container>
+                <Grid item xs={12} sm={7}>
                     <MapView></MapView>
                 </Grid>
-                <Grid item xs={4}>
+                <Grid item xs={8} sm={5} id="gridAddmarker">
                     <Grid item className={classes.gridform} >
                         <Paper className={classes.paperform} elevation={15}>
                             {isEditLoading &&
@@ -116,7 +120,7 @@ function EditMarker() {
                             {!isEditLoading &&
                                 <FormControl>
                                     <Typography className={classes.typo}>
-                                        Agregar marcador
+                                        Editar marcador
                                 </Typography>
                                     {hasEditError &&
                                         <div className="alert alert-danger alert-styled-left">
@@ -131,45 +135,46 @@ function EditMarker() {
                                     }
                                     {succeedEdit &&
                                         <div className="alert alert-success alert-styled-left">
-                                            Se ha agregado el marcador
+                                            Se ha editado el marcador
                                     </div>
                                     }
-
                                     <Grid container style={{ marginTop: '8px' }} wrap="nowrap" spacing={3}>
-                                        <Grid item xs zeroMinWidth>
-                                            <TextField className={classes.input} label="ID del marcador" variant="outlined" onChange={(e) => setTitle(e.target.value)} />
-                                        </Grid>
-                                    </Grid>
+                                        <FormControl className={classes.formControl} variant="outlined">
 
-                                    <Grid container style={{ marginTop: '8px' }} wrap="nowrap" spacing={3}>
-                                        <Grid item xs zeroMinWidth>
-                                            <TextField className={classes.input} label="Titulo" variant="outlined" onChange={(e) => setTitle(e.target.value)} />
-                                        </Grid>
-                                    </Grid>
-                                    <FormControl className={classes.formControl} variant="outlined">
-                                        <InputLabel htmlFor="outlined-age-native-simple">Tipo</InputLabel>
-                                        <Select
-                                            className={classes.input}
-                                            label="Tipo"
-                                            value={category}
-                                            onChange={(e) => setCategory(e.target.value)}>
-                                            <MenuItem value="">
-                                                <em>Ninguno</em>
-                                            </MenuItem>
-                                            <MenuItem value={'comisaria'}>Comisaria</MenuItem>
-                                            <MenuItem value={'pdi'}>PDI</MenuItem>
-                                        </Select>
-                                    </FormControl>
-                                    <Button
-                                        variant="contained"
-                                        color="primary"
-                                        size="large"
-                                        className={classes.button}
-                                        onClick={() => handleSubmit()}
-                                        startIcon={<SaveIcon />}>
-                                        Agregar
+                                            <Grid item xs zeroMinWidth>
+                                                <TextField className={classes.input} label="ID del marcador" variant="outlined" onChange={(e) => setTitle(e.target.value)} />
+                                            </Grid>
+                                            <Grid item xs zeroMinWidth>
+                                                <TextField className={classes.input} label="Titulo" variant="outlined" onChange={(e) => setTitle(e.target.value)} />
+                                            </Grid>
+                                        <FormControl className={classes.formControl} variant="outlined">
+                                            <InputLabel htmlFor="outlined-age-native-simple">Tipo</InputLabel>
+                                            <Select
+                                                className={classes.input}
+                                                label="Tipo"
+                                                value={category}
+                                                onChange={(e) => setCategory(e.target.value)}>
+                                                <MenuItem value="">
+                                                    <em>Ninguno</em>
+                                                </MenuItem>
+                                                <MenuItem value={'comisaria'}>Comisaria</MenuItem>
+                                                <MenuItem value={'pdi'}>PDI</MenuItem>
+                                            </Select>
+                                        </FormControl>
+                                        <Button
+                                            variant="contained"
+                                            color="primary"
+                                            size="large"
+                                            className={classes.button}
+                                            onClick={() => handleSubmit()}
+                                            startIcon={<SaveIcon />}>
+                                            Agregar
                                          </Button>
+                                         </FormControl>
+
+                                    </Grid>
                                 </FormControl>
+
                             }
                         </Paper>
 

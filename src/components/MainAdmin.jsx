@@ -25,9 +25,22 @@ const useStyles = makeStyles((theme) => ({
         backgroundColor: '#ECE9E8',
         marginBottom: 50,
     },
-    paper2: {
+    paperAvatar: {
         color: theme.palette.text.secondary,
         height: 'auto',
+        marginBottom: '30px',
+    },
+    paperCommune: {
+        color: theme.palette.text.secondary,
+        height: 'auto',
+        marginBottom: '30px',
+        marginRight: 5
+    },
+    paperCheckin: {
+        color: theme.palette.text.secondary,
+        height: 'auto',
+        marginBottom: '30px',
+        marginLeft: 5
     },
     tittle: {
         textAlign: 'left'
@@ -60,26 +73,28 @@ export default function PrincipalAdmin() {
 
     const classes = useStyles()
     return (
-        <Container maxWidth="xl" fixed className={classes.container}>
+        <Container maxWidth="xl" className={classes.container}>
             <Paper elevation={3} className={classes.paper}>
-                <Grid container spacing={3}>
+                <Grid container>
                     <Grid item xs={12}>
-                        <Paper className={classes.paper2}>
+                        <Paper className={classes.paperAvatar}>
                             <div className={classes.root}>
                                 <Avatar className={classes.orange}>A</Avatar>
                                 <Typography variant="h4" className={classes.tittle}>
-                                {localStorage.getItem('email')}
-                            </Typography>
+                                    {localStorage.getItem('email')}
+                                </Typography>
                             </div>
                         </Paper>
                     </Grid>
-                    <Grid item xs={6}>
-                        <Paper className={classes.paper2}>
-                            <UserGraph />
+                    <Grid item xs={12} sm={6}>
+                        <Paper className={classes.paperCommune}>
+                            <GridList className={classes.gr}>
+                                <ListCommunes />
+                            </GridList>
                         </Paper>
                     </Grid>
-                    <Grid item xs={6}>
-                        <Paper className={classes.paper2}>
+                    <Grid item xs={12} sm={6}>
+                        <Paper className={classes.paperCheckin}>
                             <GridList className={classes.gr}>
                                 <ListCheckIns />
                             </GridList>
@@ -87,9 +102,7 @@ export default function PrincipalAdmin() {
                     </Grid>
                     <Grid item xs={12} >
                         <Paper className={classes.paper2}>
-                            <GridList cellHeight={130} className={classes.gridList} cols={3}>
-                                <ListCommunes />
-                            </GridList>
+                            <UserGraph />
                         </Paper>
                     </Grid>
                 </Grid>

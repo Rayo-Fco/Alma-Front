@@ -4,7 +4,7 @@ import { IconCarabineros, IconPdi } from './IconLocation'
 import { selectActiveLatLng } from '../reducers/latLngReducer'
 import { connect } from "react-redux";
 import { sendLatLng } from '../actions/latLngAction'
-import { sendIdMarker } from '../actions/IdMarkerAction'
+import { sendIdMarker } from '../actions/idMarkerAction'
 import axios from 'axios'
 
 const mapStateToProps = state => {

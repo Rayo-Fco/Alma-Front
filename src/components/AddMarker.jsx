@@ -53,7 +53,9 @@ const useStyles = makeStyles((theme) => ({
     gridform: {
         margin: 'auto',
         height: '100%',
-        width: '80%'
+        width: '80%',
+        maxWidth: 500,
+        marginBottom: 30
     },
     paperform: {
         padding: '15px',
@@ -114,12 +116,12 @@ function AddMarker({ latlng }) {
 
         <div className={classes.root}>
 
-            <Grid container spacing={2}>
-                <Grid item xs={8}>
+            <Grid container>
+                <Grid item xs={12} sm={7}>
                     <MapView></MapView>
                 </Grid>
-                <Grid item xs={4}>
-                    <Grid item className={classes.gridform} >
+                <Grid item xs={8} sm={5} id="gridAddmarker">
+                    <Grid item className={classes.gridform}  >
                         <Paper className={classes.paperform} elevation={15}>
                             {isAddLoading &&
                                 <div className={classes.progress}>

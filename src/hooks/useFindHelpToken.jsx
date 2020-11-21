@@ -4,9 +4,10 @@ import findhelptokenServices from '../services/findhelptoken';
 export default function useFindCheckin() {
     const [state, setState] = useState({ succeed: false, loading: false, error: false, errormsj: '' })
 
-    const findhelptoken = ({ helptoken }) => {
+    const findhelptoken = ({ helpToken }) => {
+        console.log(helpToken)
         setState({ succeed: false, loading: true, error: false, errormsj: '' })
-        findhelptokenServices({ helptoken })
+        findhelptokenServices({ helpToken })
             .then(helptokenres => {
                 if (helptokenres) {
                     if (helptokenres.length < 1){

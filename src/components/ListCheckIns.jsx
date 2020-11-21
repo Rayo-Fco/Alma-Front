@@ -13,7 +13,8 @@ import { useLocation } from 'wouter';
 const useStyles = makeStyles((theme) => ({
     typ: {
         margin: 'auto',
-        fontSize: 55
+        paddingTop:25,
+        fontSize: 40
     },
     input: {
         width: '50%'
@@ -33,9 +34,14 @@ const useStyles = makeStyles((theme) => ({
     },
     container: {
         paddingBottom: theme.spacing(3),
+        paddingRight: 0,
+        paddingLeft: 0
     },
     cnt: {
-        minHeight: 650
+        padding: theme.spacing(1),
+        marginTop: theme.spacing(1),
+        minHeight: 650,
+        minWidth: 425
     },
     acordionCollapse: {
         height: 'auto'
@@ -45,6 +51,9 @@ const useStyles = makeStyles((theme) => ({
         height: 150,
         marginTop: theme.spacing(1),
         marginBottom: theme.spacing(1)
+    },
+    gridForm: {
+        marginBottom:30
     },
 }))
 
@@ -103,25 +112,21 @@ function ListCheckIns(props) {
 
     const handleSubmit = e => {
         findcheckin({ rut })
-
-
         console.log(checkin)
-
         console.log("algo")
 
     };
 
-
     return (
         <Container fixed className={classes.cnt}>
-            <Paper className={classes.cnt} elevation={3} style={{ cursor: 'pointer' }}>
-                <Grid container spacing={3}>
+            <Paper className={classes.cnt} elevation={3}>
+                <Grid container>
                     <Grid item xs={12}>
                         <Typography className={classes.typ} color="primary">
                             Check ins
                     </Typography>
                     </Grid>
-                    <Grid item xs={12}>
+                    <Grid item xs={12} className={classes.gridForm}>
                         <TextField
                             className={classes.input}
                             id=""
@@ -138,7 +143,7 @@ function ListCheckIns(props) {
                             Buscar
                         </Button>
                     </Grid>
-                    <Container fixed className={classes.container}>
+                    <Container className={classes.container} style={{cursor: 'pointer'}}>
                         <Accordion>
                             {
                                 checkin
@@ -146,7 +151,7 @@ function ListCheckIns(props) {
                                     <>
                                         {
                                             checkins2.User.map((check, index) => (
-                                                <Paper key={index} elevation={0} style={{ backgroundColor: '#fafafa' }}>
+                                                <Paper key={index} elevation={0} style={{backgroundColor: '#fafafa' }}>
                                                     <Accordion.Toggle as={Card.Header} eventKey={index + 1} style={{ display: 'flex' }}>
                                                         <Grid item xs={6} >
                                                             <Typography className={classes.typho} color="primary">
@@ -242,8 +247,8 @@ function ListCheckIns(props) {
                                             </Accordion.Toggle>
                                             <Accordion.Collapse className={classes.acordionCollapse} eventKey={index + 1}>
                                                 <Card>
-                                                    <Grid container spacing={1}>
-                                                        <Grid xs={6}>
+                                                    <Grid container>
+                                                        <Grid item xs={6}>
 
                                                             <Grid item xs zeroMinWidth>
                                                                 <Typography noWrap><b className={classes.b}>Comuna: </b>{checkin.comuna}</Typography>
@@ -284,7 +289,7 @@ function ListCheckIns(props) {
                                                                 <Typography noWrap><b className={classes.b}>Hora: </b>{checkin.date.split("T")[1].split("7Z")[0].split(".")[0]}</Typography>
                                                             </Grid>
                                                         </Grid>
-                                                        <Grid xs={6} >
+                                                        <Grid item xs={6} >
                                                             <Grid item xs zeroMinWidth>
                                                                 <Map center={currentLocation(checkin.coordinates[0].latitude, checkin.coordinates[0].longitude)} zoom={25} className={classes.grd}>
                                                                     <TileLayer url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"

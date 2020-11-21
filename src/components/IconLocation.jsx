@@ -1,8 +1,8 @@
 import L from 'leaflet'
 
 export const IconCarabineros = L.icon({
-    iconUrl: require('../assets/carabineros.png'),
-    iconRetinaUrl: require('../assets/carabineros.png'),
+    iconUrl: require('../assets/point/carabineros.png'),
+    iconRetinaUrl: require('../assets/point/carabineros.png'),
     iconAnchor: null,
     shadowUrl:null,
     shadowSize: null,
@@ -12,8 +12,8 @@ export const IconCarabineros = L.icon({
 })
 
 export const IconPdi = L.icon({
-    iconUrl: require('../assets/pdi.png'),
-    iconRetinaUrl: require('../assets/personpin.svg'),
+    iconUrl: require('../assets/point/pdi.png'),
+    iconRetinaUrl: require('../assets/point/pdi.png'),
     iconAnchor: null,
     shadowUrl:null,
     shadowSize: null,

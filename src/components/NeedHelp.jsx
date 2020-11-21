@@ -46,11 +46,10 @@ export default function NeedHelp() {
     const [, navigate] = useLocation()
     const { findhelptoken,  succeedFind } = useFindHelpToken()
 
-    const handleSubmit = async (e) => {
+    const handleSubmit = () => {
         findhelptoken({ helpToken })
-        navigate(`/needhelp/${helpToken}`)
-    };
-
+    }
+  
     useEffect(() => {
         if (succeedFind) {
             navigate(`/needhelp/${helpToken}`)
