@@ -23,6 +23,8 @@ import MapViewData from './MapViewData'
 import RegisterAdmin from './RegisterAdmin'
 import RegistroComuna from './AddCommune';
 import ListCheckIns from './ListCheckIns';
+import NeedHelp from './NeedHelp';
+import MapViewHelp from './MapViewHelp';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { UserContextProvider } from '../context/UserContext';
 
@@ -67,6 +69,10 @@ function App() {
               <Route component={RegistroComuna} exact path="/regComuna">
               </Route>
               <Route component={ListCheckIns} exact path="/checkins">
+              </Route>
+              <Route component={NeedHelp} exact path="/needhelp">
+              </Route>
+              <Route component={MapViewHelp} exact path="/needhelp/:helpToken">
               </Route>
             </Switch>
             <Footer />

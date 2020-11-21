@@ -2,19 +2,21 @@ import { useState } from 'react';
 import findcheckServices from '../services/findcheckin';
 
 export default function useFindCheckin() {
-    const [state, setState] = useState({ succeed: false, error: false, errormsj: '', checkin: '' })
+    const [state, setState] = useState({ succeed: false, error: false, errormsj: '' })
 
     const findcheckin = ({ rut }) => {
+        setState({ loading: true, error: false })
+
         findcheckServices({ rut })
             .then(checkinres => {
                 console.log(rut)
                 if (checkinres) {
                     console.log(checkinres)
                     if (checkinres.length < 1){
-                        setState({ succeed: true, error: false, errormsj: '', checkin: '' })
+                        setState({ succeed: true, error: false, errormsj: '' })
 
                     }else{
-                        setState({ succeed: true, error: false, errormsj: '', checkin: checkinres })
+                        setState({ succeed: true, error: false, errormsj: checkinres  })
 
                     }
 
@@ -29,12 +31,12 @@ export default function useFindCheckin() {
                         errores.push(checkinres)
                     }
                     console.log(checkinres)
-                    setState({ succeed: false, error: true, errormsj: errores, checkin: '' })
+                    setState({ succeed: false, error: true, errormsj: errores, })
 
                 }
             })
             .catch(err => {
-                setState({ succeed: false, error: true, errormsj: err, checkin: '' })
+                setState({ succeed: false, error: true, errormsj: err, })
                 console.log(err)
             })
     }
@@ -44,6 +46,5 @@ export default function useFindCheckin() {
         hasFindError: state.error,
         succeedFind: state.succeed,
         errorFindMsj: state.errormsj,
-        checkin: state.checkin
     }
 }
