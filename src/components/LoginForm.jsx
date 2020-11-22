@@ -12,6 +12,7 @@ import ExitToAppIcon from '@material-ui/icons/ExitToApp';
 import EmailIcon from '@material-ui/icons/Email';
 import { Paper, Grid, FormControl, TextField, Button, Typography, InputAdornment } from '@material-ui/core';
 import CircularProgress from '@material-ui/core/CircularProgress';
+import Alert from '@material-ui/lab/Alert';
 
 const usesStyles = makeStyles((theme) => ({
     container: {
@@ -19,7 +20,7 @@ const usesStyles = makeStyles((theme) => ({
         minWidth: '385px'
 
     },
-    paper:{
+    paper: {
         margin: 'auto',
         marginTop: theme.spacing(5),
         paddingBottom: theme.spacing(8),
@@ -50,6 +51,9 @@ const usesStyles = makeStyles((theme) => ({
     },
     circular: {
         color: '#fd9eef'
+    },
+    alert: {
+        textAlign:'left'
     }
 }))
 
@@ -79,16 +83,16 @@ export default function LoginForm() {
             }
             {!isLoginLoading &&
                 <Grid container>
-                    <Grid xs={6} sm={6} className={classes.container}>
+                    <Grid item xs={6} sm={6} className={classes.container}>
                         <Paper className={classes.paper} elevation={15}>
                             <img src={logo} style={{ width: "250px", marginBottom: "30px" }} alt="Logo" />
                             <Typography className={classes.typograph} variant="h4" color="initial">
                                 Iniciar sesión
-                        </Typography>
-                                    {hasLoginError &&
-                                <div className="alert alert-danger alert-styled-left">
+                            </Typography>
+                            {hasLoginError &&
+                                <Alert className={classes.alert} variant="filled" severity="error">
                                     Correo y/o contraseña inválidos
-                                  </div>
+                                  </Alert>
                             }
 
                             <FormControl className={classes.grdC}>

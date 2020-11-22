@@ -11,6 +11,7 @@ import InputAdornment from '@material-ui/core/InputAdornment'
 import useAddMarker from '../hooks/useAddMarker'
 import { useLocation } from 'wouter'
 import CircularProgress from '@material-ui/core/CircularProgress'
+import Alert from '@material-ui/lab/Alert';
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -75,6 +76,9 @@ const useStyles = makeStyles((theme) => ({
     },
     circular: {
         color: '#fd9eef'
+    },
+    alert: {
+        textAlign:'left'
     }
 }));
 
@@ -134,7 +138,7 @@ function AddMarker({ latlng }) {
                                         Agregar marcador
                                 </Typography>
                                     {hasAddError &&
-                                        <div className="alert alert-danger alert-styled-left">
+                                        <Alert className={classes.alert} variant="filled" severity="error">
                                             {errorMsj.map(error => {
                                                 return (
                                                     <div key={error}>
@@ -142,12 +146,12 @@ function AddMarker({ latlng }) {
                                                     </div>
                                                 )
                                             })}
-                                        </div>
+                                        </Alert>
                                     }
                                     {succeedAdd &&
-                                        <div className="alert alert-success alert-styled-left">
+                                        <Alert className={classes.alert} variant="filled" severity="success">
                                             Se ha agregado el marcador
-                                    </div>
+                                        </Alert>
                                     }
                                     <Grid container style={{ marginTop: '8px' }} wrap="nowrap" spacing={3}>
                                         <Grid item xs zeroMinWidth>

@@ -1,9 +1,9 @@
 import axios from 'axios';
 
-export default function findcheckin({ rut }) {
+export default function findhelpsos({ rut }) {
 
     const token = window.sessionStorage.getItem('tokenadmin')
-    return axios.get(`http://localhost:3001/checkin/user/${rut}`, {
+    return axios.get(`http://localhost:3001/helpSOS/user/${rut}`, {
         headers: { Authorization: "Bearer " + token }
     })
     

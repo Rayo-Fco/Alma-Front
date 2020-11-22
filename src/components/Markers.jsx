@@ -88,7 +88,7 @@ function Markers({ latlng, sendLatLng, sendIdMarker}) {
                     icon={IconPdi}
                     key={index}
                     position={JSON.parse("[" + markerP.latitude + ", " + markerP.longitude + "]")}
-                    onClick={(markersP) => { alert(markersP._id) }}>
+                    onClick={(markersP) => { console.log(markersP) }}>
                     <Popup>
                         {markerP.title}
                     </Popup>

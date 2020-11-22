@@ -8,7 +8,7 @@ import { Marker, Popup, Tooltip } from 'react-leaflet'
 import { IconLocation } from './IconLocation'
 
 function MapViewHelp(props) {
-    const helptoken = props.params.helpToken
+    const helprut = props.params.helpRut
     const [user, setUser] = useState('')
     const [date, setDate] = useState('')
     const [hour, setHour] = useState('')
@@ -23,7 +23,7 @@ function MapViewHelp(props) {
 
     useEffect(() => {
         const interval = setInterval(() => {
-            axios.get(`http://localhost:3001/gethelp?token=${helptoken}`, {
+            axios.get(`http://localhost:3001/gethelp?token=${helprut}`, {
                 cancelToken: source.token,
             })
                 .then(res => {
@@ -55,7 +55,7 @@ function MapViewHelp(props) {
         let isMounted = true
         let source = axios.CancelToken.source();
         console.log('llega');
-        axios.get(`http://localhost:3001/gethelp?token=${helptoken}`, {
+        axios.get(`http://localhost:3001/gethelp?token=${helprut}`, {
             cancelToken: source.token,
         })
             .then(res => {
@@ -93,7 +93,7 @@ function MapViewHelp(props) {
             clearInterval(interval);
         }
 
-    }, [helptoken]);
+    }, [helprut]);
 
     return (
         <div style={{ height: '100vh' }}>

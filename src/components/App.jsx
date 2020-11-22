@@ -1,39 +1,40 @@
+import React, { Suspense } from "react"
 import {
   Switch,
   Route
-} from "wouter";
-import Footer from './Footer';
-import Main from './Main';
-import React, { Suspense } from "react";
-import '../css/App.css';
-import LoginForm from './LoginForm';
+} from "wouter"
+import Footer from './Footer'
+import Main from './Main'
+import '../css/App.css'
+import LoginForm from './LoginForm'
 import MainAdmin from './MainAdmin'
 import MapView from './MapView'
-import Grafico1 from './UserResult'
-import Grafico2 from './ButtonResult'
-import Grafico3 from './CommuneResult'
 import ListCommunes from './ListCommunes'
 import AddMarker from './AddMarker'
 import EditMarker from './EditMarker'
 import DeleteMarker from './DeleteMarker'
 import NavBar from './NavBar'
 import About from './About'
-import InfoComunas from './InfoComuna';
+import InfoComunas from './InfoComuna'
 import MapViewData from './MapViewData'
 import RegisterAdmin from './RegisterAdmin'
-import RegistroComuna from './AddCommune';
-import ListCheckIns from './ListCheckIns';
-import NeedHelp from './NeedHelp';
-import MapViewHelp from './MapViewHelp';
-import 'bootstrap/dist/css/bootstrap.min.css';
-import { UserContextProvider } from '../context/UserContext';
+import RegistroComuna from './AddCommune'
+import ViewAlert from './ViewAlert'
+import ListCheckIns from './ListCheckIns'
+import NeedHelp from './NeedHelp'
+import MapViewHelp from './MapViewHelp'
+import MapViewHelpAll from './MapViewHelpAll'
+import 'bootstrap/dist/css/bootstrap.min.css'
+import { UserContextProvider } from '../context/UserContext'
+import DataTable from './DataTable'
+import CircularProgress from '@material-ui/core/CircularProgress'
 
 function App() {
   return (
     <>
       <UserContextProvider>
         <div className="App" style={{ backgroundColor: "white" }}>
-          <Suspense fallback={null}>
+          <Suspense fallback={<CircularProgress/>}>
           <NavBar />
             <Switch>
               <Route component={Main} exact path="/">
@@ -41,12 +42,6 @@ function App() {
               <Route component={LoginForm} exact path="/login">
               </Route>
               <Route component={MapView} exact path="/map">
-              </Route>
-              <Route component={Grafico1} exact path="/grafico1">
-              </Route>
-              <Route component={Grafico2} exact path="/grafico2">
-              </Route>
-              <Route component={Grafico3} exact path="/grafico3">
               </Route>
               <Route component={ListCommunes} exact path="/comunas">
               </Route>
@@ -68,11 +63,17 @@ function App() {
               </Route>
               <Route component={RegistroComuna} exact path="/regComuna">
               </Route>
+              <Route component={ViewAlert} exact path="/alert">
+              </Route>
               <Route component={ListCheckIns} exact path="/checkins">
               </Route>
               <Route component={NeedHelp} exact path="/needhelp">
               </Route>
               <Route component={MapViewHelp} exact path="/needhelp/:helpToken">
+              </Route>
+              <Route component={DataTable} exact path="/data">
+              </Route>
+              <Route component={MapViewHelpAll} exact path="/needhelpall/:helpRut">
               </Route>
             </Switch>
             <Footer />

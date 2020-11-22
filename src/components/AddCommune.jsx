@@ -8,6 +8,7 @@ import CircularProgress from '@material-ui/core/CircularProgress'
 import IconButton from '@material-ui/core/IconButton';
 import DeleteIcon from '@material-ui/icons/Delete';
 import AddCircleIcon from '@material-ui/icons/AddCircle';
+import Alert from '@material-ui/lab/Alert';
 
 const usesStyles = makeStyles((theme) => ({
     container: {
@@ -38,6 +39,9 @@ const usesStyles = makeStyles((theme) => ({
     },
     circular: {
         color: '#fd9eef'
+    },
+    alert: {
+        textAlign:'left'
     }
 }))
 
@@ -97,7 +101,7 @@ function RegistroComuna() {
                             Registro de Comuna
                     </Typography>
                         {hasAddError &&
-                            <div className="alert alert-danger alert-styled-left">
+                            <Alert className={classes.alert} variant="filled" severity="error">
                                 {errorMsj.map(error => {
                                     return (
                                         <div key={error}>
@@ -105,12 +109,11 @@ function RegistroComuna() {
                                         </div>
                                     )
                                 })}
-                            </div>
-                        }
+                            </Alert>}
                         {succeedAdd &&
-                            <div className="alert alert-success alert-styled-left">
+                            <Alert className={classes.alert} variant="filled" severity="success">
                                 Se ha registrado con exito
-                        </div>
+                            </Alert>
                         }
                     </Grid>
                     <Grid container spacing={3}>
@@ -149,15 +152,15 @@ function RegistroComuna() {
                                             onChange={e => handleChange(e, i)}
                                         />
                                         <div style={{ paddingTop: '10px' }}>
-                                            {coordinates.length - 1 === i && 
-                                            <IconButton aria-label="Agregar" className={classes.margin} onClick={handleAddInput} style={{ float: 'left' }}>
-                                                <AddCircleIcon />
-                                            </IconButton>
+                                            {coordinates.length - 1 === i &&
+                                                <IconButton aria-label="Agregar" className={classes.margin} onClick={handleAddInput} style={{ float: 'left' }}>
+                                                    <AddCircleIcon />
+                                                </IconButton>
                                             }
-                                            {coordinates.length !== 1 && 
-                                            <IconButton aria-label="Eliminar" className={classes.margin} onClick={() => handleRemoveInput(i)} style={{ float: 'left' }}>
-                                                <DeleteIcon />
-                                            </IconButton>
+                                            {coordinates.length !== 1 &&
+                                                <IconButton aria-label="Eliminar" className={classes.margin} onClick={() => handleRemoveInput(i)} style={{ float: 'left' }}>
+                                                    <DeleteIcon />
+                                                </IconButton>
                                             }
                                         </div>
 

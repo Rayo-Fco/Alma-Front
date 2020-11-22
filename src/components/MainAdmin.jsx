@@ -3,10 +3,10 @@ import { Paper, Container, Grid, Typography, GridList } from '@material-ui/core'
 import { makeStyles } from '@material-ui/core/styles'
 import Avatar from '@material-ui/core/Avatar';
 import { deepOrange } from '@material-ui/core/colors';
-import UserGraph from './UserGraph';
 import ListCommunes from './ListCommunes';
 import ListCheckIns from './ListCheckIns'
 import { useLocation } from 'wouter';
+import DataTable from './DataTable'
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -55,11 +55,19 @@ const useStyles = makeStyles((theme) => ({
     },
     gr: {
         height: 455
-    }
+    },
+    modal: {
+        position: 'absolute',
+        width: 400,
+        backgroundColor: theme.palette.background.paper,
+        border: '2px solid #000',
+        boxShadow: theme.shadows[5],
+        padding: theme.spacing(2, 4, 3),
+    },
 }))
 
 
-export default function PrincipalAdmin() {
+export default function MainAdmin() {
     const [, navigate] = useLocation()
 
     useEffect(() => {
@@ -102,7 +110,7 @@ export default function PrincipalAdmin() {
                     </Grid>
                     <Grid item xs={12} >
                         <Paper className={classes.paper2}>
-                            <UserGraph />
+                            <DataTable />
                         </Paper>
                     </Grid>
                 </Grid>

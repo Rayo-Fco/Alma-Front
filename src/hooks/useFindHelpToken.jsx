@@ -10,23 +10,22 @@ export default function useFindCheckin() {
         findhelptokenServices({ helpToken })
             .then(helptokenres => {
                 if (helptokenres) {
-                    if (helptokenres.length < 1){
+                    console.log(helptokenres);
+                    if (helptokenres === "ok") {
                         setState({ succeed: true, loading: false, error: false, errormsj: '' })
-
-                    }else{
-                        setState({ succeed: true, loading: false, error: false, errormsj: helptokenres })
+                        console.log("sd");
+                    } else {
+                        setState({ succeed: false, loading: false, error: true, errormsj: helptokenres })
                     }
                 } else {
                     let errores = []
                     if (helptokenres.length !== 41) {
                         for (let i = 0; i < helptokenres.length; i++) {
                             errores.push(helptokenres[i].message)
-
                         }
                     } else {
                         errores.push(helptokenres)
                     }
-                    console.log(helptokenres)
                     setState({ succeed: false, loading: false, error: true, errormsj: errores })
                 }
             })

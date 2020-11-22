@@ -2,7 +2,7 @@ import axios from 'axios';
 
 export default function findhelptoken({ helpToken }) {
 
-    return axios.get(`http://localhost:3001/gethelp/${helpToken}`, {
+    return axios.get(`http://localhost:3001/gethelp?token=${helpToken}`, {
     })
         .then(res => {
             return "ok"

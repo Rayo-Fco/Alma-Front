@@ -43,16 +43,6 @@ const useStyles = makeStyles((theme) => ({
     input: {
         marginBottom: theme.spacing(2),
     },
-    gridform: {
-        margin: 'auto',
-        height: '100%',
-    },
-    paperform: {
-        padding: '15px',
-        marginTop: theme.spacing(3),
-        height: '80',
-        width: '200px'
-    },
     container: {
         height: theme.spacing(51),
         marginTop: theme.spacing(10),
@@ -64,7 +54,19 @@ const useStyles = makeStyles((theme) => ({
     },
     row: {
         height: 70
-    }
+    },
+    gridform: {
+        margin: 'auto',
+        height: '100%',
+        width: '80%',
+        maxWidth: 500,
+        marginBottom: 30
+    },
+    paperform: {
+        padding: '15px',
+        marginTop: theme.spacing(3),
+        height: '80'
+    },
 }));
 
 function createData(name, info) {
@@ -84,15 +86,15 @@ function InfoComuna() {
 
     return (
         <div className={classes.root}>
-            <Grid container spacing={2}>
-                <Grid className={classes.map} item xs={8}>
+            <Grid container>
+            <Grid item xs={12} sm={7}>
                     <MapViewData></MapViewData>
                 </Grid>
-                <Grid item xs={4}>
-                    <Grid container>
-                        <Grid item className={classes.gridform} >
-                            <Paper elevation={15}>
-                                <TableContainer className={classes.container} component={Paper}>
+                <Grid item xs={8} sm={5} id="tableform">
+                <Grid item className={classes.gridform}  >
+                        <Paper className={classes.paperform} elevation={15}>
+                           
+                                <TableContainer>
                                     <Table className={classes.table} style={{ backgroundColor: '#fafafa' }} aria-label="simple table">
                                         <TableHead>
                                             <TableRow>
@@ -113,7 +115,6 @@ function InfoComuna() {
                                     </Table>
                                 </TableContainer>
                             </Paper>
-                        </Grid>
                     </Grid>
 
                 </Grid>

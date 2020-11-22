@@ -2,14 +2,16 @@ import { useState } from 'react';
 import signupAdminServices from '../services/signupadmin';
 
 export default function useSignup() {
-    const [state, setState] = useState({ succeed: false, error: false, errormsj: '' })
+    const [state, setState] = useState({ succeed: false, loading: false, error: false, errormsj: '' })
 
     const signupadmin = ({ email, nombre, apellido, password1, password2 }) => {
+        setState({ succeed: true, loading: true, error: false, errormsj: '' })
+
         if (password1 === password2) {
             signupAdminServices({ email, nombre, apellido, password1 })
                 .then(registeres => {
                     if (registeres === "ok") {
-                        setState({ succeed: true, error: false, errormsj: '' })
+                        setState({ succeed: true, loading: true, error: false, errormsj: '' })
 
                     } else {
                         let errores = []
@@ -21,7 +23,7 @@ export default function useSignup() {
                                 errores.push(registeres[i].message)
                             }
                         }
-                        setState({ succeed: false, error: true, errormsj: errores })
+                        setState({ succeed: false, loading: true, error: true, errormsj: errores })
                     }
 
                 })
@@ -35,12 +37,13 @@ export default function useSignup() {
 
             errores.push("No coinciden las contraseñas")
 
-            setState({ succeed: false, error: true, errormsj: errores })
+            setState({ succeed: false, loading: true, error: true, errormsj: errores })
         }
     }
 
     return {
         signupadmin,
+        isSignupLoading: state.loading,
         hasSignError: state.error,
         succeedSign: state.succeed,
         errorMsj: state.errormsj

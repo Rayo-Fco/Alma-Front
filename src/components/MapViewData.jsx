@@ -199,7 +199,7 @@ function MapViewData({ communes }) {
     }, [count, state2, communes, navigate]);
 
     return (
-        <div style={{ height: '100%' }}>
+        <div style={{ height: '100vh' }}>
             <Map center={state2.currentLocation} zoom={state2.zoom} style={{ width: '100%', height: '100%' }}>
                 <TileLayer url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
                     attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors' />

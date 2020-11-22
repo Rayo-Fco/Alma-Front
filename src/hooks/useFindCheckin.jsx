@@ -2,22 +2,19 @@ import { useState } from 'react';
 import findcheckServices from '../services/findcheckin';
 
 export default function useFindCheckin() {
-    const [state, setState] = useState({ succeed: false, error: false, errormsj: '' })
+    const [state, setState] = useState({ succeed: false, loading: false, error: false, errormsj: '', checkin: '' })
 
     const findcheckin = ({ rut }) => {
         setState({ loading: true, error: false })
 
         findcheckServices({ rut })
             .then(checkinres => {
-                console.log(rut)
                 if (checkinres) {
-                    console.log(checkinres)
                     if (checkinres.length < 1){
-                        setState({ succeed: true, error: false, errormsj: '' })
+                        setState({ succeed: true, loading: false, error: false, errormsj: '', checkin: '' })
 
                     }else{
-                        setState({ succeed: true, error: false, errormsj: checkinres  })
-
+                        setState({ succeed: true, loading: false, error: false, errormsj: '', checkin:checkinres })
                     }
 
                 } else {
@@ -30,21 +27,21 @@ export default function useFindCheckin() {
                     } else {
                         errores.push(checkinres)
                     }
-                    console.log(checkinres)
-                    setState({ succeed: false, error: true, errormsj: errores, })
+                    setState({ succeed: false, loading: false, error: true, errormsj: errores, })
 
                 }
             })
             .catch(err => {
-                setState({ succeed: false, error: true, errormsj: err, })
-                console.log(err)
+                setState({ succeed: false, loading: false, error: true, errormsj: err, })
             })
     }
 
     return {
         findcheckin,
+        isFindLoading: state.loading,
         hasFindError: state.error,
         succeedFind: state.succeed,
         errorFindMsj: state.errormsj,
+        checkin: state.checkin
     }
 }

@@ -4,7 +4,8 @@ import HomeIcon from '@material-ui/icons/Home'
 import AddCircleIcon from '@material-ui/icons/AddCircle'
 import FormatListNumberedRoundedIcon from '@material-ui/icons/FormatListNumberedRounded'
 import HighlightOffIcon from '@material-ui/icons/HighlightOff'
-import EditIcon from '@material-ui/icons/Edit';
+import EditIcon from '@material-ui/icons/Edit'
+import VisibilityIcon from '@material-ui/icons/Visibility'
 import { List, ListItem, ListItemIcon, ListItemText, Divider } from '@material-ui/core'
 import { Link } from 'wouter'
 import { updateOpen } from '../actions/openDrawerAction'
@@ -61,6 +62,14 @@ function ListItemDrawer({ updateOpen }) {
                                         <PostAddIcon />
                                     </ListItemIcon>
                                     <ListItemText primary='Agregar comuna'></ListItemText>
+                                </ListItem>
+                            </Link>
+                            <Link to='/alert' className="link" onClick={() => { updateOpen(false) }} >
+                                <ListItem button>
+                                    <ListItemIcon>
+                                        <VisibilityIcon />
+                                    </ListItemIcon>
+                                    <ListItemText primary='Ver alertas'></ListItemText>
                                 </ListItem>
                             </Link>
                             <Link to='/checkins' className="link" onClick={() => { updateOpen(false) }} >
