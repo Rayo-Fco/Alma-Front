@@ -14,6 +14,8 @@ export default function useFindCheckin() {
                         setState({ succeed: true, loading: false, error: false, errormsj: '', checkin: '' })
 
                     }else{
+                        console.log(checkinres.length)
+
                         setState({ succeed: true, loading: false, error: false, errormsj: '', checkin:checkinres })
                     }
 

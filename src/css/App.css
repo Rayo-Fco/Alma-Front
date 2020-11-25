@@ -202,7 +202,6 @@ a:hover {
   font-weight: 400;
   color: black;
   margin: auto;
-  padding-right: 85px;
 }
 
 h2 {
@@ -279,4 +278,5 @@ img {
   #tableform {
     margin: auto;
   }
+
 }

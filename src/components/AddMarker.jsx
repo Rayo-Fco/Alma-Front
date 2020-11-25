@@ -1,16 +1,12 @@
 import React, { useState, useEffect } from 'react'
-import { Select, TextField, Grid, MenuItem, InputLabel } from '@material-ui/core'
-import Paper from '@material-ui/core/Paper'
-import { Button, makeStyles, FormControl, Typography } from "@material-ui/core"
+import { Select, TextField, Grid, MenuItem, InputLabel, Paper, Button, makeStyles, FormControl, Typography, InputAdornment, CircularProgress } from '@material-ui/core'
 import SaveIcon from '@material-ui/icons/Save'
 import MapView from './MapView'
 import { selectActiveLatLng } from '../reducers/latLngReducer'
 import { connect } from "react-redux"
 import { sendLatLng } from '../actions/latLngAction'
-import InputAdornment from '@material-ui/core/InputAdornment'
 import useAddMarker from '../hooks/useAddMarker'
 import { useLocation } from 'wouter'
-import CircularProgress from '@material-ui/core/CircularProgress'
 import Alert from '@material-ui/lab/Alert';
 
 const useStyles = makeStyles((theme) => ({
@@ -110,8 +106,6 @@ function AddMarker({ latlng }) {
         }
         return () => ac.abort();
     }, [navigate])
-
-
 
     const handleSubmit = () => {
         addmarker({ category, title, latitude, longitude })

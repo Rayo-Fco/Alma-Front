@@ -1,12 +1,7 @@
 import React from 'react';
 import MapViewData from './MapViewData'
-import Table from '@material-ui/core/Table';
-import TableBody from '@material-ui/core/TableBody';
-import TableCell from '@material-ui/core/TableCell';
-import TableContainer from '@material-ui/core/TableContainer';
-import TableHead from '@material-ui/core/TableHead';
-import TableRow from '@material-ui/core/TableRow';
-import { Grid, makeStyles, Paper } from "@material-ui/core";
+import { TableBody, TableCell, TableContainer, TableHead, TableRow, Grid, makeStyles, Paper, Table } from '@material-ui/core';
+
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -63,7 +58,6 @@ const useStyles = makeStyles((theme) => ({
         marginBottom: 30
     },
     paperform: {
-        padding: '15px',
         marginTop: theme.spacing(3),
         height: '80'
     },

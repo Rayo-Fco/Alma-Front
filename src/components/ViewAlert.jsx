@@ -7,6 +7,10 @@ import useFindHelpSOS from '../hooks/useFindHelpSOS';
 import { useLocation } from 'wouter';
 import PlayCircleOutlineIcon from '@material-ui/icons/PlayCircleOutline';
 import { useRut } from 'react-rut';
+import Accordion from '@material-ui/core/Accordion';
+import AccordionDetails from '@material-ui/core/AccordionDetails';
+import AccordionSummary from '@material-ui/core/AccordionSummary';
+import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 
 const useStyles = makeStyles((theme) => ({
     typ: {
@@ -24,10 +28,10 @@ const useStyles = makeStyles((theme) => ({
         fontSize: '70%'
     },
     typho: {
-        fontSize: 20,
+        fontSize: 15,
     },
     b: {
-        fontSize: 20,
+        fontSize: 15,
         color: 'black'
     },
     container: {
@@ -57,33 +61,57 @@ const useStyles = makeStyles((theme) => ({
         textAlign: 'center',
         paddingBottom: 15,
         paddingTop: 15,
+
     },
     contUsers: {
         paddingBottom: 15,
         paddingTop: 15,
-        backgroundColor: '#dedede',
-        marginBottom: 10,
-        borderTop: '1px solid black',
-        borderBottom: '1px solid black'
+        backgroundColor: '#f0f0f0'
+
+    },
+    contUsersMap: {
+        borderTop: '2px solid black',
+        borderBottom: '2px solid black',
+        marginBottom: '-2px'
+    },
+    heading: {
+        fontSize: theme.typography.pxToRem(15),
+        flexBasis: '33.33%',
+        flexShrink: 0,
+    },
+    secondaryHeading: {
+        fontSize: theme.typography.pxToRem(15),
+        color: theme.palette.text.secondary,
+    },
+    accordion: {
+        backgroundColor: '#fdcff7',
+        textAlign: 'initial'
+    },
+    accordionDetails: {
+        backgroundColor: '#f0f0f0'
     }
 }))
 
 function ViewAlert(props) {
     const classes = useStyles();
-    const [helpSOS2, setHelpSOS2] = useState({ User: [] })
     const [helpSOS, setHelpSOS] = useState({ User: [] })
     const [, navigate] = useLocation()
     const { findhelpsos, helpsos } = useFindHelpSOS()
     const [{ formattedValue }, setRut] = useRut();
+    const [expanded, setExpanded] = React.useState(false);
+
+    const handleChange = (panel) => (event, isExpanded) => {
+        setExpanded(isExpanded ? panel : false);
+    };
 
     useEffect(() => {
+        window.scrollTo(0, 0)
         let isMounted = true
         const token = window.sessionStorage.getItem('tokenadmin')
         axios.get('http://localhost:3001/helpSOS/all', {
             headers: { Authorization: "Bearer " + token }
         })
             .then(res => {
-                console.log(res.data);
                 if (isMounted) {
                     setHelpSOS({ User: res.data })
                 }
@@ -106,21 +134,14 @@ function ViewAlert(props) {
         return () => ac.abort();
     }, [navigate])
 
-    useEffect(() => {
-        if (helpsos) {
-            setHelpSOS2({ User: helpsos })
-        }
-    }, [helpsos])
 
-    const showDatasUser = (user) => {
-        navigate(`/needhelp/${user}`)
+    const showDatasUser = (user, index) => {
+        navigate(`/needhelpall/${user}/${index}`)
     }
 
     const handleSubmit = e => {
         const rut = formattedValue
         findhelpsos({ rut })
-        console.log(helpsos)
-        console.log(formattedValue)
     };
 
     return (
@@ -154,66 +175,134 @@ function ViewAlert(props) {
                                     ?
                                     <>
                                         {
-                                            helpSOS2.User.map((help, index) => (
-                                                <Grid container className={classes.contUsers} key={index}>
-                                                    <Grid item xs={12} sm={4} className={classes.listGrid}>
-                                                        <Typography className={classes.typho} color="primary">
-                                                            <b className={classes.b}>Email </b> <br />
-                                                            {help.user[0].email}
-                                                        </Typography>
-                                                    </Grid>
-                                                    <Grid item xs={12} sm={4} className={classes.listGrid}>
-                                                        <Typography className={classes.typho} color="primary">
-                                                            <b className={classes.b}>Rut </b>  <br />
-                                                            {help.user[0].rut}
-                                                        </Typography>
-                                                    </Grid>
+                                            helpsos.map((help, index) => (
+                                                <div key={index} >
+                                                    <Accordion expanded={expanded === 'panel' + index} onChange={handleChange('panel' + index)}>
+                                                        <AccordionSummary
+                                                            expandIcon={<ExpandMoreIcon />}
+                                                            aria-controls="panel1bh-content"
+                                                            id="panel1bh-header"
+                                                            className={classes.accordion}
+                                                        >
+                                                            <Typography className={classes.heading}>Rut: {help.user[0].rut} </Typography>
+                                                            <Typography className={classes.secondaryHeading}>Alertas ({help.puntos.length}) </Typography>
+                                                        </AccordionSummary>
+                                                        <AccordionDetails className={classes.accordionDetails}>
+                                                            <Grid container className={classes.contUsers} key={index}>
 
-                                                    <Grid item xs={12} sm={2} className={classes.listGrid}>
-                                                        <Typography className={classes.typho} color="primary">
-                                                            <b className={classes.b}>Puntos </b>  <br />
-                                                            {help.puntos.length}
-                                                        </Typography>
-                                                    </Grid>
+                                                                {
+                                                                    help.puntos.slice(0).reverse().map((point, index) => (
+                                                                        <Grid container className={classes.contUsersMap} key={index}>
+                                                                            <Grid item xs={12} sm={1} className={classes.listGrid}>
+                                                                                <Typography className={classes.typho} color="primary">
+                                                                                    <b className={classes.b}>№ </b> <br />
+                                                                                    {index + 1}
+                                                                                </Typography>
+                                                                            </Grid>
+                                                                            <Grid item xs={12} sm={3} className={classes.listGrid}>
+                                                                                <Typography className={classes.typho} color="primary">
+                                                                                    <b className={classes.b}>Email </b> <br />
+                                                                                    {help.user[0].email}
+                                                                                </Typography>
+                                                                            </Grid>
+                                                                            <Grid item xs={12} sm={3} className={classes.listGrid}>
+                                                                                <Typography className={classes.typho} color="primary">
+                                                                                    <b className={classes.b}>Fecha </b>  <br />
+                                                                                    {point.date.split("T")[0].split('-').reverse().join('/')}
+                                                                                </Typography>
+                                                                            </Grid>
 
-                                                    <Grid item xs={12} sm={1} className={classes.listGrid} style={{ display: 'flex' }}>
-                                                        <IconButton edge="end" style={{ margin: 'auto', display: 'flex' }} aria-label="delete" onClick={() => showDatasUser()}>
-                                                            <PlayCircleOutlineIcon />
-                                                        </IconButton>
-                                                    </Grid>
-                                                </Grid>
+                                                                            <Grid item xs={12} sm={3} className={classes.listGrid}>
+                                                                                <Typography className={classes.typho} color="primary">
+                                                                                    <b className={classes.b}>Hora </b>  <br />
+                                                                                    {point.date.split("T")[1].split("7Z")[0].split(".")[0]}
+                                                                                </Typography>
+                                                                            </Grid>
+                                                                            <Grid item xs={12} sm={1} className={classes.listGrid}>
+                                                                                <Typography className={classes.typho} color="primary">
+                                                                                    <b className={classes.b}>Puntos </b>  <br />
+                                                                                    {point.coordinates.length}
+                                                                                </Typography>
+                                                                            </Grid>
+                                                                            <Grid item xs={12} sm={1} className={classes.listGrid} style={{ display: 'flex' }}>
+                                                                                <IconButton edge="end" style={{ margin: 'auto', display: 'flex' }} aria-label="delete" onClick={() => showDatasUser(help.user[0].rut, index  )}>
+                                                                                    <PlayCircleOutlineIcon />
+                                                                                </IconButton>
+                                                                            </Grid>
+                                                                        </Grid>
+
+                                                                    ))
+                                                                }
+                                                            </Grid>
+                                                        </AccordionDetails>
+                                                    </Accordion>
+                                                </div>
                                             ))
                                         }
                                     </>
                                     :
                                     helpSOS.User.map((help, index) => (
-                                            <Grid container className={classes.contUsers} key={index} >
-                                                <Grid item xs={12} sm={4} className={classes.listGrid}>
-                                                    <Typography className={classes.typho} color="primary">
-                                                        <b className={classes.b}>Email </b> <br />
-                                                        {help.user[0].email}
-                                                    </Typography>
-                                                </Grid>
-                                                <Grid item xs={12} sm={4} className={classes.listGrid}>
-                                                    <Typography className={classes.typho} color="primary">
-                                                        <b className={classes.b}>Rut </b>  <br />
-                                                        {help.user[0].rut}
-                                                    </Typography>
-                                                </Grid>
+                                        <div key={index} >
+                                            <Accordion expanded={expanded === 'panel'+ index} onChange={handleChange('panel'+ index)}>
+                                                <AccordionSummary
+                                                    expandIcon={<ExpandMoreIcon />}
+                                                    aria-controls="panel1bh-content"
+                                                    id="panel1bh-header"
+                                                    className={classes.accordion}
+                                                >
+                                                    <Typography className={classes.heading}>Rut: {help.user[0].rut} </Typography>
+                                                    <Typography className={classes.secondaryHeading}>Alertas ({help.puntos.length}) </Typography>
+                                                </AccordionSummary>
+                                                <AccordionDetails className={classes.accordionDetails}>
+                                                    <Grid container className={classes.contUsers} key={index}>
 
-                                                <Grid item xs={12} sm={2} className={classes.listGrid}>
-                                                    <Typography className={classes.typho} color="primary">
-                                                        <b className={classes.b}>Puntos </b>  <br />
-                                                        {help.puntos.length}
-                                                    </Typography>
-                                                </Grid>
+                                                        {
+                                                            help.puntos.slice(0).reverse().map((point, index) => (
+                                                                <Grid container className={classes.contUsersMap} key={index}>
+                                                                    <Grid item xs={12} sm={1} className={classes.listGrid}>
+                                                                        <Typography className={classes.typho} color="primary">
+                                                                            <b className={classes.b}>№ </b> <br />
+                                                                            {index + 1}
+                                                                        </Typography>
+                                                                    </Grid>
+                                                                    <Grid item xs={12} sm={3} className={classes.listGrid}>
+                                                                        <Typography className={classes.typho} color="primary">
+                                                                            <b className={classes.b}>Email </b> <br />
+                                                                            {help.user[0].email}
+                                                                        </Typography>
+                                                                    </Grid>
+                                                                    <Grid item xs={12} sm={3} className={classes.listGrid}>
+                                                                        <Typography className={classes.typho} color="primary">
+                                                                            <b className={classes.b}>Fecha </b>  <br />
+                                                                            {point.date.split("T")[0].split('-').reverse().join('/')}
+                                                                        </Typography>
+                                                                    </Grid>
 
-                                                <Grid item xs={12} sm={1} className={classes.listGrid} style={{ display: 'flex' }}>
-                                                    <IconButton edge="end" style={{ margin: 'auto', display: 'flex' }} aria-label="delete" onClick={() => showDatasUser(help.user[0].rut)}>
-                                                        <PlayCircleOutlineIcon />
-                                                    </IconButton>
-                                                </Grid>
-                                            </Grid>
+                                                                    <Grid item xs={12} sm={3} className={classes.listGrid}>
+                                                                        <Typography className={classes.typho} color="primary">
+                                                                            <b className={classes.b}>Hora </b>  <br />
+                                                                            {point.date.split("T")[1].split("7Z")[0].split(".")[0]}
+                                                                        </Typography>
+                                                                    </Grid>
+                                                                    <Grid item xs={12} sm={1} className={classes.listGrid}>
+                                                                        <Typography className={classes.typho} color="primary">
+                                                                            <b className={classes.b}>Puntos </b>  <br />
+                                                                            {point.coordinates.length}
+                                                                        </Typography>
+                                                                    </Grid>
+                                                                    <Grid item xs={12} sm={1} className={classes.listGrid} style={{ display: 'flex' }}>
+                                                                        <IconButton edge="end" style={{ margin: 'auto', display: 'flex' }} aria-label="delete" onClick={() => showDatasUser(help.user[0].rut, index )}>
+                                                                            <PlayCircleOutlineIcon />
+                                                                        </IconButton>
+                                                                    </Grid>
+                                                                </Grid>
+
+                                                            ))
+                                                        }
+                                                    </Grid>
+                                                </AccordionDetails>
+                                            </Accordion>
+                                        </div>
 
                                     ))
                             }

@@ -11,8 +11,6 @@ import MainAdmin from './MainAdmin'
 import MapView from './MapView'
 import ListCommunes from './ListCommunes'
 import AddMarker from './AddMarker'
-import EditMarker from './EditMarker'
-import DeleteMarker from './DeleteMarker'
 import NavBar from './NavBar'
 import About from './About'
 import InfoComunas from './InfoComuna'
@@ -49,10 +47,6 @@ function App() {
               </Route>
               <Route component={AddMarker} exact path="/add">
               </Route>
-              <Route component={EditMarker} exact path="/edit">
-              </Route>
-              <Route component={DeleteMarker} exact path="/delete">
-              </Route>
               <Route component={About} exact path="/about">
               </Route>
               <Route component={InfoComunas} exact path="/info">
@@ -73,7 +67,7 @@ function App() {
               </Route>
               <Route component={DataTable} exact path="/data">
               </Route>
-              <Route component={MapViewHelpAll} exact path="/needhelpall/:helpRut">
+              <Route component={MapViewHelpAll} exact path="/needhelpall/:helpRut/:helpalert">
               </Route>
             </Switch>
             <Footer />

@@ -10,7 +10,7 @@ export default function useFindHelpSOS() {
         findhelsosServices({ rut })
             .then(helpsosres => {
                 if (helpsosres) {
-                    if (helpsosres.length <= 1){
+                    if (helpsosres === "ok" ){
                         setState({ succeed: true, error: false, errormsj: '' })
 
                     }else{

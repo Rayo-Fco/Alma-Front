@@ -58,16 +58,14 @@ export default function CustomizedTables() {
       headers: { Authorization: "Bearer " + token }
     })
       .then(res => {
-        console.log(res.data);
         if (isMounted) {
-          console.log(res.data.numero_help[0].total_puntos);
           const row = [
             createData('Checkins', res.data.numero_checkin),
             createData('Usuarios', res.data.numero_user),
             createData('Comisarias', res.data.numero_comisaria),
             createData('Cuarteles', res.data.numero_cuartes),
             createData('Comunas', res.data.numero_comuna),
-            createData('Puntos de SOS', res.data.numero_help[0].total_puntos),
+            createData('Alertas de SOS', res.data.numero_help[0].total_puntos),
 
           ];
           setRows(row)

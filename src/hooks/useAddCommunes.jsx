@@ -28,7 +28,7 @@ export default function useAddCommune() {
                 })
                 .catch(err => {
                     let errores = []
-                    errores.push('La comuna ' + commune + ' ya ha sido registrado')
+                    errores.push('Ha ocurrido un error, ingrese bien los datos')
                     setState({ succeed: false, loading: false, error: true, errormsj: errores })
 
                 })

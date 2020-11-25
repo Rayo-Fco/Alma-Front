@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { Map, TileLayer } from 'react-leaflet'
 import 'leaflet/dist/leaflet.css'
-import Markers from './Markers'
 import LocateControl from './LocateControl';
 import axios from 'axios'
 import { Marker, Popup, Tooltip } from 'react-leaflet'
@@ -39,7 +38,6 @@ function MapViewHelp(props) {
                 0, 0
             ]
         },
-        zoom: 23
     })
 
     useEffect(() => {
@@ -80,8 +78,9 @@ function MapViewHelp(props) {
             .then(res => {
 
                 if (isMounted) {
-                    console.log('pasa');
                     console.log(res.data)
+                    console.log("entro aqui")
+                    console.log(res.data.coordinates[res.data.coordinates.length - 1].latitude)
                     const currentLocation = {
                         "person": [
                             res.data.coordinates[res.data.coordinates.length - 1].latitude,
@@ -124,17 +123,18 @@ function MapViewHelp(props) {
             }
             {!isLoading &&
                 <div style={{ height: '100vh' }}>
-                    <Map center={state2.currentLocation.person} zoom={state2.zoom} style={{ width: '100%', height: '100%' }}>
+                    {console.log(state2.currentLocation.person)}
+                    {console.log(state2)}
+                    <Map center={state2.currentLocation.person} zoom="23" style={{ width: '100%', height: '100%' }}>
                         <TileLayer url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
                             attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors' />
-                        <Markers />
                         <Marker
                             position={state2.currentLocation.person}
                             icon={IconLocation}>
                             <Tooltip direction="bottom" offset={[0, 20]} opacity={1} permanent>
                                 Su ultimo punto cuando apreto SOS <br />
-                                Fecha: {date} <br />
-                                Hora: {hour}
+                                Hora: {hour}<br />
+                                Fecha: {date} 
                             </Tooltip>
                             <Popup>
                                 Aqui esta {user.nombre}

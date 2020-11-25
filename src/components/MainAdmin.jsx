@@ -71,6 +71,7 @@ export default function MainAdmin() {
     const [, navigate] = useLocation()
 
     useEffect(() => {
+        window.scrollTo(0,0)
         const ac = new AbortController();
         if (!sessionStorage.getItem('tokenadmin')) {
             navigate('/')

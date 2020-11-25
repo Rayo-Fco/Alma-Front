@@ -3,7 +3,6 @@ import { makeStyles } from '@material-ui/core/styles';
 import { Grid, Container, Paper, Typography, TextField, Button } from '@material-ui/core';
 import SearchIcon from '@material-ui/icons/Search';
 import axios from 'axios'
-import { Accordion, Card } from 'react-bootstrap';
 import { Map, TileLayer } from 'react-leaflet'
 import { Marker, Popup } from 'react-leaflet'
 import { IconPin } from './IconLocation'
@@ -12,21 +11,13 @@ import { useLocation } from 'wouter';
 import { useRut } from 'react-rut';
 import Modal from '@material-ui/core/Modal';
 import CircularProgress from '@material-ui/core/CircularProgress';
+import Backdrop from '@material-ui/core/Backdrop';
+import Fade from '@material-ui/core/Fade';
+import Accordion from '@material-ui/core/Accordion';
+import AccordionDetails from '@material-ui/core/AccordionDetails';
+import AccordionSummary from '@material-ui/core/AccordionSummary';
+import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 
-function rand() {
-    return Math.round(Math.random() * 20) - 10;
-}
-
-function getModalStyle() {
-    const top = 50 + rand();
-    const left = 50 + rand();
-
-    return {
-        top: `${top}%`,
-        left: `${left}%`,
-        transform: `translate(-${top}%, -${left}%)`,
-    };
-}
 
 const useStyles = makeStyles((theme) => ({
     typ: {
@@ -108,23 +99,51 @@ const useStyles = makeStyles((theme) => ({
     progress: {
         height: '80%',
         width: '80%',
-        paddingTop: '30%',
+        paddingTop: '15%',
+        paddingBottom: '15%',
         paddingLeft: '15%'
 
     },
     circular: {
         color: '#fd9eef'
     },
+    modal: {
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+    },
+    paperMap: {
+        backgroundColor: theme.palette.background.paper,
+        border: '2px solid #000',
+        boxShadow: theme.shadows[5],
+        padding: theme.spacing(2, 4, 3),
+    },
+    paperPhoto: {
+        backgroundColor: theme.palette.background.paper,
+        border: '2px solid #000',
+        boxShadow: theme.shadows[5],
+        padding: theme.spacing(2, 4, 3),
+    },
+    heading: {
+        fontSize: theme.typography.pxToRem(15),
+        flexBasis: '33.33%',
+        flexShrink: 0,
+    },
+    secondaryHeading: {
+        fontSize: theme.typography.pxToRem(15),
+        color: theme.palette.text.secondary,
+    },
+    accordion: {
+        backgroundColor: '#f2f2f2'
+    }
 }))
 
 function ListCheckIns(props) {
     const classes = useStyles();
-    const [checkins2, setCheckins2] = useState({ User: [] })
     const [checkins, setCheckins] = useState({ User: [] })
     const [, navigate] = useLocation()
     const { findcheckin, checkin, isFindLoading } = useFindCheckin()
     const [{ formattedValue }, setRut] = useRut();
-    const [modalStyle] = useState(getModalStyle);
     const [openMap, setOpenMap] = useState(false);
     const [openPhoto, setOpenPhoto] = useState(false);
     const [resOpen, setResOpen] = useState()
@@ -151,6 +170,7 @@ function ListCheckIns(props) {
     };
 
     useEffect(() => {
+        window.scrollTo(0, 0)
         let isMounted = true
         const token = window.sessionStorage.getItem('tokenadmin')
         axios.get('http://localhost:3001/checkin/all', {
@@ -189,12 +209,12 @@ function ListCheckIns(props) {
         return currentLocation
     }
 
+    const [expanded, setExpanded] = React.useState(false);
 
-    useEffect(() => {
-        if (checkin) {
-            setCheckins2({ User: checkin })
-        }
-    }, [checkin])
+    const handleChange = (panel) => (event, isExpanded) => {
+        setExpanded(isExpanded ? panel : false);
+    };
+
 
     const handleSubmit = e => {
         const rut = formattedValue
@@ -203,40 +223,6 @@ function ListCheckIns(props) {
         console.log("algo")
 
     };
-
-    const map = (
-        <div style={modalStyle} className={classes.modalMap}>
-            {resOpen &&
-                <Map center={currentLocation(resOpen.coordinates[0].latitude, resOpen.coordinates[0].longitude)} zoom={25} className={classes.grd}>
-                    <TileLayer url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-                        attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors' />
-                    <Marker
-                        position={currentLocation(resOpen.coordinates[0].latitude, resOpen.coordinates[0].longitude)}
-                        icon={IconPin} >
-                        <Popup>
-                            {resOpen.comuna}
-                        </Popup>
-                    </Marker>
-                </Map>
-            }
-
-        </div>
-    );
-
-    const photo = (
-        <div style={modalStyle} className={classes.modalPhoto}>
-
-
-            {resOpen &&
-
-                <img className={classes.media}
-                    src={resOpen.fotos[0]}
-                    alt="Paella dish" />
-            }
-
-        </div>
-    );
-
 
     return (
         <>
@@ -281,49 +267,62 @@ function ListCheckIns(props) {
                                         </Button>
                                     </Grid>
                                     <Container className={classes.container} style={{ cursor: 'pointer' }}>
-                                        <Accordion>
-                                            {
-                                                checkin
-                                                    ?
-                                                    <>
-                                                        {
-                                                            checkins2.User.map((checkin, index) => (
-                                                                <Paper key={index} elevation={0} style={{ backgroundColor: '#fafafa' }}>
-                                                                    <Accordion.Toggle as={Card.Header} eventKey={index + 1} style={{ display: 'flex' }}>
-                                                                        <Grid item xs={6} >
-                                                                            <Typography className={classes.typho} color="primary">
-                                                                                <b className={classes.b}>Usuario: </b>{checkin.user[0].email}
-                                                                            </Typography>
-                                                                        </Grid>
-                                                                        <Grid item xs={6}>
-                                                                            <Typography color="primary" className={classes.typho}>
-                                                                                <b className={classes.b}>Rut </b>{checkin.user[0].rut}
-                                                                            </Typography>
-                                                                        </Grid>
-                                                                    </Accordion.Toggle>
-                                                                    <Accordion.Collapse className={classes.acordionCollapse} eventKey={index + 1}>
-                                                                        <Card>
-                                                                            <Grid container>
+                                        {
+                                            checkin
+                                                ?
+                                                <>
+                                                    {
+                                                        checkin.map((checkin, index) => (
+                                                            <div key={index} >
+
+                                                                <Accordion expanded={expanded === 'panel' + index} onChange={handleChange('panel' + index)}>
+                                                                    <AccordionSummary
+                                                                        expandIcon={<ExpandMoreIcon />}
+                                                                        id="panel1bh-header"
+                                                                        className={classes.accordion}
+                                                                    >
+                                                                        <Typography className={classes.heading}>
+                                                                            <b className={classes.b}>Rut </b>{checkin.user[0].rut}
+                                                                        </Typography>
+                                                                        <Typography className={classes.secondaryHeading}>
+                                                                            <b className={classes.b}>Usuario: </b>{checkin.user[0].email}
+                                                                        </Typography>
+                                                                    </AccordionSummary>
+                                                                    <AccordionDetails className={classes.accordionDetails}>
+                                                                        <Grid container className={classes.contUsers} key={index}>
+                                                                            <Grid container className={classes.contUsersMap} key={index}>
                                                                                 <Grid item xs={6}>
 
                                                                                     <Grid item xs zeroMinWidth>
-                                                                                        <Typography noWrap>
-                                                                                            <b className={classes.b}>Comuna </b><br />
-                                                                                            {checkin.comuna}
-                                                                                        </Typography>
+                                                                                        {checkin.comuna
+                                                                                            ?
+                                                                                            <Typography noWrap>
+                                                                                                <b className={classes.b}>Comuna </b><br />
+                                                                                                {checkin.comuna}
+                                                                                            </Typography>
+                                                                                            : 
+                                                                                                <Typography noWrap>
+                                                                                                    <b className={classes.b}>Comuna </b><br />
+                                                                                                    N/A
+                                                                                                </Typography>
+                                                                                           
+                                                                                        }
 
                                                                                     </Grid>
                                                                                     <Grid item xs zeroMinWidth>
                                                                                         {
                                                                                             checkin.info[0].numero_depto
                                                                                                 ?
-                                                                                                <Typography noWrap
-                                                                                                ><b className={classes.b}>Numero departamento </b><br />
+                                                                                                <Typography noWrap>
+                                                                                                    <b className={classes.b}>Numero departamento </b><br />
                                                                                                     {checkin.info[0].numero_depto}
                                                                                                 </Typography>
 
                                                                                                 :
-                                                                                                <></>
+                                                                                                <Typography noWrap>
+                                                                                                    <b className={classes.b}>Numero departamento </b><br />
+                                                                                                       N/A
+                                                                                                </Typography>
                                                                                         }
                                                                                     </Grid>
                                                                                     <Grid item xs zeroMinWidth>
@@ -335,7 +334,10 @@ function ListCheckIns(props) {
                                                                                                     {checkin.info[0].numero_piso}
                                                                                                 </Typography>
                                                                                                 :
-                                                                                                <></>
+                                                                                                <Typography noWrap>
+                                                                                                    <b className={classes.b}>Numero de Piso </b> <br />
+                                                                                                N/A
+                                                                                            </Typography>
                                                                                         }
                                                                                     </Grid>
                                                                                     <Grid item xs zeroMinWidth>
@@ -347,13 +349,17 @@ function ListCheckIns(props) {
                                                                                                     {checkin.info[0].extra}
                                                                                                 </Typography>
                                                                                                 :
-                                                                                                <></>
+
+                                                                                                <Typography noWrap>
+                                                                                                    <b className={classes.b}>Extra </b><br />
+                                                                                                   N/A
+                                                                                               </Typography>
                                                                                         }
                                                                                     </Grid>
                                                                                     <Grid item xs zeroMinWidth>
                                                                                         <Typography noWrap>
                                                                                             <b className={classes.b}>Fecha </b><br />
-                                                                                            {checkin.date.split("T")[0]}
+                                                                                            {checkin.date.split("T")[0].split('-').reverse().join('-')}
                                                                                         </Typography>
                                                                                     </Grid>
                                                                                     <Grid item xs zeroMinWidth>
@@ -368,74 +374,78 @@ function ListCheckIns(props) {
                                                                                         <div>
                                                                                             <Button className={classes.modalButton} onClick={() => { handleOpenMap(checkin) }} variant="outlined">
                                                                                                 Abrir mapa
-                                                                                            </Button>
+                                                                                    </Button>
                                                                                             {checkin.fotos[0] &&
                                                                                                 <Button className={classes.modalButton} onClick={() => { handleOpenPhoto(checkin) }} variant="outlined">
                                                                                                     Ver foto
-                                                                                                </Button>
+                                                                                        </Button>
                                                                                             }
-                                                                                            <Modal
-                                                                                                open={openMap}
-                                                                                                onClose={handleCloseMap}
-                                                                                                aria-labelledby="simple-modal-title"
-                                                                                                aria-describedby="simple-modal-description">
-                                                                                                {map}
-                                                                                            </Modal>
-                                                                                            <Modal
-                                                                                                open={openPhoto}
-                                                                                                onClose={handleClosePhoto}
-                                                                                                aria-labelledby="simple-modal-title"
-                                                                                                aria-describedby="simple-modal-description">
-                                                                                                {photo}
-                                                                                            </Modal>
+
                                                                                         </div>
                                                                                     </Grid>
                                                                                 </Grid>
                                                                             </Grid>
-                                                                        </Card>
-                                                                    </Accordion.Collapse>
-                                                                </Paper>
-                                                            ))
-                                                        }
-                                                    </>
-                                                    :
-                                                    checkins.User.map((checkin, index) => (
-                                                        <Paper key={index} elevation={0} style={{ backgroundColor: '#fafafa' }}>
-                                                            <Accordion.Toggle as={Card.Header} eventKey={index + 1} style={{ display: 'flex' }}>
-                                                                <Grid item xs={6} >
-                                                                    <Typography className={classes.typho} color="primary">
-                                                                        <b className={classes.b}>Usuario: </b>{checkin.user[0].email}
-                                                                    </Typography>
-                                                                </Grid>
-                                                                <Grid item xs={6}>
-                                                                    <Typography color="primary" className={classes.typho}>
-                                                                        <b className={classes.b}>Rut </b>{checkin.user[0].rut}
-                                                                    </Typography>
-                                                                </Grid>
-                                                            </Accordion.Toggle>
-                                                            <Accordion.Collapse className={classes.acordionCollapse} eventKey={index + 1}>
-                                                                <Card>
-                                                                    <Grid container>
+
+
+                                                                        </Grid>
+                                                                    </AccordionDetails>
+                                                                </Accordion>
+                                                            </div>
+
+                                                        ))
+                                                    }
+                                                </>
+                                                :
+                                                checkins.User.map((checkin, index) => (
+                                                    <div key={index} >
+
+                                                        <Accordion expanded={expanded === 'panel' + index} onChange={handleChange('panel' + index)}>
+                                                            <AccordionSummary
+                                                                expandIcon={<ExpandMoreIcon />}
+                                                                id="panel1bh-header"
+                                                                className={classes.accordion}>
+                                                                <Typography className={classes.heading}>
+                                                                    <b className={classes.b}>Rut </b>{checkin.user[0].rut}
+                                                                </Typography>
+                                                                <Typography className={classes.secondaryHeading}>
+                                                                    <b className={classes.b}>Usuario: </b>{checkin.user[0].email}
+                                                                </Typography>
+                                                            </AccordionSummary>
+                                                            <AccordionDetails className={classes.accordionDetails}>
+                                                                <Grid container className={classes.contUsers} key={index}>
+                                                                    <Grid container className={classes.contUsersMap} key={index}>
                                                                         <Grid item xs={6}>
 
                                                                             <Grid item xs zeroMinWidth>
-                                                                                <Typography noWrap>
-                                                                                    <b className={classes.b}>Comuna </b><br />
-                                                                                    {checkin.comuna}
-                                                                                </Typography>
+                                                                                {checkin.comuna
+                                                                                    ?
+                                                                                    <Typography noWrap>
+                                                                                        <b className={classes.b}>Comuna </b><br />
+                                                                                        {checkin.comuna}
+                                                                                    </Typography>
+                                                                                    : 
+                                                                                        <Typography noWrap>
+                                                                                            <b className={classes.b}>Comuna </b><br />
+                                                                                                N/A
+                                                                                        </Typography>
+                                                                                    
+                                                                                }
 
                                                                             </Grid>
                                                                             <Grid item xs zeroMinWidth>
                                                                                 {
                                                                                     checkin.info[0].numero_depto
                                                                                         ?
-                                                                                        <Typography noWrap
-                                                                                        ><b className={classes.b}>Numero departamento </b><br />
+                                                                                        <Typography noWrap>
+                                                                                            <b className={classes.b}>Numero departamento </b><br />
                                                                                             {checkin.info[0].numero_depto}
                                                                                         </Typography>
 
                                                                                         :
-                                                                                        <></>
+                                                                                        <Typography noWrap>
+                                                                                        <b className={classes.b}>Numero departamento </b><br />
+                                                                                        N/A
+                                                                                    </Typography>
                                                                                 }
                                                                             </Grid>
                                                                             <Grid item xs zeroMinWidth>
@@ -447,7 +457,10 @@ function ListCheckIns(props) {
                                                                                             {checkin.info[0].numero_piso}
                                                                                         </Typography>
                                                                                         :
-                                                                                        <></>
+                                                                                        <Typography noWrap>
+                                                                                        <b className={classes.b}>Numero de Piso </b> <br />
+                                                                                            N/A
+                                                                                    </Typography>
                                                                                 }
                                                                             </Grid>
                                                                             <Grid item xs zeroMinWidth>
@@ -459,13 +472,16 @@ function ListCheckIns(props) {
                                                                                             {checkin.info[0].extra}
                                                                                         </Typography>
                                                                                         :
-                                                                                        <></>
+                                                                                        <Typography noWrap>
+                                                                                        <b className={classes.b}>Extra </b><br />
+                                                                                        N/A 
+                                                                                    </Typography>
                                                                                 }
                                                                             </Grid>
                                                                             <Grid item xs zeroMinWidth>
                                                                                 <Typography noWrap>
                                                                                     <b className={classes.b}>Fecha </b><br />
-                                                                                    {checkin.date.split("T")[0]}
+                                                                                    {checkin.date.split("T")[0].split('-').reverse().join('-')}
                                                                                 </Typography>
                                                                             </Grid>
                                                                             <Grid item xs zeroMinWidth>
@@ -480,36 +496,24 @@ function ListCheckIns(props) {
                                                                                 <div>
                                                                                     <Button className={classes.modalButton} onClick={() => { handleOpenMap(checkin) }} variant="outlined">
                                                                                         Abrir mapa
-                                                                                    </Button>
+                                                                            </Button>
                                                                                     {checkin.fotos[0] &&
                                                                                         <Button className={classes.modalButton} onClick={() => { handleOpenPhoto(checkin) }} variant="outlined">
                                                                                             Ver foto
-                                                                                        </Button>
+                                                                                </Button>
                                                                                     }
-                                                                                    <Modal
-                                                                                        open={openMap}
-                                                                                        onClose={handleCloseMap}
-                                                                                        aria-labelledby="simple-modal-title"
-                                                                                        aria-describedby="simple-modal-description">
-                                                                                        {map}
-                                                                                    </Modal>
-                                                                                    <Modal
-                                                                                        open={openPhoto}
-                                                                                        onClose={handleClosePhoto}
-                                                                                        aria-labelledby="simple-modal-title"
-                                                                                        aria-describedby="simple-modal-description">
-                                                                                        {photo}
-                                                                                    </Modal>
+
                                                                                 </div>
                                                                             </Grid>
                                                                         </Grid>
                                                                     </Grid>
-                                                                </Card>
-                                                            </Accordion.Collapse>
-                                                        </Paper>
-                                                    ))
-                                            }
-                                        </Accordion>
+                                                                </Grid>
+                                                            </AccordionDetails>
+                                                        </Accordion>
+                                                    </div>
+
+                                                ))
+                                        }
                                     </Container>
                                 </Grid>
                             </Paper>
@@ -517,6 +521,58 @@ function ListCheckIns(props) {
                     }
                 </>
             }
+            <Modal
+                aria-labelledby="transition-modal-title"
+                aria-describedby="transition-modal-description"
+                className={classes.modal}
+                open={openMap}
+                onClose={handleCloseMap}
+                closeAfterTransition
+                BackdropComponent={Backdrop}
+                BackdropProps={{
+                    timeout: 500,
+                }}>
+                <Fade in={openMap}>
+                    <div className={classes.modalMap}>
+                        {resOpen &&
+                            <Map center={currentLocation(resOpen.coordinates[0].latitude, resOpen.coordinates[0].longitude)} zoom={25} className={classes.grd}>
+                                <TileLayer url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+                                    attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors' />
+                                <Marker
+                                    position={currentLocation(resOpen.coordinates[0].latitude, resOpen.coordinates[0].longitude)}
+                                    icon={IconPin} >
+                                    <Popup>
+                                        {resOpen.comuna}
+                                    </Popup>
+                                </Marker>
+                            </Map>
+                        }
+                    </div>
+                </Fade>
+            </Modal>
+            <Modal
+                aria-labelledby="transition-modal-title"
+                aria-describedby="transition-modal-description"
+                className={classes.modal}
+                open={openPhoto}
+                onClose={handleClosePhoto}
+                closeAfterTransition
+                BackdropComponent={Backdrop}
+                BackdropProps={{
+                    timeout: 500,
+                }}>
+                <Fade in={openPhoto}>
+                    <div className={classes.paperPhoto}>
+
+                        {resOpen &&
+
+                            <img className={classes.media}
+                                src={resOpen.fotos[0]}
+                                alt="Paella dish" />
+                        }
+                    </div>
+                </Fade>
+            </Modal>
         </>
 
     );

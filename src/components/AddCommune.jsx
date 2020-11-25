@@ -125,6 +125,7 @@ function RegistroComuna() {
                                 onChange={(e) => setCommune(e.target.value)}
                             />
                             <TextField
+                                type="number"
                                 className={classes.input}
                                 label="Telefono"
                                 variant="outlined"

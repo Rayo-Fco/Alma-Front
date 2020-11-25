@@ -74,8 +74,7 @@ function Markers({ latlng, sendLatLng, sendIdMarker}) {
                 <Marker
                     icon={IconCarabineros}
                     key={index}
-                    position={JSON.parse("[" + markerC.latitude + ", " + markerC.longitude + "]")}
-                    onClick={(markersC) => { console.log(markersC) }}>
+                    position={JSON.parse("[" + markerC.latitude + ", " + markerC.longitude + "]")}>
                     <Popup>
                         {markerC.title}
                     </Popup>
@@ -87,8 +86,7 @@ function Markers({ latlng, sendLatLng, sendIdMarker}) {
                 <Marker
                     icon={IconPdi}
                     key={index}
-                    position={JSON.parse("[" + markerP.latitude + ", " + markerP.longitude + "]")}
-                    onClick={(markersP) => { console.log(markersP) }}>
+                    position={JSON.parse("[" + markerP.latitude + ", " + markerP.longitude + "]")}>
                     <Popup>
                         {markerP.title}
                     </Popup>

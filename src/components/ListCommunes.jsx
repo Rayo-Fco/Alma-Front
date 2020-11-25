@@ -1,12 +1,13 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import { Grid, List, ListItem, ListItemAvatar, Avatar, ListItemText, IconButton, Container, Paper, Typography } from '@material-ui/core'
 import RoomIcon from '@material-ui/icons/Room';
 import PlayCircleOutlineIcon from '@material-ui/icons/PlayCircleOutline';
 import { Link } from 'wouter'
 import { connect } from "react-redux"
-import { comunas } from '../assets/comunas.json';
 import { sendCommunes } from '../actions/communesAction'
+import axios from 'axios'
+import CircularProgress from '@material-ui/core/CircularProgress';
 
 const useStyles = makeStyles((theme) => ({
     title: {
@@ -30,16 +31,67 @@ const useStyles = makeStyles((theme) => ({
         paddingTop: 25,
         fontSize: 40
     },
+    progress: {
+        height: '80%',
+        width: '80%',
+        paddingTop: '15%',
+        paddingBottom: '15%',
+        paddingLeft: '15%'
+
+    },
+    circular: {
+        color: '#fd9eef'
+    },
 }));
 
 
 function ListComunas({ sendCommunes }) {
     const classes = useStyles();
+    const [isLoading, setIsLoading] = useState(true)
+    const [communes, setCommunes] = useState({commune:[]})
     const handleMap = (comunas) => {
         sendCommunes(comunas)
     }
-    return (
 
+
+    useEffect(() => {
+        window.scrollTo(0,0)
+        let isMounted = true
+        let source = axios.CancelToken.source();
+        const token = window.sessionStorage.getItem('tokenadmin')
+
+        axios.get('http://localhost:3001/comuna/all', {
+            headers: { Authorization: "Bearer " + token },
+            cancelToken: source.token,
+        })
+            .then(res => {
+                if (isMounted) {
+                    setCommunes({ commune: res.data })
+                    setIsLoading(false)
+
+                }
+            }).catch(function (e) {
+                if (isMounted) {
+                    if (axios.isCancel(e)) {
+                    }
+                }
+            })
+        return function () {
+            isMounted = false;
+        }
+
+    }, [setCommunes]);
+
+
+    return (
+        <>
+        {isLoading &&
+            <div className={classes.progress}>
+                <CircularProgress className={classes.circular} style={{ width: '30%', height: '30%', }} />
+            </div>
+        }
+
+        {!isLoading &&
         <Container fixed>
 
             <Grid container>
@@ -50,8 +102,8 @@ function ListComunas({ sendCommunes }) {
                     </Typography>
                         <List>
                             {
-                                comunas.map(comuna => (
-                                    <Link to='/info' className="link" key={comuna.id} onClick={() => handleMap(comuna.name)}>
+                                communes.commune.map(commune => (
+                                    <Link to='/info' className="link" key={commune._id} onClick={() => handleMap(commune.comuna)}>
                                         <ListItem button >
                                             <ListItem>
                                                 <Grid item xs={3}>
@@ -61,12 +113,12 @@ function ListComunas({ sendCommunes }) {
                                                         </Avatar>
                                                     </ListItemAvatar>
                                                 </Grid>
-                                                <Grid  item xs={3}>
-                                                    <ListItemText primary={`${comuna.name}`} />
+                                                <Grid item xs={3}>
+                                                    <ListItemText primary={`${commune.comuna}`} />
                                                 </Grid>
 
                                             </ListItem>
-                                            <Grid  item xs={3}>
+                                            <Grid item xs={3}>
                                                 <IconButton edge="end" aria-label="delete">
                                                     <PlayCircleOutlineIcon />
                                                 </IconButton>
@@ -80,7 +132,8 @@ function ListComunas({ sendCommunes }) {
                 </Grid>
             </Grid>
         </Container>
-
+                        }
+</>
     );
 }
 
