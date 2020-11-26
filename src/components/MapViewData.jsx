@@ -327,7 +327,7 @@ function MapViewData({ communes }) {
                     const rows = [
                         createData('Comuna', communes),
                         createData('Cantidad de check in', qtyC),
-                        createData('Cantidad de Alertas', qtyA),
+                        createData('Cantidad de alertas', qtyA),
                     ];
                     setRows(rows)
                     setIsLoading(false)
@@ -360,8 +360,7 @@ function MapViewData({ communes }) {
                 <div className={classes.progress}>
                     <CircularProgress className={classes.circular} style={{ width: '30%', height: '30%', }} />
                 </div>
-            }
-
+            }W
             {!isLoading &&
                 <div className={classes.root}>
                     <Grid container>
