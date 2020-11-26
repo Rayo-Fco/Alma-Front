@@ -4,7 +4,6 @@ import { IconCarabineros, IconPdi } from './IconLocation'
 import { selectActiveLatLng } from '../reducers/latLngReducer'
 import { connect } from "react-redux";
 import { sendLatLng } from '../actions/latLngAction'
-import { sendIdMarker } from '../actions/idMarkerAction'
 import axios from 'axios'
 
 const mapStateToProps = state => {
@@ -98,4 +97,4 @@ function Markers({ latlng, sendLatLng, sendIdMarker}) {
         </div>
     )
 }
-export default connect(mapStateToProps, { sendLatLng, sendIdMarker })(Markers)
+export default connect(mapStateToProps, { sendLatLng })(Markers)
