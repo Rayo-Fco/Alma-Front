@@ -12,7 +12,7 @@ const mapStateToProps = state => {
     }
 }
 
-function Markers({ latlng, sendLatLng, sendIdMarker}) {
+function Markers() {
     const [comisaria, setComisaria] = useState({ markersC: [] })
     const [pdi, setPdi] = useState({ markersP: [] })
 
