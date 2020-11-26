@@ -359,13 +359,13 @@ function ListCheckIns(props) {
                                                                                     <Grid item xs zeroMinWidth>
                                                                                         <Typography noWrap>
                                                                                             <b className={classes.b}>Fecha </b><br />
-                                                                                            {checkin.date.split("T")[0].split('-').reverse().join('-')}
+                                                                                            {new Date(checkin.date).toLocaleDateString()}
                                                                                         </Typography>
                                                                                     </Grid>
                                                                                     <Grid item xs zeroMinWidth>
                                                                                         <Typography noWrap>
                                                                                             <b className={classes.b}>Hora </b> <br />
-                                                                                            {checkin.date.split("T")[1].split("7Z")[0].split(".")[0]}
+                                                                                            {new Date(checkin.date).toLocaleTimeString()}
                                                                                         </Typography>
                                                                                     </Grid>
                                                                                 </Grid>
@@ -481,13 +481,13 @@ function ListCheckIns(props) {
                                                                             <Grid item xs zeroMinWidth>
                                                                                 <Typography noWrap>
                                                                                     <b className={classes.b}>Fecha </b><br />
-                                                                                    {checkin.date.split("T")[0].split('-').reverse().join('-')}
+                                                                                    {new Date(checkin.date).toLocaleDateString()}
                                                                                 </Typography>
                                                                             </Grid>
                                                                             <Grid item xs zeroMinWidth>
                                                                                 <Typography noWrap>
                                                                                     <b className={classes.b}>Hora </b> <br />
-                                                                                    {checkin.date.split("T")[1].split("7Z")[0].split(".")[0]}
+                                                                                    {new Date(checkin.date).toLocaleTimeString()}
                                                                                 </Typography>
                                                                             </Grid>
                                                                         </Grid>

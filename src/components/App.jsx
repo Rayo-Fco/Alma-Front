@@ -13,7 +13,6 @@ import ListCommunes from './ListCommunes'
 import AddMarker from './AddMarker'
 import NavBar from './NavBar'
 import About from './About'
-import InfoComunas from './InfoComuna'
 import MapViewData from './MapViewData'
 import RegisterAdmin from './RegisterAdmin'
 import RegistroComuna from './AddCommune'
@@ -22,6 +21,7 @@ import ListCheckIns from './ListCheckIns'
 import NeedHelp from './NeedHelp'
 import MapViewHelp from './MapViewHelp'
 import MapViewHelpAll from './MapViewHelpAll'
+
 import 'bootstrap/dist/css/bootstrap.min.css'
 import { UserContextProvider } from '../context/UserContext'
 import DataTable from './DataTable'
@@ -49,9 +49,7 @@ function App() {
               </Route>
               <Route component={About} exact path="/about">
               </Route>
-              <Route component={InfoComunas} exact path="/info">
-              </Route>
-              <Route component={MapViewData} exact path="/mapdata">
+              <Route component={MapViewData} exact path="/info">
               </Route>
               <Route component={RegisterAdmin} exact path="/regAdmin">
               </Route>

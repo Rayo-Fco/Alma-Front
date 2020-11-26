@@ -1,13 +1,13 @@
 import React, { useState, useEffect } from 'react'
 import { Map, TileLayer } from 'react-leaflet'
 import 'leaflet/dist/leaflet.css'
-import LocateControl from './LocateControl';
+import LocateControl from './LocateControl'
 import axios from 'axios'
 import { Marker, Popup, Tooltip } from 'react-leaflet'
 import { IconLocation } from './IconLocation'
-import CircularProgress from '@material-ui/core/CircularProgress';
-import { makeStyles } from '@material-ui/core/styles';
-import { useLocation } from 'wouter';
+import CircularProgress from '@material-ui/core/CircularProgress'
+import { makeStyles } from '@material-ui/core/styles'
+import { useLocation } from 'wouter'
 
 const useStyles = makeStyles((theme) => ({
     progress: {
@@ -41,6 +41,7 @@ function MapViewHelp(props) {
     })
 
     useEffect(() => {
+        window.scrollTo(0,0)
         const interval = setInterval(() => {
             axios.get(`http://localhost:3001/gethelp?token=${helptoken}`, {
                 cancelToken: source.token,
@@ -54,9 +55,8 @@ function MapViewHelp(props) {
                             ]
 
                         }
-                        const datelatin = res.data.coordinates[res.data.coordinates.length - 1].date.split("T")[0].split('-').reverse().join('/');
-                        setDate(datelatin)
-                        setHour(res.data.coordinates[res.data.coordinates.length - 1].date.split("T")[1].split("7Z")[0].split(".")[0])
+                        setHour(new Date(res.data.coordinates[res.data.coordinates.length - 1].date).toLocaleTimeString())
+                        setDate(new Date(res.data.coordinates[res.data.coordinates.length - 1].date).toLocaleDateString())
                         setUser(res.data.user[0])
                         setState2({ currentLocation })
                         setIsLoading(false)
@@ -78,9 +78,6 @@ function MapViewHelp(props) {
             .then(res => {
 
                 if (isMounted) {
-                    console.log(res.data)
-                    console.log("entro aqui")
-                    console.log(res.data.coordinates[res.data.coordinates.length - 1].latitude)
                     const currentLocation = {
                         "person": [
                             res.data.coordinates[res.data.coordinates.length - 1].latitude,
@@ -88,10 +85,8 @@ function MapViewHelp(props) {
                         ]
 
                     }
-                    const datelatin = res.data.coordinates[res.data.coordinates.length - 1].date.split("T")[0].split('-').reverse().join('/');
-
-                    setDate(datelatin)
-                    setHour(res.data.coordinates[res.data.coordinates.length - 1].date.split("T")[1].split("7Z")[0].split(".")[0])
+                    setHour(new Date(res.data.coordinates[res.data.coordinates.length - 1].date).toLocaleTimeString())
+                    setDate(new Date(res.data.coordinates[res.data.coordinates.length - 1].date).toLocaleDateString())
                     setUser(res.data.user[0])
                     setState2({ currentLocation })
                     setIsLoading(false)
@@ -100,7 +95,6 @@ function MapViewHelp(props) {
             }).catch(function (e) {
 
                 if (isMounted) {
-                    console.log('pasa');
                     navigate('/needhelp')
                     if (axios.isCancel(e)) {
 
@@ -112,7 +106,7 @@ function MapViewHelp(props) {
             clearInterval(interval);
         }
 
-    }, [helptoken,navigate]);
+    }, [helptoken, navigate]);
 
     return (
         <>
@@ -123,8 +117,6 @@ function MapViewHelp(props) {
             }
             {!isLoading &&
                 <div style={{ height: '100vh' }}>
-                    {console.log(state2.currentLocation.person)}
-                    {console.log(state2)}
                     <Map center={state2.currentLocation.person} zoom="23" style={{ width: '100%', height: '100%' }}>
                         <TileLayer url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
                             attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors' />
@@ -134,7 +126,7 @@ function MapViewHelp(props) {
                             <Tooltip direction="bottom" offset={[0, 20]} opacity={1} permanent>
                                 Su ultimo punto cuando apreto SOS <br />
                                 Hora: {hour}<br />
-                                Fecha: {date} 
+                                Fecha: {date}
                             </Tooltip>
                             <Popup>
                                 Aqui esta {user.nombre}

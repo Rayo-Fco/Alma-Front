@@ -6,7 +6,7 @@ import AddBoxIcon from '@material-ui/icons/AddBox';
 import Alert from '@material-ui/lab/Alert';
 import CircularProgress from '@material-ui/core/CircularProgress';
 
-const usesStyles = makeStyles((theme) => ({
+const useStyles = makeStyles((theme) => ({
     container: {
         margin: 'auto',
         marginTop: theme.spacing(5),
@@ -34,7 +34,7 @@ const usesStyles = makeStyles((theme) => ({
 }))
 
 function RegisterAdmin(props) {
-    const classes = usesStyles();
+    const classes = useStyles();
     const [email, setEmail] = useState('')
     const [nombre, setNombre] = useState('')
     const [apellido, setApellido] = useState('')

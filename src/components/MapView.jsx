@@ -7,7 +7,7 @@ import { connect } from "react-redux"
 import LocateControl from './LocateControl';
 
 function MapView({ sendLatLng }) {
-    
+    window.scrollTo(0,0)
     const [state2] = useState({
         currentLocation: { lat: -33.4372, lng:  -70.6506 },
         zoom: 12

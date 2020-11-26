@@ -1,16 +1,13 @@
-import React, { useEffect, useState } from 'react';
-import { makeStyles } from '@material-ui/core/styles';
-import { Grid, Container, Paper, Typography, IconButton, TextField, Button, List } from '@material-ui/core';
-import SearchIcon from '@material-ui/icons/Search';
+import React, { useEffect, useState } from 'react'
+import { makeStyles } from '@material-ui/core/styles'
+import { Grid, Container, Paper, Typography, IconButton, TextField, Button, List, Accordion, AccordionDetails, AccordionSummary} from '@material-ui/core'
+import SearchIcon from '@material-ui/icons/Search'
 import axios from 'axios'
-import useFindHelpSOS from '../hooks/useFindHelpSOS';
-import { useLocation } from 'wouter';
-import PlayCircleOutlineIcon from '@material-ui/icons/PlayCircleOutline';
-import { useRut } from 'react-rut';
-import Accordion from '@material-ui/core/Accordion';
-import AccordionDetails from '@material-ui/core/AccordionDetails';
-import AccordionSummary from '@material-ui/core/AccordionSummary';
-import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
+import useFindHelpSOS from '../hooks/useFindHelpSOS'
+import { useLocation } from 'wouter'
+import PlayCircleOutlineIcon from '@material-ui/icons/PlayCircleOutline'
+import { useRut } from 'react-rut'
+import ExpandMoreIcon from '@material-ui/icons/ExpandMore'
 
 const useStyles = makeStyles((theme) => ({
     typ: {
@@ -208,14 +205,14 @@ function ViewAlert(props) {
                                                                             <Grid item xs={12} sm={3} className={classes.listGrid}>
                                                                                 <Typography className={classes.typho} color="primary">
                                                                                     <b className={classes.b}>Fecha </b>  <br />
-                                                                                    {point.date.split("T")[0].split('-').reverse().join('/')}
+                                                                                    {new Date(point.date).toLocaleDateString()}
                                                                                 </Typography>
                                                                             </Grid>
 
                                                                             <Grid item xs={12} sm={3} className={classes.listGrid}>
                                                                                 <Typography className={classes.typho} color="primary">
                                                                                     <b className={classes.b}>Hora </b>  <br />
-                                                                                    {point.date.split("T")[1].split("7Z")[0].split(".")[0]}
+                                                                                    {new Date(point.date).toLocaleTimeString()}
                                                                                 </Typography>
                                                                             </Grid>
                                                                             <Grid item xs={12} sm={1} className={classes.listGrid}>
@@ -274,14 +271,14 @@ function ViewAlert(props) {
                                                                     <Grid item xs={12} sm={3} className={classes.listGrid}>
                                                                         <Typography className={classes.typho} color="primary">
                                                                             <b className={classes.b}>Fecha </b>  <br />
-                                                                            {point.date.split("T")[0].split('-').reverse().join('/')}
+                                                                            {new Date(point.date).toLocaleDateString()}
                                                                         </Typography>
                                                                     </Grid>
 
                                                                     <Grid item xs={12} sm={3} className={classes.listGrid}>
                                                                         <Typography className={classes.typho} color="primary">
                                                                             <b className={classes.b}>Hora </b>  <br />
-                                                                            {point.date.split("T")[1].split("7Z")[0].split(".")[0]}
+                                                                            {new Date(point.date).toLocaleTimeString()}
                                                                         </Typography>
                                                                     </Grid>
                                                                     <Grid item xs={12} sm={1} className={classes.listGrid}>

@@ -99,6 +99,7 @@ export default function MapViewHelpAll(props) {
     })
 
     useEffect(() => {
+        window.scrollTo(0,0)
         const ac = new AbortController();
         if (!sessionStorage.getItem('tokenadmin')) {
             navigate('/')
@@ -154,9 +155,9 @@ export default function MapViewHelpAll(props) {
                             createData('Alertas', res.data[0].puntos.length),
                             createData('Puntos', res.data[0].puntos[helpalert].coordinates.length),
                             createData('Puntos repetidos', ind),
-                            createData('Fecha', res.data[0].puntos[helpalert].coordinates[0].date.split("T")[0].split('-').reverse().join('/')),
-                            createData('Hora del primer punto', res.data[0].puntos[helpalert].coordinates[0].date.split("T")[1].split("7Z")[0].split(".")[0] ),
-                            createData('Hora del ultimo punto', res.data[0].puntos[helpalert].coordinates[res.data[0].puntos[helpalert].coordinates.length - 1].date.split("T")[1].split("7Z")[0].split(".")[0]),
+                            createData('Fecha', new Date(res.data[0].puntos[helpalert].coordinates[0].date).toLocaleDateString()),
+                            createData('Hora del primer punto', new Date(res.data[0].puntos[helpalert].coordinates[0].date).toLocaleTimeString()),
+                            createData('Hora del ultimo punto', new Date(res.data[0].puntos[helpalert].coordinates[res.data[0].puntos[helpalert].coordinates.length - 1].date).toLocaleTimeString()),
                         ];
                         setRows(rows)
                         setAlert({ markersPoint: deleteDuplicatePoints })
@@ -205,9 +206,7 @@ export default function MapViewHelpAll(props) {
                                             key={index}
                                             position={JSON.parse("[" + point.latitude + ", " + point.longitude + "]")}>
                                             <Popup>
-
-                                                Hora: {point.date.split("T")[1].split("7Z")[0].split(".")[0]}<br />
-                                              Fecha: {point.date.split("T")[0].split('-').reverse().join('/')}
+                                                Hora: {new Date (point.date).toLocaleTimeString()}
                                             </Popup>
                                         </Marker>
                                     ))
@@ -216,7 +215,7 @@ export default function MapViewHelpAll(props) {
 
                                 </Map>
                             </div>            </Grid>
-                        <Grid item xs={8} sm={5} id="tableform">
+                        <Grid item xs={12} sm={5} id="tableform">
                             <Grid item className={classes.gridform}  >
                                 <Paper className={classes.paperform} elevation={15}>
 
