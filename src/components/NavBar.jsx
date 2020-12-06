@@ -2,6 +2,7 @@ import React from 'react';
 import { AppBar, Toolbar, makeStyles, IconButton } from '@material-ui/core';
 import MenuIcon from '@material-ui/icons/Menu'
 import ExitToAppIcon from '@material-ui/icons/ExitToApp';
+import HelpIcon from '@material-ui/icons/Help';
 import logo from '../img/LogoAlma.png';
 import { Link } from 'wouter';
 import useLogin from '../hooks/useLogin';
@@ -69,6 +70,13 @@ function NavBar({ updateOpen }) {
                             </>
                             :
                             <>
+                                <Link to='/needHelp' className="link">
+                                    <IconButton color="inherit" className={classes.btnLogin}>
+                                        <HelpIcon>
+                                        </HelpIcon>
+                                        SOS
+                                    </IconButton>
+                                </Link>
                                 <div className={classes.tittle}>
                                     <Link to='/' className="link">
                                         <IconButton >

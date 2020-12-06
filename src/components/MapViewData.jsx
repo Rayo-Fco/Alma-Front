@@ -92,16 +92,17 @@ function createData(name, info) {
 }
 function MapViewData({ communes }) {
     const classes = useStyles();
-    const [count, setCount] = useState({ c: 0 })
     const [communeName, SetCommuneName] = useState('')
     const [, navigate] = useLocation()
     const [isLoading, setIsLoading] = useState(true)
     const [rows, setRows] = useState([])
+
     const [state2, setState2] = useState({
         currentLocation: { lat: 0, lng: 0 },
     })
 
     useEffect(() => {
+        const ac = new AbortController();
         window.scrollTo(0, 0)
         let isMounted = true
         let qtyC = 0
@@ -293,66 +294,76 @@ function MapViewData({ communes }) {
             }
         } else if (communes === "") {
             navigate('/')
+
+            return function () {
+                ac.abort()
+            }
+            
         }
         const token = window.sessionStorage.getItem('tokenadmin')
-        axios.get('http://localhost:3001/checkin/all', {
-            headers: { Authorization: "Bearer " + token }
-        })
-            .then(res => {
-                if (isMounted) {
-                    for (let index = 0; index < res.data.length; index++) {
-                        if (communes === res.data[index].comuna) {
-                            qtyC += 1
-                        }
-                    }
-                }
-            }).catch(function (e) {
-                if (isMounted) {
-                    if (axios.isCancel(e)) {
-                    }
-                }
+        const query = async () => {
+            await axios.get('http://localhost:3001/checkin/all', {
+                headers: { Authorization: "Bearer " + token }
             })
-        axios.get('http://localhost:3001/helpSOS/all', {
-            headers: { Authorization: "Bearer " + token }
-        })
-            .then(res => {
-                if (isMounted) {
-                    for (let i = 0; i < res.data.length; i++) {
-                        for (let j = 0; j < res.data[i].puntos.length; j++) {
-                            if (communes === res.data[i].puntos[0].comuna) {
-                                qtyA += 1
+                .then(res => {
+                    if (isMounted) {
+                        for (let index = 0; index < res.data.length; index++) {
+                            if (communes === res.data[index].comuna) {
+                                qtyC += 1
                             }
                         }
+                        const rows = [
+                            createData('Comuna', communes),
+                            createData('Cantidad de check in', qtyC),
+                            createData('Cantidad de alertas', qtyA),
+                        ];
+                        setRows(rows)
                     }
-                    const rows = [
-                        createData('Comuna', communes),
-                        createData('Cantidad de check in', qtyC),
-                        createData('Cantidad de alertas', qtyA),
-                    ];
-                    setRows(rows)
-                    setIsLoading(false)
-                }
-            }).catch(function (e) {
-                if (isMounted) {
-                    if (axios.isCancel(e)) {
+                }).catch(function (e) {
+                    if (isMounted) {
+                        if (axios.isCancel(e)) {
+                        }
                     }
-                }
+                })
+            await axios.get('http://localhost:3001/helpSOS/all', {
+                headers: { Authorization: "Bearer " + token }
             })
+                .then(res => {
+                    if (isMounted) {
+                        for (let i = 0; i < res.data.length; i++) {
+                            for (let j = 0; j < res.data[i].puntos.length; j++) {
+                                if (communes === res.data[i].puntos[j].comuna) {
+                                    qtyA += 1
+                                }
+                            }
+                        }
+                        const rows = [
+                            createData('Comuna', communes),
+                            createData('Cantidad de check in', qtyC),
+                            createData('Cantidad de alertas', qtyA),
+                        ];
+                        setRows(rows)
+                    }
+                }).catch(function (e) {
+                    if (isMounted) {
+                        if (axios.isCancel(e)) {
+                        }
+                    }
+                })
+            setIsLoading(false)
 
-
-
+        }
+        query()
         SetCommuneName(communes)
-        const c = 2
 
-        if (count.c <= 1) {
-            setState2({ currentLocation })
-            setCount({ c })
-        }
+        setState2({ currentLocation })
+
         return function () {
-            isMounted = false;
+            ac.abort()
+            isMounted = false
         }
 
-    }, [count, state2, communes, navigate]);
+    }, [communes, navigate]);
 
     return (
         <>
@@ -360,7 +371,7 @@ function MapViewData({ communes }) {
                 <div className={classes.progress}>
                     <CircularProgress className={classes.circular} style={{ width: '30%', height: '30%', }} />
                 </div>
-            }W
+            }
             {!isLoading &&
                 <div className={classes.root}>
                     <Grid container>

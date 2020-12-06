@@ -39,12 +39,9 @@ const useStyles = makeStyles((theme) => ({
 
 
 export default function Main() {
-    window.scrollTo(0,0)
-
+    window.scrollTo(0, 0)
     const classes = useStyles();
-
     return (
-
         <Grid container>
             <Grid item xs={12} sm={6} className={classes.gr}>
                 <div className={classes.featureText}>
@@ -57,19 +54,17 @@ export default function Main() {
                     <img src={smartphone1} alt="" className="feature-image" />
                 </div>
             </Grid>
-            <Grid item xs={12} style={{ backgroundColor: "#f8f7f4"  }}>
+            <Grid item xs={12} style={{ backgroundColor: "#f8f7f4" }}>
                 <div style={{ margin: "auto", padding: "10", height: "56px" }}>
                     <h2 className="encuentranos" style={{ color: "black" }}> Encuentranos en:</h2>
                 </div>
             </Grid>
-            <Grid item xs={12} sm={6} style={{ backgroundColor: "#f8f7f4"  }}>
-            <div className="lii1"><a href="#!"><img style={{ height: "48px" }} src={GooglePlay} alt="googleplay" /></a></div>
-
+            <Grid item xs={12} sm={6} style={{ backgroundColor: "#f8f7f4" }}>
+                <div className="lii1"><a href="#!"><img style={{ height: "48px" }} src={GooglePlay} alt="googleplay" /></a></div>
             </Grid>
 
-            <Grid item xs={12} sm={6} style={{ backgroundColor: "#f8f7f4"  }} >
-            <div className="lii2" > <a href="#!" ><img style={{ height: "48px" }} src={AppStore} alt="appstore" /></a></div>
-
+            <Grid item xs={12} sm={6} style={{ backgroundColor: "#f8f7f4" }} >
+                <div className="lii2" > <a href="#!" ><img style={{ height: "48px" }} src={AppStore} alt="appstore" /></a></div>
             </Grid>
         </Grid>
 

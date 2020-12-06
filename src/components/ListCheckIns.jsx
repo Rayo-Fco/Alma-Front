@@ -300,12 +300,12 @@ function ListCheckIns(props) {
                                                                                                 <b className={classes.b}>Comuna </b><br />
                                                                                                 {checkin.comuna}
                                                                                             </Typography>
-                                                                                            : 
-                                                                                                <Typography noWrap>
-                                                                                                    <b className={classes.b}>Comuna </b><br />
+                                                                                            :
+                                                                                            <Typography noWrap>
+                                                                                                <b className={classes.b}>Comuna </b><br />
                                                                                                     N/A
                                                                                                 </Typography>
-                                                                                           
+
                                                                                         }
 
                                                                                     </Grid>
@@ -385,13 +385,10 @@ function ListCheckIns(props) {
                                                                                     </Grid>
                                                                                 </Grid>
                                                                             </Grid>
-
-
                                                                         </Grid>
                                                                     </AccordionDetails>
                                                                 </Accordion>
                                                             </div>
-
                                                         ))
                                                     }
                                                 </>
@@ -423,12 +420,11 @@ function ListCheckIns(props) {
                                                                                         <b className={classes.b}>Comuna </b><br />
                                                                                         {checkin.comuna}
                                                                                     </Typography>
-                                                                                    : 
-                                                                                        <Typography noWrap>
-                                                                                            <b className={classes.b}>Comuna </b><br />
+                                                                                    :
+                                                                                    <Typography noWrap>
+                                                                                        <b className={classes.b}>Comuna </b><br />
                                                                                                 N/A
                                                                                         </Typography>
-                                                                                    
                                                                                 }
 
                                                                             </Grid>
@@ -443,7 +439,7 @@ function ListCheckIns(props) {
 
                                                                                         :
                                                                                         <Typography noWrap>
-                                                                                        <b className={classes.b}>Numero departamento </b><br />
+                                                                                            <b className={classes.b}>Numero departamento </b><br />
                                                                                         N/A
                                                                                     </Typography>
                                                                                 }
@@ -458,7 +454,7 @@ function ListCheckIns(props) {
                                                                                         </Typography>
                                                                                         :
                                                                                         <Typography noWrap>
-                                                                                        <b className={classes.b}>Numero de Piso </b> <br />
+                                                                                            <b className={classes.b}>Numero de Piso </b> <br />
                                                                                             N/A
                                                                                     </Typography>
                                                                                 }
@@ -473,8 +469,8 @@ function ListCheckIns(props) {
                                                                                         </Typography>
                                                                                         :
                                                                                         <Typography noWrap>
-                                                                                        <b className={classes.b}>Extra </b><br />
-                                                                                        N/A 
+                                                                                            <b className={classes.b}>Extra </b><br />
+                                                                                        N/A
                                                                                     </Typography>
                                                                                 }
                                                                             </Grid>
@@ -565,7 +561,6 @@ function ListCheckIns(props) {
                     <div className={classes.paperPhoto}>
 
                         {resOpen &&
-
                             <img className={classes.media}
                                 src={resOpen.fotos[0]}
                                 alt="Paella dish" />

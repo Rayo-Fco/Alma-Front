@@ -3,7 +3,7 @@ import MapIcon from '@material-ui/icons/Map'
 import HomeIcon from '@material-ui/icons/Home'
 import AddCircleIcon from '@material-ui/icons/AddCircle'
 import FormatListNumberedRoundedIcon from '@material-ui/icons/FormatListNumberedRounded'
-
+import HelpIcon from '@material-ui/icons/Help';
 import VisibilityIcon from '@material-ui/icons/Visibility'
 import { List, ListItem, ListItemIcon, ListItemText, Divider } from '@material-ui/core'
 import { Link } from 'wouter'
@@ -78,6 +78,11 @@ function ListItemDrawer({ updateOpen }) {
                                     </ListItemIcon>
                                     <ListItemText primary='Lista de comunas'></ListItemText>
                                 </ListItem>
+                            </Link>
+                            <Link to='/needHelp' className="link" onClick={() => { updateOpen(false) }}>
+                                <HelpIcon>
+                                </HelpIcon>
+                                SOS
                             </Link>
                         </>
                         :

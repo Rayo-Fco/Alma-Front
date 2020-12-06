@@ -93,22 +93,19 @@ export default function MapViewHelpAll(props) {
     const [rows, setRows] = useState([])
     const [isLoading, setIsLoading] = useState(true)
     const [alert, setAlert] = useState({ markersPoint: [] })
-    const [position] = useState({
+
+    const [position, setPosition] = useState({
         currentLocation: { lat: -33.4372, lng: -70.6506 },
         zoom: 12
     })
 
-    useEffect(() => {
-        window.scrollTo(0,0)
-        const ac = new AbortController();
-        if (!sessionStorage.getItem('tokenadmin')) {
-            navigate('/')
 
+    useEffect(() => {
+        window.scrollTo(0, 0)
+        let currentLocation = {
+            lat: 0,
+            lng: 0
         }
-        return () => ac.abort();
-    }, [navigate])
-
-    useEffect(() => {
         let isMounted = true
         let interval = ""
         const token = window.sessionStorage.getItem('tokenadmin')
@@ -124,19 +121,19 @@ export default function MapViewHelpAll(props) {
                 cancelToken: source.token,
             })
                 .then(res => {
+                    const index = (res.data[0].puntos.length - helpalert) - 1
 
                     if (isMounted) {
                         let deleteDuplicatePoints = []
                         let ind = 0
-
-                        for (let i = res.data[0].puntos[helpalert].coordinates.length; i > 0; i--) {
-                            if (i === res.data[0].puntos[helpalert].coordinates.length) {
-                                deleteDuplicatePoints.push(res.data[0].puntos[helpalert].coordinates[res.data[0].puntos[helpalert].coordinates.length - 1])
+                        for (let i = res.data[0].puntos[index].coordinates.length; i > 0; i--) {
+                            if (i === res.data[0].puntos[index].coordinates.length) {
+                                deleteDuplicatePoints.push(res.data[0].puntos[index].coordinates[res.data[0].puntos[index].coordinates.length - 1])
 
                             } else {
                                 for (let j = 0; j < deleteDuplicatePoints.length; j++) {
-                                    if (deleteDuplicatePoints[j].latitude !== res.data[0].puntos[helpalert].coordinates[i].latitude && deleteDuplicatePoints[j].longitude !== res.data[0].puntos[helpalert].coordinates[i].longitude) {
-                                        deleteDuplicatePoints.push(res.data[0].puntos[helpalert].coordinates[i])
+                                    if (deleteDuplicatePoints[j].latitude !== res.data[0].puntos[index].coordinates[i].latitude && deleteDuplicatePoints[j].longitude !== res.data[0].puntos[index].coordinates[i].longitude) {
+                                        deleteDuplicatePoints.push(res.data[0].puntos[index].coordinates[i])
 
                                     } else {
                                         ind += 1
@@ -153,24 +150,28 @@ export default function MapViewHelpAll(props) {
                             createData('Nombre completo', res.data[0].user[0].nombre + " " + res.data[0].user[0].apellido),
                             createData('Telefono', res.data[0].user[0].telefono),
                             createData('Alertas', res.data[0].puntos.length),
-                            createData('Puntos', res.data[0].puntos[helpalert].coordinates.length),
+                            createData('Puntos', res.data[0].puntos[index].coordinates.length),
                             createData('Puntos repetidos', ind),
-                            createData('Fecha', new Date(res.data[0].puntos[helpalert].coordinates[0].date).toLocaleDateString()),
-                            createData('Hora del primer punto', new Date(res.data[0].puntos[helpalert].coordinates[0].date).toLocaleTimeString()),
-                            createData('Hora del ultimo punto', new Date(res.data[0].puntos[helpalert].coordinates[res.data[0].puntos[helpalert].coordinates.length - 1].date).toLocaleTimeString()),
+                            createData('Fecha', new Date(res.data[0].puntos[index].coordinates[0].date).toLocaleDateString()),
+                            createData('Hora del primer punto', new Date(res.data[0].puntos[index].coordinates[0].date).toLocaleTimeString()),
+                            createData('Hora del ultimo punto', new Date(res.data[0].puntos[index].coordinates[res.data[0].puntos[index].coordinates.length - 1].date).toLocaleTimeString()),
                         ];
+                        const coordinates = res.data[0].puntos[index].coordinates[res.data[0].puntos[index].coordinates.length - 1]
+                        console.log(res.data[0].puntos[index].coordinates[res.data[0].puntos[index].coordinates.length - 1])
                         setRows(rows)
                         setAlert({ markersPoint: deleteDuplicatePoints })
-                        console.log("llego xd?");
-                        console.log(deleteDuplicatePoints);
                         setIsLoading(false)
 
+                        currentLocation = {
+                            lat: coordinates.latitude,
+                            lng: coordinates.longitude
+                        }
+                        setPosition({ currentLocation })
                     }
                 }).catch(function (e) {
 
                     if (isMounted) {
-                        console.log('pasa');
-
+                        navigate('/alert')
                         if (axios.isCancel(e)) {
 
                         }
@@ -206,7 +207,7 @@ export default function MapViewHelpAll(props) {
                                             key={index}
                                             position={JSON.parse("[" + point.latitude + ", " + point.longitude + "]")}>
                                             <Popup>
-                                                Hora: {new Date (point.date).toLocaleTimeString()}
+                                                Hora: {new Date(point.date).toLocaleTimeString()}
                                             </Popup>
                                         </Marker>
                                     ))
@@ -214,7 +215,8 @@ export default function MapViewHelpAll(props) {
                                     <LocateControl startDirectly />
 
                                 </Map>
-                            </div>            </Grid>
+                            </div>
+                        </Grid>
                         <Grid item xs={12} sm={5} id="tableform">
                             <Grid item className={classes.gridform}  >
                                 <Paper className={classes.paperform} elevation={15}>
