@@ -1,13 +1,14 @@
 import React, { useState, useEffect } from 'react'
 import { Map, TileLayer } from 'react-leaflet'
 import 'leaflet/dist/leaflet.css'
-import LocateControl from './LocateControl';
+import LocateControl from './LocateControl'
 import axios from 'axios'
 import { Marker, Popup } from 'react-leaflet'
 import { IconPersonHelpAll } from './IconLocation'
-import { useLocation } from 'wouter';
-import { TableBody, TableCell, TableContainer, TableHead, TableRow, Grid, makeStyles, Paper, Table } from '@material-ui/core';
-import CircularProgress from '@material-ui/core/CircularProgress';
+import { useLocation } from 'wouter'
+import { TableBody, TableCell, TableContainer, TableHead, TableRow, Grid, makeStyles, Paper, Table } from '@material-ui/core'
+import CircularProgress from '@material-ui/core/CircularProgress'
+import api from '../services/api'
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -116,7 +117,7 @@ export default function MapViewHelpAll(props) {
         } else {
 
             let source = axios.CancelToken.source();
-            axios.get(`http://localhost:3001/helpSOS/user/${helprut}`, {
+            axios.get(`${api}helpSOS/user/${helprut}`, {
                 headers: { Authorization: "Bearer " + token },
                 cancelToken: source.token,
             })

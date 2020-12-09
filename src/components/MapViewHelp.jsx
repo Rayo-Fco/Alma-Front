@@ -8,6 +8,7 @@ import { IconLocation } from './IconLocation'
 import CircularProgress from '@material-ui/core/CircularProgress'
 import { makeStyles } from '@material-ui/core/styles'
 import { useLocation } from 'wouter'
+import api from '../services/api'
 
 const useStyles = makeStyles((theme) => ({
     progress: {
@@ -43,7 +44,7 @@ function MapViewHelp(props) {
     useEffect(() => {
         window.scrollTo(0,0)
         const interval = setInterval(() => {
-            axios.get(`http://localhost:3001/gethelp?token=${helptoken}`, {
+            axios.get(`${api}gethelp?token=${helptoken}`, {
                 cancelToken: source.token,
             })
                 .then(res => {
@@ -72,7 +73,7 @@ function MapViewHelp(props) {
 
         let isMounted = true
         let source = axios.CancelToken.source();
-        axios.get(`http://localhost:3001/gethelp?token=${helptoken}`, {
+        axios.get(`${api}gethelp?token=${helptoken}`, {
             cancelToken: source.token,
         })
             .then(res => {

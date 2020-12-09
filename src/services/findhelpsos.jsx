@@ -1,9 +1,10 @@
 import axios from 'axios';
+import api from './api'
 
 export default function findhelpsos({ rut }) {
 
     const token = window.sessionStorage.getItem('tokenadmin')
-    return axios.get(`http://localhost:3001/helpSOS/user/${rut}`, {
+    return axios.get(`${api}helpSOS/user/${rut}`, {
         headers: { Authorization: "Bearer " + token }
     })
     

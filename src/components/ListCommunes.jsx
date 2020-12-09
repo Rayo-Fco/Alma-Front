@@ -8,6 +8,7 @@ import { connect } from "react-redux"
 import { sendCommunes } from '../actions/communesAction'
 import axios from 'axios'
 import CircularProgress from '@material-ui/core/CircularProgress';
+import api from '../services/api'
 
 const useStyles = makeStyles((theme) => ({
     title: {
@@ -60,7 +61,7 @@ function ListComunas({ sendCommunes }) {
         let source = axios.CancelToken.source();
         const token = window.sessionStorage.getItem('tokenadmin')
 
-        axios.get('http://localhost:3001/comuna/all', {
+        axios.get(`${api}comuna/all`, {
             headers: { Authorization: "Bearer " + token },
             cancelToken: source.token,
         })

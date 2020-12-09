@@ -1,4 +1,5 @@
 import axios from 'axios';
+import api from './api'
 
 export default function addcommunes({ commune, phone, coordinates }) {
 
@@ -11,7 +12,7 @@ export default function addcommunes({ commune, phone, coordinates }) {
     }
     const token = window.sessionStorage.getItem('tokenadmin')
 
-    return axios.post(`http://localhost:3001/comuna/add`, comuna, {
+    return axios.post(`${api}comuna/add`, comuna, {
         headers: { Authorization: "Bearer " + token }
     })
         .then(res => {

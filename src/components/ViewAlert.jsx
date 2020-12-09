@@ -8,6 +8,7 @@ import { useLocation } from 'wouter'
 import PlayCircleOutlineIcon from '@material-ui/icons/PlayCircleOutline'
 import { useRut } from 'react-rut'
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore'
+import api from '../services/api'
 
 const useStyles = makeStyles((theme) => ({
     typ: {
@@ -105,7 +106,7 @@ function ViewAlert(props) {
         window.scrollTo(0, 0)
         let isMounted = true
         const token = window.sessionStorage.getItem('tokenadmin')
-        axios.get('http://localhost:3001/helpSOS/all', {
+        axios.get(`${api}helpSOS/all`, {
             headers: { Authorization: "Bearer " + token }
         })
             .then(res => {

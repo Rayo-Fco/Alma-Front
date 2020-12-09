@@ -5,6 +5,7 @@ import { selectActiveLatLng } from '../reducers/latLngReducer'
 import { connect } from "react-redux";
 import { sendLatLng } from '../actions/latLngAction'
 import axios from 'axios'
+import api from '../services/api'
 
 const mapStateToProps = state => {
     return {
@@ -22,7 +23,7 @@ function Markers() {
         let source = axios.CancelToken.source();
         const token = window.sessionStorage.getItem('tokenadmin')
 
-        axios.get('http://localhost:3001/markers/comisaria', {
+        axios.get(`${api}markers/comisaria`, {
             headers: { Authorization: "Bearer " + token },
             cancelToken: source.token,
         })
@@ -47,7 +48,7 @@ function Markers() {
         let source = axios.CancelToken.source();
         const token = window.sessionStorage.getItem('tokenadmin')
 
-        axios.get('http://localhost:3001/markers/pdi', {
+        axios.get(`${api}markers/pdi`, {
             headers: { Authorization: "Bearer " + token },
             cancelToken: source.token,
         })

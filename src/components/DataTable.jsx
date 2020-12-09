@@ -9,7 +9,7 @@ import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
 import axios from 'axios'
 import CircularProgress from '@material-ui/core/CircularProgress';
-
+import api from '../services/api'
 
 
 const StyledTableCell = withStyles((theme) => ({
@@ -54,7 +54,7 @@ export default function CustomizedTables() {
   useEffect(() => {
     let isMounted = true
     const token = window.sessionStorage.getItem('tokenadmin')
-    axios.get('http://localhost:3001/dashboard', {
+    axios.get(`${api}dashboard`, {
       headers: { Authorization: "Bearer " + token }
     })
       .then(res => {

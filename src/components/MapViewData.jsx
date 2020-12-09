@@ -9,7 +9,9 @@ import { IconPin } from './IconLocation'
 import { useLocation } from 'wouter'
 import LocateControl from './LocateControl'
 import axios from 'axios'
-import { CircularProgress, TableBody, TableCell, TableContainer, TableHead, TableRow, Grid, makeStyles, Paper, Table } from '@material-ui/core';
+import { CircularProgress, TableBody, TableCell, TableContainer, TableHead, TableRow, Grid, makeStyles, Paper, Table } from '@material-ui/core'
+import api from '../services/api'
+
 
 const mapStateToProps = state => {
     return {
@@ -302,7 +304,7 @@ function MapViewData({ communes }) {
         }
         const token = window.sessionStorage.getItem('tokenadmin')
         const query = async () => {
-            await axios.get('http://localhost:3001/checkin/all', {
+            await axios.get(`${api}checkin/all`, {
                 headers: { Authorization: "Bearer " + token }
             })
                 .then(res => {
@@ -325,7 +327,7 @@ function MapViewData({ communes }) {
                         }
                     }
                 })
-            await axios.get('http://localhost:3001/helpSOS/all', {
+            await axios.get(`${api}helpSOS/all`, {
                 headers: { Authorization: "Bearer " + token }
             })
                 .then(res => {

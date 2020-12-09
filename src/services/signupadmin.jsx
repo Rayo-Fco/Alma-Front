@@ -1,6 +1,6 @@
 
 import axios from 'axios';
-
+import api from './api'
 export default function signupadmin({ email, nombre, apellido, password1 }) {
     const user = {
         email: email,
@@ -8,7 +8,7 @@ export default function signupadmin({ email, nombre, apellido, password1 }) {
         apellido: apellido,
         password: password1
     }
-    return axios.post(`http://localhost:3001/admin/add/`, user)
+    return axios.post(`${api}admin/add/`, user)
         .then(res => {
             return "ok"
         })

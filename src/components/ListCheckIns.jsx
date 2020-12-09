@@ -1,23 +1,23 @@
-import React, { useEffect, useState } from 'react';
-import { makeStyles } from '@material-ui/core/styles';
-import { Grid, Container, Paper, Typography, TextField, Button } from '@material-ui/core';
-import SearchIcon from '@material-ui/icons/Search';
+import React, { useEffect, useState } from 'react'
+import { makeStyles } from '@material-ui/core/styles'
+import { Grid, Container, Paper, Typography, TextField, Button } from '@material-ui/core'
+import SearchIcon from '@material-ui/icons/Search'
 import axios from 'axios'
 import { Map, TileLayer } from 'react-leaflet'
 import { Marker, Popup } from 'react-leaflet'
 import { IconPin } from './IconLocation'
-import useFindCheckin from '../hooks/useFindCheckin';
-import { useLocation } from 'wouter';
-import { useRut } from 'react-rut';
-import Modal from '@material-ui/core/Modal';
-import CircularProgress from '@material-ui/core/CircularProgress';
-import Backdrop from '@material-ui/core/Backdrop';
-import Fade from '@material-ui/core/Fade';
-import Accordion from '@material-ui/core/Accordion';
-import AccordionDetails from '@material-ui/core/AccordionDetails';
-import AccordionSummary from '@material-ui/core/AccordionSummary';
-import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
-
+import useFindCheckin from '../hooks/useFindCheckin'
+import { useLocation } from 'wouter'
+import { useRut } from 'react-rut'
+import Modal from '@material-ui/core/Modal'
+import CircularProgress from '@material-ui/core/CircularProgress'
+import Backdrop from '@material-ui/core/Backdrop'
+import Fade from '@material-ui/core/Fade'
+import Accordion from '@material-ui/core/Accordion'
+import AccordionDetails from '@material-ui/core/AccordionDetails'
+import AccordionSummary from '@material-ui/core/AccordionSummary'
+import ExpandMoreIcon from '@material-ui/icons/ExpandMore'
+import api from '../services/api'
 
 const useStyles = makeStyles((theme) => ({
     typ: {
@@ -173,7 +173,7 @@ function ListCheckIns(props) {
         window.scrollTo(0, 0)
         let isMounted = true
         const token = window.sessionStorage.getItem('tokenadmin')
-        axios.get('http://localhost:3001/checkin/all', {
+        axios.get(`${api}checkin/all`, {
             headers: { Authorization: "Bearer " + token }
         })
             .then(res => {
