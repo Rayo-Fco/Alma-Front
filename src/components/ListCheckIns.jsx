@@ -18,6 +18,10 @@ import AccordionDetails from '@material-ui/core/AccordionDetails'
 import AccordionSummary from '@material-ui/core/AccordionSummary'
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore'
 import api from '../services/api'
+import Alert from '@material-ui/lab/Alert';
+import CloseIcon from '@material-ui/icons/Close';
+import IconButton from '@material-ui/core/IconButton';
+import Collapse from '@material-ui/core/Collapse';
 
 const useStyles = makeStyles((theme) => ({
     typ: {
@@ -142,12 +146,14 @@ function ListCheckIns(props) {
     const classes = useStyles();
     const [checkins, setCheckins] = useState({ User: [] })
     const [, navigate] = useLocation()
-    const { findcheckin, checkin, isFindLoading } = useFindCheckin()
+    const { findcheckin, checkin, isFindLoading, hasFindError } = useFindCheckin()
     const [{ formattedValue }, setRut] = useRut();
     const [openMap, setOpenMap] = useState(false);
     const [openPhoto, setOpenPhoto] = useState(false);
     const [resOpen, setResOpen] = useState()
     const [isLoading, setIsLoading] = useState(true)
+    const [openAlertError, setOpenAlertError] = useState(true);
+    const [openAlertSucceed, setOpenAlertSucceed] = useState(true);
 
     const handleOpenMap = (checkin) => {
         setResOpen(checkin)
@@ -173,7 +179,7 @@ function ListCheckIns(props) {
         window.scrollTo(0, 0)
         let isMounted = true
         const token = window.sessionStorage.getItem('tokenadmin')
-        axios.get(`${api}checkin/all`, {
+        api.get(`/checkin/all`, {
             headers: { Authorization: "Bearer " + token }
         })
             .then(res => {
@@ -218,10 +224,9 @@ function ListCheckIns(props) {
 
     const handleSubmit = e => {
         const rut = formattedValue
+        setOpenAlertError(true)
+        setOpenAlertSucceed(true)
         findcheckin({ rut })
-        console.log(checkin)
-        console.log("algo")
-
     };
 
     return (
@@ -266,6 +271,54 @@ function ListCheckIns(props) {
                                             Buscar
                                         </Button>
                                     </Grid>
+                                    <Grid item xs={12} className={classes.gridForm}>
+                                        {
+                                            hasFindError &&
+                                            <Collapse in={openAlertError}>
+
+                                                <Alert
+                                                    action={
+                                                        <IconButton
+                                                            aria-label="close"
+                                                            color="inherit"
+                                                            size="small"
+                                                            onClick={() => {
+                                                                setOpenAlertError(false);
+                                                            }}>
+                                                            <CloseIcon fontSize="inherit" />
+                                                        </IconButton>
+                                                    }
+                                                    className={classes.alert}
+                                                    variant="filled"
+                                                    severity="error">
+                                                    No se ha encontrado o esta mal ingresado el RUT
+                                                </Alert>
+                                            </Collapse>
+
+                                        }
+                                        {checkin &&
+                                            <Collapse in={openAlertSucceed}>
+                                                <Alert
+                                                    action={
+                                                        <IconButton
+                                                            aria-label="close"
+                                                            color="inherit"
+                                                            size="small"
+                                                            onClick={() => {
+                                                                setOpenAlertSucceed(false);
+                                                            }}>
+                                                            <CloseIcon fontSize="inherit" />
+                                                        </IconButton>
+                                                    }
+                                                    className={classes.alert}
+                                                    variant="filled"
+                                                    severity="success">
+                                                    Se ha encontrado correctamente
+                                                </Alert>
+                                            </Collapse>
+                                        }
+                                    </Grid>
+
                                     <Container className={classes.container} style={{ cursor: 'pointer' }}>
                                         {
                                             checkin
@@ -274,7 +327,6 @@ function ListCheckIns(props) {
                                                     {
                                                         checkin.map((checkin, index) => (
                                                             <div key={index} >
-
                                                                 <Accordion expanded={expanded === 'panel' + index} onChange={handleChange('panel' + index)}>
                                                                     <AccordionSummary
                                                                         expandIcon={<ExpandMoreIcon />}

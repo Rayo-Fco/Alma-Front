@@ -106,7 +106,7 @@ function ViewAlert(props) {
         window.scrollTo(0, 0)
         let isMounted = true
         const token = window.sessionStorage.getItem('tokenadmin')
-        axios.get(`${api}helpSOS/all`, {
+        api.get(`/helpSOS/all`, {
             headers: { Authorization: "Bearer " + token }
         })
             .then(res => {

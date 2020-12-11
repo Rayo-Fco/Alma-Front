@@ -54,7 +54,7 @@ export default function CustomizedTables() {
   useEffect(() => {
     let isMounted = true
     const token = window.sessionStorage.getItem('tokenadmin')
-    axios.get(`${api}dashboard`, {
+    api.get(`/dashboard`, {
       headers: { Authorization: "Bearer " + token }
     })
       .then(res => {

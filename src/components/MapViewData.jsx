@@ -304,7 +304,7 @@ function MapViewData({ communes }) {
         }
         const token = window.sessionStorage.getItem('tokenadmin')
         const query = async () => {
-            await axios.get(`${api}checkin/all`, {
+            await api.get(`/checkin/all`, {
                 headers: { Authorization: "Bearer " + token }
             })
                 .then(res => {
@@ -327,7 +327,7 @@ function MapViewData({ communes }) {
                         }
                     }
                 })
-            await axios.get(`${api}helpSOS/all`, {
+            await api.get(`/helpSOS/all`, {
                 headers: { Authorization: "Bearer " + token }
             })
                 .then(res => {

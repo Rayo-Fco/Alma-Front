@@ -44,7 +44,7 @@ function MapViewHelp(props) {
     useEffect(() => {
         window.scrollTo(0,0)
         const interval = setInterval(() => {
-            axios.get(`${api}gethelp?token=${helptoken}`, {
+            api.get(`/gethelp?token=${helptoken}`, {
                 cancelToken: source.token,
             })
                 .then(res => {
@@ -73,7 +73,7 @@ function MapViewHelp(props) {
 
         let isMounted = true
         let source = axios.CancelToken.source();
-        axios.get(`${api}gethelp?token=${helptoken}`, {
+        api.get(`/gethelp?token=${helptoken}`, {
             cancelToken: source.token,
         })
             .then(res => {

@@ -23,7 +23,7 @@ function Markers() {
         let source = axios.CancelToken.source();
         const token = window.sessionStorage.getItem('tokenadmin')
 
-        axios.get(`${api}markers/comisaria`, {
+        api.get(`/markers/comisaria`, {
             headers: { Authorization: "Bearer " + token },
             cancelToken: source.token,
         })
@@ -48,7 +48,7 @@ function Markers() {
         let source = axios.CancelToken.source();
         const token = window.sessionStorage.getItem('tokenadmin')
 
-        axios.get(`${api}markers/pdi`, {
+        api.get(`/markers/pdi`, {
             headers: { Authorization: "Bearer " + token },
             cancelToken: source.token,
         })

@@ -1,11 +1,16 @@
-import axios from 'axios';
 import api from './api'
 export default function login({ email, password }) {
     const user = {
         email: email,
         password: password
     }
-    return axios.post(`${api}admin/login`, user)
+    return api.post(`/admin/login`, user, {
+        headers: {
+            "Access-Control-Allow-Methods" : "OPTIONS,POST",
+            "Access-Control-Allow-Credentials" : true,
+            "Access-Control-Allow-Origin" : "*",
+        }
+    })
         .then(res => {
             const { token } = res.data
             return token

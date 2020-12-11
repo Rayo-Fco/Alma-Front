@@ -117,7 +117,7 @@ export default function MapViewHelpAll(props) {
         } else {
 
             let source = axios.CancelToken.source();
-            axios.get(`${api}helpSOS/user/${helprut}`, {
+            api.get(`/helpSOS/user/${helprut}`, {
                 headers: { Authorization: "Bearer " + token },
                 cancelToken: source.token,
             })

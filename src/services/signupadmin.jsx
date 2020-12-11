@@ -1,5 +1,4 @@
 
-import axios from 'axios';
 import api from './api'
 export default function signupadmin({ email, nombre, apellido, password1 }) {
     const user = {
@@ -8,7 +7,7 @@ export default function signupadmin({ email, nombre, apellido, password1 }) {
         apellido: apellido,
         password: password1
     }
-    return axios.post(`${api}admin/add/`, user)
+    return api.post(`/admin/add/`, user)
         .then(res => {
             return "ok"
         })

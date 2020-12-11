@@ -1,4 +1,3 @@
-import axios from 'axios';
 import api from './api'
 
 export default function addmarker({ category, title, latitude, longitude }) {
@@ -20,7 +19,7 @@ export default function addmarker({ category, title, latitude, longitude }) {
 
     const token = window.sessionStorage.getItem('tokenadmin')
 
-    return axios.post(`${api}markers/add`, marker, {
+    return api.post(`/markers/add`, marker, {
         headers: { Authorization: "Bearer " + token }
     })
         .then(res => {

@@ -1,10 +1,9 @@
-import axios from 'axios';
 import api from './api'
 
 export default function findcheckin({ rut }) {
 
     const token = window.sessionStorage.getItem('tokenadmin')
-    return axios.get(`${api}checkin/user/${rut}`, {
+    return api.get(`/checkin/user/${rut}`, {
         headers: { Authorization: "Bearer " + token }
     })
     

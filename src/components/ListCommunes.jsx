@@ -61,7 +61,7 @@ function ListComunas({ sendCommunes }) {
         let source = axios.CancelToken.source();
         const token = window.sessionStorage.getItem('tokenadmin')
 
-        axios.get(`${api}comuna/all`, {
+        api.get(`/comuna/all`, {
             headers: { Authorization: "Bearer " + token },
             cancelToken: source.token,
         })
