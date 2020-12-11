@@ -143,36 +143,36 @@ const useStyles = makeStyles((theme) => ({
 }))
 
 function ListCheckIns(props) {
-    const classes = useStyles();
+    const classes = useStyles()
     const [checkins, setCheckins] = useState({ User: [] })
     const [, navigate] = useLocation()
     const { findcheckin, checkin, isFindLoading, hasFindError } = useFindCheckin()
-    const [{ formattedValue }, setRut] = useRut();
-    const [openMap, setOpenMap] = useState(false);
-    const [openPhoto, setOpenPhoto] = useState(false);
+    const [{ formattedValue }, setRut] = useRut()
+    const [openMap, setOpenMap] = useState(false)
+    const [openPhoto, setOpenPhoto] = useState(false)
     const [resOpen, setResOpen] = useState()
     const [isLoading, setIsLoading] = useState(true)
-    const [openAlertError, setOpenAlertError] = useState(true);
-    const [openAlertSucceed, setOpenAlertSucceed] = useState(true);
+    const [openAlertError, setOpenAlertError] = useState(true)
+    const [openAlertSucceed, setOpenAlertSucceed] = useState(true)
 
     const handleOpenMap = (checkin) => {
         setResOpen(checkin)
-        setOpenMap(true);
+        setOpenMap(true)
     };
 
     const handleCloseMap = () => {
-        setOpenMap(false);
+        setOpenMap(false)
     };
 
 
     const handleOpenPhoto = (checkin) => {
         setResOpen(checkin)
-        setOpenPhoto(true);
+        setOpenPhoto(true)
     };
 
 
     const handleClosePhoto = () => {
-        setOpenPhoto(false);
+        setOpenPhoto(false)
     };
 
     useEffect(() => {

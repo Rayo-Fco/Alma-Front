@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { makeStyles } from '@material-ui/core/styles'
-import { Grid, Container, Paper, Typography, IconButton, TextField, Button, List, Accordion, AccordionDetails, AccordionSummary} from '@material-ui/core'
+import { Grid, Container, Paper, Typography, IconButton, TextField, Button, List, Accordion, AccordionDetails, AccordionSummary } from '@material-ui/core'
 import SearchIcon from '@material-ui/icons/Search'
 import axios from 'axios'
 import useFindHelpSOS from '../hooks/useFindHelpSOS'
@@ -9,6 +9,9 @@ import PlayCircleOutlineIcon from '@material-ui/icons/PlayCircleOutline'
 import { useRut } from 'react-rut'
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore'
 import api from '../services/api'
+import Alert from '@material-ui/lab/Alert';
+import CloseIcon from '@material-ui/icons/Close';
+import Collapse from '@material-ui/core/Collapse';
 
 const useStyles = makeStyles((theme) => ({
     typ: {
@@ -91,12 +94,14 @@ const useStyles = makeStyles((theme) => ({
 }))
 
 function ViewAlert(props) {
-    const classes = useStyles();
+    const classes = useStyles()
     const [helpSOS, setHelpSOS] = useState({ User: [] })
     const [, navigate] = useLocation()
-    const { findhelpsos, helpsos } = useFindHelpSOS()
-    const [{ formattedValue }, setRut] = useRut();
-    const [expanded, setExpanded] = React.useState(false);
+    const { findhelpsos, helpsos, hasFindError } = useFindHelpSOS()
+    const [{ formattedValue }, setRut] = useRut()
+    const [expanded, setExpanded] = React.useState(false)
+    const [openAlertError, setOpenAlertError] = useState(true)
+    const [openAlertSucceed, setOpenAlertSucceed] = useState(true)
 
     const handleChange = (panel) => (event, isExpanded) => {
         setExpanded(isExpanded ? panel : false);
@@ -125,11 +130,11 @@ function ViewAlert(props) {
     }, [setHelpSOS])
 
     useEffect(() => {
-        const ac = new AbortController();
+        const ac = new AbortController()
         if (!sessionStorage.getItem('tokenadmin')) {
             navigate('/')
         }
-        return () => ac.abort();
+        return () => ac.abort()
     }, [navigate])
 
 
@@ -139,6 +144,8 @@ function ViewAlert(props) {
 
     const handleSubmit = e => {
         const rut = formattedValue
+        setOpenAlertError(true)
+        setOpenAlertSucceed(true)
         findhelpsos({ rut })
     };
 
@@ -166,6 +173,53 @@ function ViewAlert(props) {
                                 onClick={() => handleSubmit()}>
                                 Buscar
                             </Button>
+                        </Grid>
+                        <Grid item xs={12} className={classes.gridForm}>
+                            {
+                                hasFindError &&
+                                <Collapse in={openAlertError}>
+
+                                    <Alert
+                                        action={
+                                            <IconButton
+                                                aria-label="close"
+                                                color="inherit"
+                                                size="small"
+                                                onClick={() => {
+                                                    setOpenAlertError(false);
+                                                }}>
+                                                <CloseIcon fontSize="inherit" />
+                                            </IconButton>
+                                        }
+                                        className={classes.alert}
+                                        variant="filled"
+                                        severity="error">
+                                        No se ha encontrado o esta mal ingresado el RUT
+                                    </Alert>
+                                </Collapse>
+
+                            }
+                            {helpsos &&
+                                <Collapse in={openAlertSucceed}>
+                                    <Alert
+                                        action={
+                                            <IconButton
+                                                aria-label="close"
+                                                color="inherit"
+                                                size="small"
+                                                onClick={() => {
+                                                    setOpenAlertSucceed(false);
+                                                }}>
+                                                <CloseIcon fontSize="inherit" />
+                                            </IconButton>
+                                        }
+                                        className={classes.alert}
+                                        variant="filled"
+                                        severity="success">
+                                        Se ha encontrado correctamente
+                                                </Alert>
+                                </Collapse>
+                            }
                         </Grid>
                         <List>
                             {
@@ -223,7 +277,7 @@ function ViewAlert(props) {
                                                                                 </Typography>
                                                                             </Grid>
                                                                             <Grid item xs={12} sm={1} className={classes.listGrid} style={{ display: 'flex' }}>
-                                                                                <IconButton edge="end" style={{ margin: 'auto', display: 'flex' }} aria-label="delete" onClick={() => showDatasUser(help.user[0].rut, index  )}>
+                                                                                <IconButton edge="end" style={{ margin: 'auto', display: 'flex' }} aria-label="delete" onClick={() => showDatasUser(help.user[0].rut, index)}>
                                                                                     <PlayCircleOutlineIcon />
                                                                                 </IconButton>
                                                                             </Grid>
@@ -241,7 +295,7 @@ function ViewAlert(props) {
                                     :
                                     helpSOS.User.map((help, index) => (
                                         <div key={index} >
-                                            <Accordion expanded={expanded === 'panel'+ index} onChange={handleChange('panel'+ index)}>
+                                            <Accordion expanded={expanded === 'panel' + index} onChange={handleChange('panel' + index)}>
                                                 <AccordionSummary
                                                     expandIcon={<ExpandMoreIcon />}
                                                     aria-controls="panel1bh-content"
@@ -289,7 +343,7 @@ function ViewAlert(props) {
                                                                         </Typography>
                                                                     </Grid>
                                                                     <Grid item xs={12} sm={1} className={classes.listGrid} style={{ display: 'flex' }}>
-                                                                        <IconButton edge="end" style={{ margin: 'auto', display: 'flex' }} aria-label="delete" onClick={() => showDatasUser(help.user[0].rut, index )}>
+                                                                        <IconButton edge="end" style={{ margin: 'auto', display: 'flex' }} aria-label="delete" onClick={() => showDatasUser(help.user[0].rut, index)}>
                                                                             <PlayCircleOutlineIcon />
                                                                         </IconButton>
                                                                     </Grid>

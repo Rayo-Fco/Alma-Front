@@ -5,11 +5,6 @@ export default function login({ email, password }) {
         password: password
     }
     return api.post(`/admin/login`, user, {
-        headers: {
-            "Access-Control-Allow-Methods" : "OPTIONS,POST",
-            "Access-Control-Allow-Credentials" : true,
-            "Access-Control-Allow-Origin" : "*",
-        }
     })
         .then(res => {
             const { token } = res.data
