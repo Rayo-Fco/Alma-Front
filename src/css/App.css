@@ -245,7 +245,9 @@ img {
   margin-right: auto;
   margin-left: auto;
 }
-
+#derechos{
+  font-size: 30px;
+}
 
 /* Other Classes for Page Styling */
 
@@ -260,7 +262,7 @@ img {
   }
 }
 
-@media only screen and (max-width: 600px) {
+@media only screen and (max-width: 500px) {
 
   .lii1 {
     float: none;
@@ -277,6 +279,13 @@ img {
   }
   #tableform {
     margin: auto;
+  }
+  #buttonOpenMap{
+    margin-bottom: 3px;
+  }
+  #buttonOpenPhotos{
+    margin-top: 3px;
+
   }
 
 }

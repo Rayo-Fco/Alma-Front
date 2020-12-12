@@ -15,7 +15,7 @@ class Footer extends Component {
                                 <h5 className="font-weight-bold text-uppercase mt-3 mb-4">EMPRESA</h5>
                                 <ul className="list-unstyled">
                                     <li>
-                                        <Link to='/about' className="link">Sobre ALMA</Link>
+                                        <Link to='/sobre-nosotros' className="link">Sobre ALMA</Link>
                                     </li>
                                 </ul>
                             </div>
@@ -51,7 +51,7 @@ class Footer extends Component {
                             </div>
                         </div>
                     </div>
-                    <div className="footer-copyright text-center py-3">© 2020 Copyright:
+                    <div className="footer-copyright text-center py-3" id="derechos">© 2020 Copyright:
                         <a href="#!">Alma</a>
                     </div>
                 </footer>

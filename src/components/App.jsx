@@ -23,7 +23,6 @@ import MapViewHelp from './MapViewHelp'
 import MapViewHelpAll from './MapViewHelpAll'
 import 'bootstrap/dist/css/bootstrap.min.css'
 import { UserContextProvider } from '../context/UserContext'
-import DataTable from './DataTable'
 import CircularProgress from '@material-ui/core/CircularProgress'
 
 function App() {
@@ -36,33 +35,31 @@ function App() {
             <Switch>
               <Route component={Main} exact path="/">
               </Route>
-              <Route component={LoginForm} exact path="/login">
+              <Route component={LoginForm} exact path="/iniciar-sesion">
               </Route>
-              <Route component={MapView} exact path="/map">
+              <Route component={MapView} exact path="/mapa">
               </Route>
               <Route component={ListCommunes} exact path="/comunas">
               </Route>
               <Route component={MainAdmin} exact path="/principal">
               </Route>
-              <Route component={AddMarker} exact path="/add">
+              <Route component={AddMarker} exact path="/agregar-marcador">
               </Route>
-              <Route component={About} exact path="/about">
+              <Route component={About} exact path="/sobre-nosotros">
               </Route>
               <Route component={MapViewData} exact path="/info">
               </Route>
-              <Route component={RegisterAdmin} exact path="/regAdmin">
+              <Route component={RegisterAdmin} exact path="/registrar-administrador">
               </Route>
-              <Route component={RegistroComuna} exact path="/regComuna">
+              <Route component={RegistroComuna} exact path="/registrar-comuna">
               </Route>
-              <Route component={ViewAlert} exact path="/alert">
+              <Route component={ViewAlert} exact path="/ver-alertas">
               </Route>
-              <Route component={ListCheckIns} exact path="/checkins">
+              <Route component={ListCheckIns} exact path="/ver-checkins">
               </Route>
               <Route component={NeedHelp} exact path="/needhelp">
               </Route>
               <Route component={MapViewHelp} exact path="/needhelp/:helpToken">
-              </Route>
-              <Route component={DataTable} exact path="/data">
               </Route>
               <Route component={MapViewHelpAll} exact path="/needhelpall/:helpRut/:helpalert">
               </Route>

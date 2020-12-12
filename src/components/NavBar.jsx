@@ -54,7 +54,7 @@ function NavBar({ updateOpen }) {
                                     </MenuIcon>
                                 </IconButton>
                                 <div className={classes.tittle}>
-                                    <Link to='/' className="link">
+                                    <Link to='/principal' className="link">
                                         <IconButton >
                                             <img src={logo} className={classes.imagen} alt="Logo"></img>
                                         </IconButton>
@@ -84,11 +84,11 @@ function NavBar({ updateOpen }) {
                                         </IconButton>
                                     </Link>
                                 </div>
-                                <Link to='/login' className="link">
+                                <Link to='/iniciar-sesion' className="link">
                                     <IconButton color="inherit" className={classes.btnLogin}>
                                         <ExitToAppIcon>
                                         </ExitToAppIcon>
-                                        Login
+                                        Iniciar Sesión
                                 </IconButton>
                                 </Link>
                             </>

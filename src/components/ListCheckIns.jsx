@@ -42,7 +42,7 @@ const useStyles = makeStyles((theme) => ({
         fontSize: 20,
     },
     b: {
-        fontSize: 20,
+        fontSize: 14,
         color: 'black'
     },
     container: {
@@ -129,12 +129,12 @@ const useStyles = makeStyles((theme) => ({
         padding: theme.spacing(2, 4, 3),
     },
     heading: {
-        fontSize: theme.typography.pxToRem(15),
+        fontSize: theme.typography.pxToRem(14),
         flexBasis: '33.33%',
         flexShrink: 0,
     },
     secondaryHeading: {
-        fontSize: theme.typography.pxToRem(15),
+        fontSize: theme.typography.pxToRem(14),
         color: theme.palette.text.secondary,
     },
     accordion: {
@@ -424,11 +424,11 @@ function ListCheckIns(props) {
                                                                                 <Grid item xs={6} className={classes.gridButton} >
                                                                                     <Grid item xs zeroMinWidth>
                                                                                         <div>
-                                                                                            <Button className={classes.modalButton} onClick={() => { handleOpenMap(checkin) }} variant="outlined">
+                                                                                            <Button className={classes.modalButton} id="buttonOpenMap" onClick={() => { handleOpenMap(checkin) }} variant="outlined">
                                                                                                 Abrir mapa
                                                                                     </Button>
                                                                                             {checkin.fotos[0] &&
-                                                                                                <Button className={classes.modalButton} onClick={() => { handleOpenPhoto(checkin) }} variant="outlined">
+                                                                                                <Button className={classes.modalButton} id="buttonOpenPhotos" onClick={() => { handleOpenPhoto(checkin) }} variant="outlined">
                                                                                                     Ver foto
                                                                                         </Button>
                                                                                             }
@@ -542,11 +542,11 @@ function ListCheckIns(props) {
                                                                         <Grid item xs={6} className={classes.gridButton} >
                                                                             <Grid item xs zeroMinWidth>
                                                                                 <div>
-                                                                                    <Button className={classes.modalButton} onClick={() => { handleOpenMap(checkin) }} variant="outlined">
+                                                                                    <Button className={classes.modalButton} id="buttonOpenMap" onClick={() => { handleOpenMap(checkin) }} variant="outlined">
                                                                                         Abrir mapa
                                                                             </Button>
                                                                                     {checkin.fotos[0] &&
-                                                                                        <Button className={classes.modalButton} onClick={() => { handleOpenPhoto(checkin) }} variant="outlined">
+                                                                                        <Button className={classes.modalButton} id="buttonOpenPhotos" onClick={() => { handleOpenPhoto(checkin) }} variant="outlined">
                                                                                             Ver foto
                                                                                 </Button>
                                                                                     }

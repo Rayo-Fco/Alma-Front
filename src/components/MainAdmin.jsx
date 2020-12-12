@@ -64,6 +64,9 @@ const useStyles = makeStyles((theme) => ({
         boxShadow: theme.shadows[5],
         padding: theme.spacing(2, 4, 3),
     },
+    grDataTable: {
+        margin:'auto'
+    }
 }))
 
 
@@ -109,7 +112,7 @@ export default function MainAdmin() {
                             </GridList>
                         </Paper>
                     </Grid>
-                    <Grid item xs={12} >
+                    <Grid className={classes.grDataTable} item xs={12} sm={5} >
                         <Paper className={classes.paper2}>
                             <DataTable />
                         </Paper>

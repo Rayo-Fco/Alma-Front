@@ -31,7 +31,7 @@ function ListItemDrawer({ updateOpen }) {
                                     <ListItemText primary='Inicio'></ListItemText>
                                 </ListItem>
                             </Link>
-                            <Link to='/add' className="link" onClick={() => { updateOpen(false) }}>
+                            <Link to='/agregar-marcador' className="link" onClick={() => { updateOpen(false) }}>
                                 <ListItem button>
                                     <ListItemIcon>
                                         <AddCircleIcon />
@@ -39,7 +39,7 @@ function ListItemDrawer({ updateOpen }) {
                                     <ListItemText primary='Agregar Comisaria/PDI'></ListItemText>
                                 </ListItem>
                             </Link>
-                            <Link to='/regComuna' className="link" onClick={() => { updateOpen(false) }} >
+                            <Link to='/registrar-comuna' className="link" onClick={() => { updateOpen(false) }} >
                                 <ListItem button>
                                     <ListItemIcon>
                                         <PostAddIcon />
@@ -47,7 +47,7 @@ function ListItemDrawer({ updateOpen }) {
                                     <ListItemText primary='Agregar comuna'></ListItemText>
                                 </ListItem>
                             </Link>
-                            <Link to='/alert' className="link" onClick={() => { updateOpen(false) }} >
+                            <Link to='/ver-alertas' className="link" onClick={() => { updateOpen(false) }} >
                                 <ListItem button>
                                     <ListItemIcon>
                                         <VisibilityIcon />
@@ -55,7 +55,7 @@ function ListItemDrawer({ updateOpen }) {
                                     <ListItemText primary='Ver alertas'></ListItemText>
                                 </ListItem>
                             </Link>
-                            <Link to='/checkins' className="link" onClick={() => { updateOpen(false) }} >
+                            <Link to='/ver-checkins' className="link" onClick={() => { updateOpen(false) }} >
                                 <ListItem button>
                                     <ListItemIcon>
                                         <CheckCircleOutlinedIcon />
@@ -63,7 +63,7 @@ function ListItemDrawer({ updateOpen }) {
                                     <ListItemText primary='Check ins'></ListItemText>
                                 </ListItem>
                             </Link>
-                            <Link to='/map' className="link" onClick={() => { updateOpen(false) }}>
+                            <Link to='/mapa' className="link" onClick={() => { updateOpen(false) }}>
                                 <ListItem button>
                                     <ListItemIcon>
                                         <MapIcon />

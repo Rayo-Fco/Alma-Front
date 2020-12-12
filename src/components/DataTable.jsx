@@ -36,7 +36,7 @@ function createData(name, quantity) {
 
 const useStyles = makeStyles({
   table: {
-    minWidth: 700,
+    minWidth: 200,
   },
   progress: {
     height: '100%',
@@ -101,7 +101,7 @@ export default function CustomizedTables() {
             <TableHead style={{ backgroundColor: 'pink' }}>
               <TableRow >
                 <StyledTableCell>Nombre</StyledTableCell>
-                <StyledTableCell align="right">Cantidad</StyledTableCell>
+                <StyledTableCell align="right">Cantidad Total</StyledTableCell>
               </TableRow>
             </TableHead>
             <TableBody>
