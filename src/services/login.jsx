@@ -11,7 +11,6 @@ export default function login({ email, password }) {
             return token
         })
         .catch(err => {
-            console.log(err.response.data.error)
             return null
         })
 }

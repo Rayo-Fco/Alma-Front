@@ -8,7 +8,6 @@ export default function findhelpsos({ rut }) {
     })
     
         .then(res => {
-            console.log(res)
             return res.data
         })
         .catch(err => {

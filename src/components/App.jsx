@@ -24,6 +24,7 @@ import MapViewHelpAll from './MapViewHelpAll'
 import 'bootstrap/dist/css/bootstrap.min.css'
 import { UserContextProvider } from '../context/UserContext'
 import CircularProgress from '@material-ui/core/CircularProgress'
+import ResetPassword from './ResetPassword'
 
 function App() {
   return (
@@ -62,6 +63,8 @@ function App() {
               <Route component={MapViewHelp} exact path="/needhelp/:helpToken">
               </Route>
               <Route component={MapViewHelpAll} exact path="/needhelpall/:helpRut/:helpalert">
+              </Route>
+              <Route component={ResetPassword} exact path="/reset_password">
               </Route>
             </Switch>
             <Footer />
