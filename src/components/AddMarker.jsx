@@ -64,7 +64,7 @@ const useStyles = makeStyles((theme) => ({
     },
     typo: {
         fontFamily: 'helvetica',
-        fontSize: 36,
+        fontSize: 30,
     },
     progress: {
         height: '80vh',
@@ -109,7 +109,15 @@ function AddMarker({ latlng }) {
 
     const handleSubmit = () => {
         addmarker({ category, title, latitude, longitude })
-    };
+    }
+
+    const onKeyUpValue = (e) => {
+        if (e.charCode === 13) {
+            handleSubmit()
+        }
+    }
+
+
     return (
 
         <div className={classes.root}>
@@ -127,7 +135,7 @@ function AddMarker({ latlng }) {
                                 </div>
                             }
                             {!isAddLoading &&
-                                <FormControl>
+                                <FormControl onKeyPress={(e) => onKeyUpValue(e)}>
                                     <Typography className={classes.typo}>
                                         Agregar marcador
                                 </Typography>

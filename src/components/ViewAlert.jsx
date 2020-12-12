@@ -17,7 +17,8 @@ const useStyles = makeStyles((theme) => ({
     typ: {
         margin: 'auto',
         paddingTop: 25,
-        fontSize: 40
+        fontSize: 30,
+        paddingBottom:20
     },
     input: {
         width: '50%'
@@ -147,7 +148,13 @@ function ViewAlert(props) {
         setOpenAlertError(true)
         setOpenAlertSucceed(true)
         findhelpsos({ rut })
-    };
+    }
+
+    const onKeyUpValue = (e) => {
+        if (e.charCode === 13) {
+            handleSubmit()
+        }
+    }
 
     return (
         <Container >
@@ -158,13 +165,15 @@ function ViewAlert(props) {
                             Ver alertas
                         </Typography>
                         <Grid item xs={12} className={classes.gridForm}>
-                            <TextField
-                                className={classes.input}
-                                value={formattedValue}
-                                onChange={(e) => setRut(e.target.value)}
-                                label="Rut"
-                                variant="outlined"
-                            />
+
+                                <TextField
+                                    className={classes.input}
+                                    onKeyPress={(e) => onKeyUpValue(e)}
+                                    value={formattedValue}
+                                    onChange={(e) => setRut(e.target.value)}
+                                    label="Rut"
+                                    variant="outlined"
+                                />
                             <Button
                                 className={classes.button}
                                 variant="contained"

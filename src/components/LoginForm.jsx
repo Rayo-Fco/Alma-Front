@@ -66,13 +66,21 @@ export default function LoginForm() {
 
     const handleSubmit = async (e) => {
         login({ email, password })
-    };
+    }
 
     useEffect(() => {
         if (isLogged) {
             navigate('/principal')
         }
     }, [isLogged, navigate])
+
+    const onKeyUpValue = (e) => {
+        if (e.charCode === 13) {
+            handleSubmit()
+        }
+    }
+
+    
 
     return (
         <>
@@ -95,7 +103,7 @@ export default function LoginForm() {
                                   </Alert>
                             }
 
-                            <FormControl className={classes.grdC}>
+                            <FormControl className={classes.grdC} onKeyPress={(e) => onKeyUpValue(e)} >
                                 <TextField
                                     className={classes.input}
                                     label="Correo electrónico"

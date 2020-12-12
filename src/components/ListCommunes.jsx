@@ -53,10 +53,10 @@ function ListComunas({ sendCommunes }) {
     const classes = useStyles();
     const [isLoading, setIsLoading] = useState(true)
     const [communes, setCommunes] = useState({commune:[]})
+
     const handleMap = (comunas) => {
         sendCommunes(comunas)
     }
-
 
     useEffect(() => {
         window.scrollTo(0,0)

@@ -221,8 +221,13 @@ function ListCheckIns(props) {
 
     const handleChange = (panel) => (event, isExpanded) => {
         setExpanded(isExpanded ? panel : false);
-    };
+    }
 
+    const onKeyUpValue = (e) => {
+        if (e.charCode === 13) {
+            handleSubmit()
+        }
+    }
 
     const handleSubmit = e => {
         const rut = formattedValue
@@ -258,7 +263,7 @@ function ListCheckIns(props) {
                                     <Grid item xs={12} className={classes.gridForm}>
                                         <TextField
                                             className={classes.input}
-                                            id=""
+                                            onKeyPress={(e) => onKeyUpValue(e)}
                                             label="Rut"
                                             variant="outlined"
                                             value={formattedValue}

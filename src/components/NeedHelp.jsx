@@ -65,6 +65,12 @@ export default function NeedHelp() {
         }
     }, [succeedFind, navigate, helpToken])
 
+    const onKeyUpValue = (e) => {
+        if (e.charCode === 13) {
+            handleSubmit()
+        }
+    }
+
     return (
         <div>
             {isFindLoading &&
@@ -75,7 +81,7 @@ export default function NeedHelp() {
             {!isFindLoading &&
                 <Grid item className={classes.gridform} >
                     <Paper className={classes.paperform} elevation={15}>
-                        <FormControl>
+                        <FormControl onKeyPress={(e) => onKeyUpValue(e)} > 
                             <Typography className={classes.title}>
                                 Ingresa la clave de cifrado
                             </Typography>

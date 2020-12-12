@@ -27,8 +27,9 @@ const usesStyles = makeStyles((theme) => ({
         marginTop: theme.spacing(1)
     },
     typ: {
-        fontSize: 50,
+        fontSize: 30,
         fontFamily: 'Arial',
+        paddingBottom:20
     },
     cntainer: {
         paddingTop: 10
@@ -77,14 +78,20 @@ function RegistroComuna() {
         setCoordinates(list)
     }
 
-
     const handleAddInput = () => {
         setCoordinates([...coordinates, { latitude: "", longitude: "" }])
     }
+
     const handleRemoveInput = index => {
         const list = [...coordinates]
         list.splice(index, 1)
         setCoordinates(list)
+    }
+
+    const onKeyUpValue = (e) => {
+        if (e.charCode === 13) {
+            handleSubmit()
+        }
     }
 
     return (
@@ -117,7 +124,7 @@ function RegistroComuna() {
                         }
                     </Grid>
                     <Grid container spacing={3}>
-                        <FormControl className={classes.grdC}>
+                        <FormControl className={classes.grdC} onKeyPress={(e) => onKeyUpValue(e)}>
                             <TextField
                                 className={classes.input}
                                 label="Nombre comuna"
