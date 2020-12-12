@@ -262,7 +262,7 @@ img {
   }
 }
 
-@media only screen and (max-width: 500px) {
+@media only screen and (max-width: 600px) {
 
   .lii1 {
     float: none;
@@ -279,13 +279,6 @@ img {
   }
   #tableform {
     margin: auto;
-  }
-  #buttonOpenMap{
-    margin-bottom: 3px;
-  }
-  #buttonOpenPhotos{
-    margin-top: 3px;
-
   }
 
 }

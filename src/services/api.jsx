@@ -1,11 +1,10 @@
 import axios from 'axios';
 
 const api = axios.create({
-  baseURL: "http://localhost:3001",
+  baseURL: "https://api.alma-app.cl",
   headers: {
     Accept: 'application/json',
     'Content-Type': 'application/json',
-    "Access-Control-Allow-Origin" : "*",
   },
 });
 

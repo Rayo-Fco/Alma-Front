@@ -98,7 +98,9 @@ const useStyles = makeStyles((theme) => ({
         width: '350px',
     },
     modalButton: {
-        marginLeft: 10
+        marginLeft: 10,
+        marginBottom:5,
+        marginTop:5
     },
     progress: {
         height: '80%',
@@ -325,7 +327,7 @@ function ListCheckIns(props) {
                                                 ?
                                                 <>
                                                     {
-                                                        checkin.map((checkin, index) => (
+                                                        checkin.slice(0).reverse().map((checkin, index) => (
                                                             <div key={index} >
                                                                 <Accordion expanded={expanded === 'panel' + index} onChange={handleChange('panel' + index)}>
                                                                     <AccordionSummary
@@ -445,7 +447,7 @@ function ListCheckIns(props) {
                                                     }
                                                 </>
                                                 :
-                                                checkins.User.map((checkin, index) => (
+                                                checkins.User.slice(0).reverse().map((checkin, index) => (
                                                     <div key={index} >
 
                                                         <Accordion expanded={expanded === 'panel' + index} onChange={handleChange('panel' + index)}>
