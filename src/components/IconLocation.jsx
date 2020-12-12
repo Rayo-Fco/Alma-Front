@@ -55,4 +55,25 @@ export const IconPersonHelpAll = L.icon({
     className: 'Leaflet-venue-icon',
 })
 
+export const IconAlert = L.icon({
+    iconUrl: require('../assets/alertpin.jpg'),
+    iconRetinaUrl: require('../assets/alertpin.jpg'),
+    iconAnchor: null,
+    shadowUrl:null,
+    shadowSize: null,
+    shadowAnchor: null,
+    iconSize: [40, 40],
+    className: 'Leaflet-venue-icon',
+})
 
+
+export const IconCheckin = L.icon({
+    iconUrl: require('../assets/checkinpin.jpg'),
+    iconRetinaUrl: require('../assets/checkinpin.jpg'),
+    iconAnchor: null,
+    shadowUrl:null,
+    shadowSize: null,
+    shadowAnchor: null,
+    iconSize: [40, 40],
+    className: 'Leaflet-venue-icon',
+})

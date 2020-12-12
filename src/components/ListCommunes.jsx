@@ -30,7 +30,7 @@ const useStyles = makeStyles((theme) => ({
     typ: {
         margin: 'auto',
         paddingTop: 25,
-        fontSize: 40
+        fontSize: 30
     },
     progress: {
         height: '80%',
@@ -43,6 +43,9 @@ const useStyles = makeStyles((theme) => ({
     circular: {
         color: '#fd9eef'
     },
+    listItemText:{
+        fontSize:'13px'
+      }
 }));
 
 
@@ -115,7 +118,7 @@ function ListComunas({ sendCommunes }) {
                                                     </ListItemAvatar>
                                                 </Grid>
                                                 <Grid item xs={3}>
-                                                    <ListItemText primary={`${commune.comuna}`} />
+                                                    <ListItemText classes={{primary:classes.listItemText}} primary={`${commune.comuna}`} />
                                                 </Grid>
 
                                             </ListItem>

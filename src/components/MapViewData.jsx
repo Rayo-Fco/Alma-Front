@@ -1,17 +1,15 @@
 import React, { useState, useEffect } from 'react'
-import { Map, TileLayer } from 'react-leaflet'
+import { Map, TileLayer, Polygon, Marker } from 'react-leaflet'
 import 'leaflet/dist/leaflet.css'
-import { Marker, Popup } from 'react-leaflet'
 import { sendCommunes } from '../actions/communesAction'
 import { connect } from "react-redux"
 import { selectActiveCommunes } from '../reducers/communesReducer'
-import { IconPin } from './IconLocation'
+import { IconAlert, IconCheckin } from './IconLocation'
 import { useLocation } from 'wouter'
 import LocateControl from './LocateControl'
 import axios from 'axios'
 import { CircularProgress, TableBody, TableCell, TableContainer, TableHead, TableRow, Grid, makeStyles, Paper, Table } from '@material-ui/core'
 import api from '../services/api'
-
 
 const mapStateToProps = state => {
     return {
@@ -94,10 +92,12 @@ function createData(name, info) {
 }
 function MapViewData({ communes }) {
     const classes = useStyles();
-    const [communeName, SetCommuneName] = useState('')
     const [, navigate] = useLocation()
     const [isLoading, setIsLoading] = useState(true)
     const [rows, setRows] = useState([])
+    const [coordinates, setCoordinates] = useState([])
+    const [coordinatesAlert, setCoordinatesAlert] = useState({ coorAlert: [] })
+    const [coordinatesCheckin, setCoordinatesCheckin] = useState({ coorCheckin: [] })
 
     const [state2, setState2] = useState({
         currentLocation: { lat: 0, lng: 0 },
@@ -111,199 +111,46 @@ function MapViewData({ communes }) {
         let qtyA = 0
 
         let currentLocation = {
-            lat: 0,
-            lng: 0
+            lat: -33.4595661,
+            lng: -70.6508881
         }
-        if (communes === "PADRE HURTADO") {
-
-            currentLocation = {
-                lat: -33.5669406,
-                lng: -70.8008581
-            }
-        }
-        else if (communes === "PEDRO AGUIRRE CERDA") {
-            currentLocation = {
-                lat: -33.4939433,
-                lng: -70.6764605
-            }
-
-        }
-        else if (communes === "PUENTE ALTO") {
-            currentLocation = {
-                lat: -33.6091053,
-                lng: -70.5740701
-            }
-        } else if (communes === "SAN BERNARDO") {
-            currentLocation = {
-                lat: -33.5923161,
-                lng: -70.7045801
-            }
-
-        } else if (communes === "CERRILLOS") {
-            currentLocation = {
-                lat: -33.4873784,
-                lng: -70.7038997
-            }
-        } else if (communes === "CERRO NAVIA") {
-            currentLocation = {
-                lat: -33.4290011,
-                lng: -70.7307595
-            }
-        } else if (communes === "CONCHALÍ") {
-            currentLocation = {
-                lat: -33.3965342,
-                lng: -70.6708915
-            }
-        } else if (communes === "EL BOSQUE") {
-            currentLocation = {
-                lat: -33.5556072,
-                lng: -70.6661592
-            }
-        } else if (communes === "ESTACIÓN CENTRAL") {
-            currentLocation = {
-                lat: -33.4534456,
-                lng: -70.6905739
-            }
-        } else if (communes === "HUECHURABA") {
-            currentLocation = {
-                lat: -33.3748475,
-                lng: -70.6370713
-            }
-        } else if (communes === "INDEPENDENCIA") {
-            currentLocation = {
-                lat: -33.4222791,
-                lng: -70.6554112
-            }
-        } else if (communes === "LA CISTERNA") {
-            currentLocation = {
-                lat: -33.5347067,
-                lng: -70.6637976
-            }
-        } else if (communes === "LA FLORIDA") {
-            currentLocation = {
-                lat: -33.5204165,
-                lng: -70.599348
-            }
-        } else if (communes === "LA GRANJA") {
-            currentLocation = {
-                lat: -33.5433894,
-                lng: -70.6324196
-            }
-        } else if (communes === "LA PINTANA") {
-            currentLocation = {
-                lat: -33.5830182,
-                lng: -70.6292425
-            }
-        } else if (communes === "LA REINA") {
-            currentLocation = {
-                lat: -33.442607,
-                lng: -70.5434343
-            }
-        } else if (communes === "LAS CONDES") {
-            currentLocation = {
-                lat: -33.4081069,
-                lng: -70.5673758
-            }
-        } else if (communes === "LO BARNECHEA") {
-            currentLocation = {
-                lat: -33.3610533,
-                lng: -70.5054732
-            }
-        } else if (communes === "LO ESPEJO") {
-            currentLocation = {
-                lat: -33.5243181,
-                lng: -70.6958048
-            }
-        } else if (communes === "LO PRADO") {
-            currentLocation = {
-                lat: -33.4416447,
-                lng: -70.717381
-            }
-        } else if (communes === "MACUL") {
-            currentLocation = {
-                lat: -33.4814929,
-                lng: -70.5992918
-            }
-        } else if (communes === "MAIPÚ") {
-            currentLocation = {
-                lat: -33.5097323,
-                lng: -70.7563382
-            }
-        } else if (communes === "ÑUÑOA") {
-            currentLocation = {
-                lat: -33.4538707,
-                lng: -70.5937553
-            }
-        } else if (communes === "PEÑALOLÉN") {
-            currentLocation = {
-                lat: -33.4794626,
-                lng: -70.5363195
-            }
-        } else if (communes === "PROVIDENCIA") {
-            currentLocation = {
-                lat: -33.4313271,
-                lng: -70.6089495
-            }
-        } else if (communes === "PUDAHUEL") {
-            currentLocation = {
-                lat: -33.4365561,
-                lng: -70.7513677
-            }
-        } else if (communes === "QUILICURA") {
-            currentLocation = {
-                lat: -33.3686752,
-                lng: -70.7313338
-            }
-        } else if (communes === "QUINTA NORMAL") {
-            currentLocation = {
-                lat: -33.4223485,
-                lng: -70.6960244
-            }
-        } else if (communes === "RECOLETA") {
-            currentLocation = {
-                lat: -33.4873784,
-                lng: -70.7038997
-            }
-        } else if (communes === "RENCA") {
-            currentLocation = {
-                lat: -33.4036071,
-                lng: -70.7047995
-            }
-        } else if (communes === "SAN JOAQUÍN") {
-            currentLocation = {
-                lat: -33.4960453,
-                lng: -70.6284055
-            }
-        } else if (communes === "SAN MIGUEL") {
-            currentLocation = {
-                lat: -33.4877662,
-                lng: -70.6504591
-            }
-        } else if (communes === "SAN RAMÓN") {
-            currentLocation = {
-                lat: -33.5426888,
-                lng: -70.64288
-            }
-        } else if (communes === "SANTIAGO") {
-            currentLocation = {
-                lat: -33.4370208,
-                lng: -70.6486695
-            }
-        } else if (communes === "VITACURA") {
-            currentLocation = {
-                lat: -33.3869341,
-                lng: -70.5767754
-            }
-        } else if (communes === "") {
+        if (communes === "") {
             navigate('/')
 
             return function () {
                 ac.abort()
             }
-            
+
         }
+
         const token = window.sessionStorage.getItem('tokenadmin')
+        const communeN = {
+            comuna: communes
+        }
+        let arrayCoordinates = []
+        let arrayCoordinatesCheckin = []
+        let arrayCoordinatesAlert = []
         const query = async () => {
+            await api.post(`/comuna/coordinates`, communeN, {
+                headers: { Authorization: "Bearer " + token }
+            })
+                .then(res => {
+                    if (isMounted) {
+                        for (let index = 0; index < res.data[0].coordinates.length; index++) {
+
+                            arrayCoordinates.push([res.data[0].coordinates[index].latitude,
+                            res.data[0].coordinates[index].longitude])
+
+                        }
+                        setCoordinates([arrayCoordinates])
+                    }
+                }).catch(function (e) {
+                    if (isMounted) {
+                        if (axios.isCancel(e)) {
+                        }
+                    }
+                })
+
             await api.get(`/checkin/all`, {
                 headers: { Authorization: "Bearer " + token }
             })
@@ -312,12 +159,15 @@ function MapViewData({ communes }) {
                         for (let index = 0; index < res.data.length; index++) {
                             if (communes === res.data[index].comuna) {
                                 qtyC += 1
+                                arrayCoordinatesCheckin.push(res.data[index].coordinates[0])
                             }
                         }
+                        setCoordinatesCheckin({ coorCheckin: arrayCoordinatesCheckin })
+
                         const rows = [
                             createData('Comuna', communes),
-                            createData('Cantidad de check in', qtyC),
-                            createData('Cantidad de alertas', qtyA),
+                            createData('Cantidad de check in (Amarillo)', qtyC),
+                            createData('Cantidad de alertas (Rojo)' , qtyA),
                         ];
                         setRows(rows)
                     }
@@ -336,13 +186,20 @@ function MapViewData({ communes }) {
                             for (let j = 0; j < res.data[i].puntos.length; j++) {
                                 if (communes === res.data[i].puntos[j].comuna) {
                                     qtyA += 1
+                                    for (let h = 0; h < res.data[i].puntos[j].coordinates.length; h++) {
+                                        arrayCoordinatesAlert.push(res.data[i].puntos[j].coordinates[h])
+
+                                    }
                                 }
                             }
                         }
+                        setCoordinatesAlert({ coorAlert: arrayCoordinatesAlert })
+
+
                         const rows = [
                             createData('Comuna', communes),
-                            createData('Cantidad de check in', qtyC),
-                            createData('Cantidad de alertas', qtyA),
+                            createData('Cantidad de check in (Amarillo)', qtyC),
+                            createData('Cantidad de alertas (Rojo)', qtyA),
                         ];
                         setRows(rows)
                     }
@@ -356,7 +213,6 @@ function MapViewData({ communes }) {
 
         }
         query()
-        SetCommuneName(communes)
 
         setState2({ currentLocation })
 
@@ -380,16 +236,26 @@ function MapViewData({ communes }) {
                         <Grid item xs={12} sm={7}>
                             <div style={{ height: '100vh' }}>
 
-                                <Map center={state2.currentLocation} zoom={23} style={{ width: '100%', height: '100%' }}>
+                                <Map center={state2.currentLocation} zoom={11} style={{ width: '100%', height: '100%' }}>
                                     <TileLayer url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
                                         attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors' />
-                                    <Marker
-                                        position={state2.currentLocation}
-                                        icon={IconPin} >
-                                        <Popup>
-                                            {communeName}
-                                        </Popup>
-                                    </Marker>
+                                    {coordinatesAlert.coorAlert.map((alert, index) => (
+                                        <Marker
+                                            icon={IconAlert}
+                                            key={index}
+                                            position={JSON.parse("[" + alert.latitude + ", " + alert.longitude + "]")}>
+                                        </Marker>
+                                    ))
+                                    }
+                                    {coordinatesCheckin.coorCheckin.map((checkin, index) => (
+                                        <Marker
+                                            icon={IconCheckin}
+                                            key={index}
+                                            position={JSON.parse("[" + checkin.latitude + ", " + checkin.longitude + "]")}>
+                                        </Marker>
+                                    ))
+                                    }
+                                    <Polygon positions={coordinates} color="blue" />
                                     <LocateControl startDirectly />
                                 </Map>
                             </div>

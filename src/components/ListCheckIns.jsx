@@ -27,7 +27,7 @@ const useStyles = makeStyles((theme) => ({
     typ: {
         margin: 'auto',
         paddingTop: 25,
-        fontSize: 40
+        fontSize: 30
     },
     input: {
         width: '50%'
