@@ -18,7 +18,7 @@ const useStyles = makeStyles((theme) => ({
         margin: 'auto',
         paddingTop: 25,
         fontSize: 30,
-        paddingBottom:20
+        paddingBottom: 20
     },
     input: {
         width: '50%'
@@ -112,19 +112,23 @@ function ViewAlert(props) {
         window.scrollTo(0, 0)
         let isMounted = true
         const token = window.sessionStorage.getItem('tokenadmin')
-        api.get(`/helpSOS/all`, {
-            headers: { Authorization: "Bearer " + token }
-        })
-            .then(res => {
-                if (isMounted) {
-                    setHelpSOS({ User: res.data })
-                }
-            }).catch(function (e) {
-                if (isMounted) {
-                    if (axios.isCancel(e)) {
-                    }
-                }
+        const query = async () => {
+
+            await api.get(`/helpSOS/all`, {
+                headers: { Authorization: "Bearer " + token }
             })
+                .then(res => {
+                    if (isMounted) {
+                        setHelpSOS({ User: res.data })
+                    }
+                }).catch(function (e) {
+                    if (isMounted) {
+                        if (axios.isCancel(e)) {
+                        }
+                    }
+                })
+        }
+        query()
         return function () {
             isMounted = false;
         }
@@ -166,14 +170,14 @@ function ViewAlert(props) {
                         </Typography>
                         <Grid item xs={12} className={classes.gridForm}>
 
-                                <TextField
-                                    className={classes.input}
-                                    onKeyPress={(e) => onKeyUpValue(e)}
-                                    value={formattedValue}
-                                    onChange={(e) => setRut(e.target.value)}
-                                    label="Rut"
-                                    variant="outlined"
-                                />
+                            <TextField
+                                className={classes.input}
+                                onKeyPress={(e) => onKeyUpValue(e)}
+                                value={formattedValue}
+                                onChange={(e) => setRut(e.target.value)}
+                                label="Rut"
+                                variant="outlined"
+                            />
                             <Button
                                 className={classes.button}
                                 variant="contained"

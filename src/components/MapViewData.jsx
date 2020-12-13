@@ -177,6 +177,7 @@ function MapViewData({ communes }) {
                         }
                     }
                 })
+                
             await api.get(`/helpSOS/all`, {
                 headers: { Authorization: "Bearer " + token }
             })

@@ -117,65 +117,69 @@ export default function MapViewHelpAll(props) {
         } else {
 
             let source = axios.CancelToken.source();
-            api.get(`/helpSOS/user/${helprut}`, {
-                headers: { Authorization: "Bearer " + token },
-                cancelToken: source.token,
-            })
-                .then(res => {
-                    const index = (res.data[0].puntos.length - helpalert) - 1
+            const query = async () => {
 
-                    if (isMounted) {
-                        let deleteDuplicatePoints = []
-                        let ind = 0
-                        for (let i = res.data[0].puntos[index].coordinates.length; i > 0; i--) {
-                            if (i === res.data[0].puntos[index].coordinates.length) {
-                                deleteDuplicatePoints.push(res.data[0].puntos[index].coordinates[res.data[0].puntos[index].coordinates.length - 1])
+                await api.get(`/helpSOS/user/${helprut}`, {
+                    headers: { Authorization: "Bearer " + token },
+                    cancelToken: source.token,
+                })
+                    .then(res => {
+                        const index = (res.data[0].puntos.length - helpalert) - 1
 
-                            } else {
-                                for (let j = 0; j < deleteDuplicatePoints.length; j++) {
-                                    if (deleteDuplicatePoints[j].latitude !== res.data[0].puntos[index].coordinates[i].latitude && deleteDuplicatePoints[j].longitude !== res.data[0].puntos[index].coordinates[i].longitude) {
-                                        deleteDuplicatePoints.push(res.data[0].puntos[index].coordinates[i])
+                        if (isMounted) {
+                            let deleteDuplicatePoints = []
+                            let ind = 0
+                            for (let i = res.data[0].puntos[index].coordinates.length; i > 0; i--) {
+                                if (i === res.data[0].puntos[index].coordinates.length) {
+                                    deleteDuplicatePoints.push(res.data[0].puntos[index].coordinates[res.data[0].puntos[index].coordinates.length - 1])
 
-                                    } else {
-                                        ind += 1
+                                } else {
+                                    for (let j = 0; j < deleteDuplicatePoints.length; j++) {
+                                        if (deleteDuplicatePoints[j].latitude !== res.data[0].puntos[index].coordinates[i].latitude && deleteDuplicatePoints[j].longitude !== res.data[0].puntos[index].coordinates[i].longitude) {
+                                            deleteDuplicatePoints.push(res.data[0].puntos[index].coordinates[i])
+
+                                        } else {
+                                            ind += 1
+
+                                        }
 
                                     }
 
                                 }
+                            }
+                            const rows = [
+                                createData('Rut', res.data[0].user[0].rut),
+                                createData('Email', res.data[0].user[0].email),
+                                createData('Nombre completo', res.data[0].user[0].nombre + " " + res.data[0].user[0].apellido),
+                                createData('Telefono', res.data[0].user[0].telefono),
+                                createData('Alertas', res.data[0].puntos.length),
+                                createData('Puntos', res.data[0].puntos[index].coordinates.length - ind),
+                                createData('Fecha', new Date(res.data[0].puntos[index].coordinates[0].date).toLocaleDateString()),
+                                createData('Hora del primer punto', new Date(res.data[0].puntos[index].coordinates[0].date).toLocaleTimeString()),
+                                createData('Hora del ultimo punto', new Date(res.data[0].puntos[index].coordinates[res.data[0].puntos[index].coordinates.length - 1].date).toLocaleTimeString()),
+                            ];
+                            const coordinates = res.data[0].puntos[index].coordinates[res.data[0].puntos[index].coordinates.length - 1]
+                            setRows(rows)
+                            setAlert({ markersPoint: deleteDuplicatePoints })
+                            setIsLoading(false)
+
+                            currentLocation = {
+                                lat: coordinates.latitude,
+                                lng: coordinates.longitude
+                            }
+                            setPosition({ currentLocation })
+                        }
+                    }).catch(function (e) {
+
+                        if (isMounted) {
+                            navigate('/alert')
+                            if (axios.isCancel(e)) {
 
                             }
                         }
-                        const rows = [
-                            createData('Rut', res.data[0].user[0].rut),
-                            createData('Email', res.data[0].user[0].email),
-                            createData('Nombre completo', res.data[0].user[0].nombre + " " + res.data[0].user[0].apellido),
-                            createData('Telefono', res.data[0].user[0].telefono),
-                            createData('Alertas', res.data[0].puntos.length),
-                            createData('Puntos', res.data[0].puntos[index].coordinates.length - ind),
-                            createData('Fecha', new Date(res.data[0].puntos[index].coordinates[0].date).toLocaleDateString()),
-                            createData('Hora del primer punto', new Date(res.data[0].puntos[index].coordinates[0].date).toLocaleTimeString()),
-                            createData('Hora del ultimo punto', new Date(res.data[0].puntos[index].coordinates[res.data[0].puntos[index].coordinates.length - 1].date).toLocaleTimeString()),
-                        ];
-                        const coordinates = res.data[0].puntos[index].coordinates[res.data[0].puntos[index].coordinates.length - 1]
-                        setRows(rows)
-                        setAlert({ markersPoint: deleteDuplicatePoints })
-                        setIsLoading(false)
-
-                        currentLocation = {
-                            lat: coordinates.latitude,
-                            lng: coordinates.longitude
-                        }
-                        setPosition({ currentLocation })
-                    }
-                }).catch(function (e) {
-
-                    if (isMounted) {
-                        navigate('/alert')
-                        if (axios.isCancel(e)) {
-
-                        }
-                    }
-                })
+                    })
+            }
+            query()
         }
         return function () {
             isMounted = false;
@@ -197,7 +201,7 @@ export default function MapViewHelpAll(props) {
                     <Grid container>
                         <Grid item xs={12} sm={7}>
                             <div style={{ height: '90vh' }}>
-                                <Map center={position.currentLocation} zoom={position.zoom} style={{ width: '100%', height: '100%' }} zoomControl={false}> 
+                                <Map center={position.currentLocation} zoom={position.zoom} style={{ width: '100%', height: '100%' }} zoomControl={false}>
                                     <TileLayer url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
                                         attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors' />
                                     {alert.markersPoint.map((point, index) => (

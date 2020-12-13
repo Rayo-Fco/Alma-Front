@@ -42,12 +42,47 @@ function MapViewHelp(props) {
     })
 
     useEffect(() => {
-        window.scrollTo(0,0)
+        window.scrollTo(0, 0)
         const interval = setInterval(() => {
-            api.get(`/gethelp?token=${helptoken}`, {
+            const query = async () => {
+                await api.get(`/gethelp?token=${helptoken}`, {
+                    cancelToken: source.token,
+                })
+                    .then(res => {
+                        if (isMounted) {
+                            const currentLocation = {
+                                "person": [
+                                    res.data.coordinates[res.data.coordinates.length - 1].latitude,
+                                    res.data.coordinates[res.data.coordinates.length - 1].longitude
+                                ]
+
+                            }
+                            setHour(new Date(res.data.coordinates[res.data.coordinates.length - 1].date).toLocaleTimeString())
+                            setDate(new Date(res.data.coordinates[res.data.coordinates.length - 1].date).toLocaleDateString())
+                            setUser(res.data.user[0])
+                            setState2({ currentLocation })
+                            setIsLoading(false)
+
+                        }
+                    }).catch(function (e) {
+                        if (isMounted) {
+                            if (axios.isCancel(e)) {
+                            }
+                        }
+                    })
+            }
+            query()
+        }, 300000);
+
+        let isMounted = true
+        let source = axios.CancelToken.source();
+        const query = async () => {
+
+            await api.get(`/gethelp?token=${helptoken}`, {
                 cancelToken: source.token,
             })
                 .then(res => {
+
                     if (isMounted) {
                         const currentLocation = {
                             "person": [
@@ -64,44 +99,16 @@ function MapViewHelp(props) {
 
                     }
                 }).catch(function (e) {
+
                     if (isMounted) {
+                        navigate('/needhelp')
                         if (axios.isCancel(e)) {
+
                         }
                     }
                 })
-        }, 300000);
-
-        let isMounted = true
-        let source = axios.CancelToken.source();
-        api.get(`/gethelp?token=${helptoken}`, {
-            cancelToken: source.token,
-        })
-            .then(res => {
-
-                if (isMounted) {
-                    const currentLocation = {
-                        "person": [
-                            res.data.coordinates[res.data.coordinates.length - 1].latitude,
-                            res.data.coordinates[res.data.coordinates.length - 1].longitude
-                        ]
-
-                    }
-                    setHour(new Date(res.data.coordinates[res.data.coordinates.length - 1].date).toLocaleTimeString())
-                    setDate(new Date(res.data.coordinates[res.data.coordinates.length - 1].date).toLocaleDateString())
-                    setUser(res.data.user[0])
-                    setState2({ currentLocation })
-                    setIsLoading(false)
-
-                }
-            }).catch(function (e) {
-
-                if (isMounted) {
-                    navigate('/needhelp')
-                    if (axios.isCancel(e)) {
-
-                    }
-                }
-            })
+        }
+        query()
         return function () {
             isMounted = false;
             clearInterval(interval);

@@ -8,6 +8,8 @@ import { sendLatLng } from '../actions/latLngAction'
 import useAddMarker from '../hooks/useAddMarker'
 import { useLocation } from 'wouter'
 import Alert from '@material-ui/lab/Alert';
+import { refreshMarker } from '../actions/markerAction'
+import { selectActiveMarker } from '../reducers/markerReducer'
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -74,18 +76,18 @@ const useStyles = makeStyles((theme) => ({
         color: '#fd9eef'
     },
     alert: {
-        textAlign:'left'
+        textAlign: 'left'
     }
 }));
 
 const mapStateToProps = state => {
     return {
+        marker: selectActiveMarker(state),
         latlng: selectActiveLatLng(state)
     }
 }
 
-
-function AddMarker({ latlng }) {
+function AddMarker({ latlng, refreshMarker, marker, }) {
     const classes = useStyles();
     const [category, setCategory] = useState('')
     const [title, setTitle] = useState('')
@@ -109,6 +111,8 @@ function AddMarker({ latlng }) {
 
     const handleSubmit = () => {
         addmarker({ category, title, latitude, longitude })
+
+        refreshMarker(!marker) 
     }
 
     const onKeyUpValue = (e) => {
@@ -118,13 +122,15 @@ function AddMarker({ latlng }) {
     }
 
 
+
     return (
 
         <div className={classes.root}>
 
             <Grid container>
                 <Grid item xs={12} sm={7}>
-                    <MapView></MapView>
+                    <MapView>
+                    </MapView>
                 </Grid>
                 <Grid item xs={8} sm={5} id="gridAddmarker">
                     <Grid item className={classes.gridform}  >
@@ -136,7 +142,7 @@ function AddMarker({ latlng }) {
                             }
                             {!isAddLoading &&
                                 <FormControl onKeyPress={(e) => onKeyUpValue(e)}>
-                                    <Typography className={classes.typo}>
+                                    <Typography className={classes.typo} color="primary">
                                         Agregar marcador
                                 </Typography>
                                     {hasAddError &&
@@ -209,4 +215,4 @@ function AddMarker({ latlng }) {
         </div>
     )
 }
-export default connect(mapStateToProps, { sendLatLng })(AddMarker)
+export default connect(mapStateToProps, { sendLatLng, refreshMarker })(AddMarker)

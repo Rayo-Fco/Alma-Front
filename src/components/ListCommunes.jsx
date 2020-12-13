@@ -43,43 +43,46 @@ const useStyles = makeStyles((theme) => ({
     circular: {
         color: '#fd9eef'
     },
-    listItemText:{
-        fontSize:'13px'
-      }
+    listItemText: {
+        fontSize: '13px'
+    }
 }));
 
 
 function ListComunas({ sendCommunes }) {
     const classes = useStyles();
     const [isLoading, setIsLoading] = useState(true)
-    const [communes, setCommunes] = useState({commune:[]})
+    const [communes, setCommunes] = useState({ commune: [] })
 
     const handleMap = (comunas) => {
         sendCommunes(comunas)
     }
 
     useEffect(() => {
-        window.scrollTo(0,0)
+        window.scrollTo(0, 0)
         let isMounted = true
         let source = axios.CancelToken.source();
         const token = window.sessionStorage.getItem('tokenadmin')
+        const query = async () => {
 
-        api.get(`/comuna/all`, {
-            headers: { Authorization: "Bearer " + token },
-            cancelToken: source.token,
-        })
-            .then(res => {
-                if (isMounted) {
-                    setCommunes({ commune: res.data })
-                    setIsLoading(false)
-
-                }
-            }).catch(function (e) {
-                if (isMounted) {
-                    if (axios.isCancel(e)) {
-                    }
-                }
+            await api.get(`/comuna/all`, {
+                headers: { Authorization: "Bearer " + token },
+                cancelToken: source.token,
             })
+                .then(res => {
+                    if (isMounted) {
+                        setCommunes({ commune: res.data })
+                        setIsLoading(false)
+
+                    }
+                }).catch(function (e) {
+                    if (isMounted) {
+                        if (axios.isCancel(e)) {
+                        }
+                    }
+                })
+        }
+        query()
         return function () {
             isMounted = false;
         }
@@ -89,55 +92,55 @@ function ListComunas({ sendCommunes }) {
 
     return (
         <>
-        {isLoading &&
-            <div className={classes.progress}>
-                <CircularProgress className={classes.circular} style={{ width: '30%', height: '30%', }} />
-            </div>
-        }
+            {isLoading &&
+                <div className={classes.progress}>
+                    <CircularProgress className={classes.circular} style={{ width: '30%', height: '30%', }} />
+                </div>
+            }
 
-        {!isLoading &&
-        <Container fixed>
+            {!isLoading &&
+                <Container fixed>
 
-            <Grid container>
-                <Grid item xs={12}>
-                    <Paper elevation={3} className={classes.paper2}>
-                        <Typography className={classes.typ} color="primary">
-                            Comunas
+                    <Grid container>
+                        <Grid item xs={12}>
+                            <Paper elevation={3} className={classes.paper2}>
+                                <Typography className={classes.typ} color="primary">
+                                    Comunas
                     </Typography>
-                        <List>
-                            {
-                                communes.commune.map(commune => (
-                                    <Link to='/info' className="link" key={commune._id} onClick={() => handleMap(commune.comuna)}>
-                                        <ListItem button >
-                                            <ListItem>
-                                                <Grid item xs={3}>
-                                                    <ListItemAvatar>
-                                                        <Avatar>
-                                                            <RoomIcon />
-                                                        </Avatar>
-                                                    </ListItemAvatar>
-                                                </Grid>
-                                                <Grid item xs={3}>
-                                                    <ListItemText classes={{primary:classes.listItemText}} primary={`${commune.comuna}`} />
-                                                </Grid>
+                                <List>
+                                    {
+                                        communes.commune.map(commune => (
+                                            <Link to='/info' className="link" key={commune._id} onClick={() => handleMap(commune.comuna)}>
+                                                <ListItem button >
+                                                    <ListItem>
+                                                        <Grid item xs={3}>
+                                                            <ListItemAvatar>
+                                                                <Avatar>
+                                                                    <RoomIcon />
+                                                                </Avatar>
+                                                            </ListItemAvatar>
+                                                        </Grid>
+                                                        <Grid item xs={3}>
+                                                            <ListItemText classes={{ primary: classes.listItemText }} primary={`${commune.comuna}`} />
+                                                        </Grid>
 
-                                            </ListItem>
-                                            <Grid item xs={3}>
-                                                <IconButton edge="end" aria-label="delete">
-                                                    <PlayCircleOutlineIcon />
-                                                </IconButton>
-                                            </Grid>
-                                        </ListItem>
-                                    </Link>
-                                ))
-                            }
-                        </List>
-                    </Paper>
-                </Grid>
-            </Grid>
-        </Container>
-                        }
-</>
+                                                    </ListItem>
+                                                    <Grid item xs={3}>
+                                                        <IconButton edge="end" aria-label="delete">
+                                                            <PlayCircleOutlineIcon />
+                                                        </IconButton>
+                                                    </Grid>
+                                                </ListItem>
+                                            </Link>
+                                        ))
+                                    }
+                                </List>
+                            </Paper>
+                        </Grid>
+                    </Grid>
+                </Container>
+            }
+        </>
     );
 }
 

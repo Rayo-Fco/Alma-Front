@@ -85,6 +85,7 @@ export default function ResetPassword() {
     const params = new URLSearchParams(search)
     const email = params.get('email')
     const token = params.get('token')
+    
     useEffect(() => {
         window.scrollTo(0, 0)
         const search = window.location.search
@@ -92,23 +93,26 @@ export default function ResetPassword() {
         const email = params.get('email')
         const token = params.get('token')
         let source = axios.CancelToken.source()
-        api.get(`/login/reset_password`,
-            {
-                params: {
-                    email: email,
-                    token: token
-                },
-                cancelToken: source.token,
-            })
-            .then(res => {
-                setIsLoading(false)
-                setValidate(true)
-            })
-            .catch(function (e) {
-                setIsLoading(false)
-                setValidate(false)
+        const query = async () => {
+            await api.get(`/login/reset_password`,
+                {
+                    params: {
+                        email: email,
+                        token: token
+                    },
+                    cancelToken: source.token,
+                })
+                .then(res => {
+                    setIsLoading(false)
+                    setValidate(true)
+                })
+                .catch(function (e) {
+                    setIsLoading(false)
+                    setValidate(false)
 
-            })
+                })
+        }
+        query()
         return () => {
 
         }

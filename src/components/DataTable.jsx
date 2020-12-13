@@ -40,10 +40,10 @@ const useStyles = makeStyles({
   },
   progress: {
     height: '100%',
-},
-circular: {
+  },
+  circular: {
     color: '#fd9eef'
-},
+  },
 });
 
 
@@ -54,30 +54,34 @@ export default function CustomizedTables() {
   useEffect(() => {
     let isMounted = true
     const token = window.sessionStorage.getItem('tokenadmin')
-    api.get(`/dashboard`, {
-      headers: { Authorization: "Bearer " + token }
-    })
-      .then(res => {
-        if (isMounted) {
-          const row = [
-            createData('Checkins', res.data.numero_checkin),
-            createData('Usuarios', res.data.numero_user),
-            createData('Comisarias', res.data.numero_comisaria),
-            createData('Cuarteles', res.data.numero_cuartes),
-            createData('Comunas', res.data.numero_comuna),
-            createData('Alertas de SOS', res.data.numero_help[0].total_puntos),
+    const query = async () => {
 
-          ];
-          setRows(row)
-          setIsLoading(false)
-
-        }
-      }).catch(function (e) {
-        if (isMounted) {
-          if (axios.isCancel(e)) {
-          }
-        }
+      await api.get(`/dashboard`, {
+        headers: { Authorization: "Bearer " + token }
       })
+        .then(res => {
+          if (isMounted) {
+            const row = [
+              createData('Checkins', res.data.numero_checkin),
+              createData('Usuarios', res.data.numero_user),
+              createData('Comisarias', res.data.numero_comisaria),
+              createData('Cuarteles', res.data.numero_cuartes),
+              createData('Comunas', res.data.numero_comuna),
+              createData('Alertas de SOS', res.data.numero_help[0].total_puntos),
+
+            ];
+            setRows(row)
+            setIsLoading(false)
+
+          }
+        }).catch(function (e) {
+          if (isMounted) {
+            if (axios.isCancel(e)) {
+            }
+          }
+        })
+    }
+    query()
     return function () {
       isMounted = false;
     }

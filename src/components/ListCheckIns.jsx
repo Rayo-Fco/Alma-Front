@@ -29,13 +29,16 @@ const useStyles = makeStyles((theme) => ({
         fontSize: 30
     },
     input: {
-        width: '50%'
+        width: '50%',
+        minWidth: '150px'
     },
     button: {
-        width: '20%',
+        width: '10%',
         height: 55,
         marginLeft: '2%',
-        fontSize: '70%'
+        fontSize: '70%',
+        minWidth: '80px'
+
     },
     typho: {
         fontSize: 20,
@@ -53,7 +56,6 @@ const useStyles = makeStyles((theme) => ({
         padding: theme.spacing(1),
         marginTop: theme.spacing(1),
         minHeight: 650,
-        minWidth: 425
     },
     acordionCollapse: {
         height: 'auto'
@@ -98,8 +100,8 @@ const useStyles = makeStyles((theme) => ({
     },
     modalButton: {
         marginLeft: 10,
-        marginBottom:5,
-        marginTop:5
+        marginBottom: 5,
+        marginTop: 5
     },
     progress: {
         height: '80%',
@@ -140,6 +142,9 @@ const useStyles = makeStyles((theme) => ({
     },
     accordion: {
         backgroundColor: '#f2f2f2'
+    },
+    grList: {
+        height: 'auto'
     }
 }))
 
@@ -180,20 +185,23 @@ function ListCheckIns(props) {
         window.scrollTo(0, 0)
         let isMounted = true
         const token = window.sessionStorage.getItem('tokenadmin')
-        api.get(`/checkin/all`, {
-            headers: { Authorization: "Bearer " + token }
-        })
-            .then(res => {
-                if (isMounted) {
-                    setCheckins({ User: res.data })
-                    setIsLoading(false)
-                }
-            }).catch(function (e) {
-                if (isMounted) {
-                    if (axios.isCancel(e)) {
-                    }
-                }
+        const query = async () => {
+            await api.get(`/checkin/all`, {
+                headers: { Authorization: "Bearer " + token }
             })
+                .then(res => {
+                    if (isMounted) {
+                        setCheckins({ User: res.data })
+                        setIsLoading(false)
+                    }
+                }).catch(function (e) {
+                    if (isMounted) {
+                        if (axios.isCancel(e)) {
+                        }
+                    }
+                })
+        }
+        query()
         return function () {
             isMounted = false;
         }
@@ -252,6 +260,7 @@ function ListCheckIns(props) {
                     }
                     {!isFindLoading &&
                         <Container fixed className={classes.cnt}>
+
                             <Paper className={classes.cnt} elevation={3}>
                                 <Grid container>
                                     <Grid item xs={12}>
@@ -326,6 +335,7 @@ function ListCheckIns(props) {
                                     </Grid>
 
                                     <Container className={classes.container} style={{ cursor: 'pointer' }}>
+
                                         {
                                             checkin
                                                 ?
@@ -571,6 +581,7 @@ function ListCheckIns(props) {
                                     </Container>
                                 </Grid>
                             </Paper>
+
                         </Container>
                     }
                 </>
