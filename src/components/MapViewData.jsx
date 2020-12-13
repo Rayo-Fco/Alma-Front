@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { Map, TileLayer, Polygon, Marker } from 'react-leaflet'
+import { Map, TileLayer, Polygon, Marker, ZoomControl } from 'react-leaflet'
 import 'leaflet/dist/leaflet.css'
 import { sendCommunes } from '../actions/communesAction'
 import { connect } from "react-redux"
@@ -234,9 +234,9 @@ function MapViewData({ communes }) {
                 <div className={classes.root}>
                     <Grid container>
                         <Grid item xs={12} sm={7}>
-                            <div style={{ height: '100vh' }}>
+                            <div style={{ height: '90vh' }}>
 
-                                <Map center={state2.currentLocation} zoom={11} style={{ width: '100%', height: '100%' }}>
+                                <Map center={state2.currentLocation} zoom={11} style={{ width: '100%', height: '100%' }} zoomControl={false}>
                                     <TileLayer url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
                                         attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors' />
                                     {coordinatesAlert.coorAlert.map((alert, index) => (
@@ -257,6 +257,8 @@ function MapViewData({ communes }) {
                                     }
                                     <Polygon positions={coordinates} color="blue" />
                                     <LocateControl startDirectly />
+                                    <ZoomControl position='bottomleft' />
+
                                 </Map>
                             </div>
                         </Grid>

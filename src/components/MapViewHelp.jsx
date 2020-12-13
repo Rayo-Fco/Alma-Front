@@ -3,7 +3,7 @@ import { Map, TileLayer } from 'react-leaflet'
 import 'leaflet/dist/leaflet.css'
 import LocateControl from './LocateControl'
 import axios from 'axios'
-import { Marker, Popup, Tooltip } from 'react-leaflet'
+import { Marker, Popup, Tooltip, ZoomControl } from 'react-leaflet'
 import { IconLocation } from './IconLocation'
 import CircularProgress from '@material-ui/core/CircularProgress'
 import { makeStyles } from '@material-ui/core/styles'
@@ -117,8 +117,8 @@ function MapViewHelp(props) {
                 </div>
             }
             {!isLoading &&
-                <div style={{ height: '100vh' }}>
-                    <Map center={state2.currentLocation.person} zoom="23" style={{ width: '100%', height: '100%' }}>
+                <div style={{ height: '90vh' }}>
+                    <Map center={state2.currentLocation.person} zoom="23" style={{ width: '100%', height: '100%' }} zoomControl={false}>
                         <TileLayer url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
                             attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors' />
                         <Marker
@@ -134,6 +134,7 @@ function MapViewHelp(props) {
                             </Popup>
                         </Marker>
                         <LocateControl startDirectly />
+                        <ZoomControl position='bottomleft' />
 
                     </Map>
                 </div>

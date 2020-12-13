@@ -3,8 +3,7 @@ import { makeStyles } from '@material-ui/core/styles'
 import { Grid, Container, Paper, Typography, TextField, Button } from '@material-ui/core'
 import SearchIcon from '@material-ui/icons/Search'
 import axios from 'axios'
-import { Map, TileLayer } from 'react-leaflet'
-import { Marker, Popup } from 'react-leaflet'
+import { Map, TileLayer, ZoomControl, Marker, Popup } from 'react-leaflet'
 import { IconPin } from './IconLocation'
 import useFindCheckin from '../hooks/useFindCheckin'
 import { useLocation } from 'wouter'
@@ -590,7 +589,7 @@ function ListCheckIns(props) {
                 <Fade in={openMap}>
                     <div className={classes.modalMap}>
                         {resOpen &&
-                            <Map center={currentLocation(resOpen.coordinates[0].latitude, resOpen.coordinates[0].longitude)} zoom={25} className={classes.grd}>
+                            <Map center={currentLocation(resOpen.coordinates[0].latitude, resOpen.coordinates[0].longitude)} zoom={25} className={classes.grd} zoomControl={false}>
                                 <TileLayer url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
                                     attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors' />
                                 <Marker
@@ -600,6 +599,7 @@ function ListCheckIns(props) {
                                         {resOpen.comuna}
                                     </Popup>
                                 </Marker>
+                                <ZoomControl position='bottomleft' />
                             </Map>
                         }
                     </div>

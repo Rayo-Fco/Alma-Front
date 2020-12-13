@@ -9,7 +9,7 @@ export default function LocateControl() {
   useEffect(() => {
 
     const locateOptions = {
-      position: 'topleft',
+      position: 'bottomleft',
       maxZoom: 19,
       strings: {
           title: 'Ir donde estoy'

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { Map, TileLayer } from 'react-leaflet'
+import { Map, TileLayer, ZoomControl } from 'react-leaflet'
 import 'leaflet/dist/leaflet.css'
 import LocateControl from './LocateControl'
 import axios from 'axios'
@@ -196,8 +196,8 @@ export default function MapViewHelpAll(props) {
                 <div className={classes.root}>
                     <Grid container>
                         <Grid item xs={12} sm={7}>
-                            <div style={{ height: '100vh' }}>
-                                <Map center={position.currentLocation} zoom={position.zoom} style={{ width: '100%', height: '100%' }}>
+                            <div style={{ height: '90vh' }}>
+                                <Map center={position.currentLocation} zoom={position.zoom} style={{ width: '100%', height: '100%' }} zoomControl={false}> 
                                     <TileLayer url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
                                         attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors' />
                                     {alert.markersPoint.map((point, index) => (
@@ -212,6 +212,7 @@ export default function MapViewHelpAll(props) {
                                     ))
                                     }
                                     <LocateControl startDirectly />
+                                    <ZoomControl position='bottomleft' />
 
                                 </Map>
                             </div>
