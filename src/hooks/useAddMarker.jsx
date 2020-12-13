@@ -23,7 +23,6 @@ export default function useAddMarker() {
                 })
                 .catch(err => {
                     setState({ succeed: false, loading: false, error: true, errormsj: '' })
-                    console.log(err)
                 })
         } else {
             errores.push("Ingrese una Longitud y Latitud")

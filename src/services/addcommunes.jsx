@@ -2,8 +2,6 @@ import api from './api'
 
 export default function addcommunes({ commune, phone, coordinates }) {
 
-
-    console.log(commune, phone, coordinates)
     const comuna = {
         comuna: commune,
         phone: phone,

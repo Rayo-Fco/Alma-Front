@@ -59,7 +59,6 @@ export default function NeedHelp() {
     }
 
     useEffect(() => {
-        console.log(succeedFind);
         if (succeedFind) {
             navigate(`/needhelp/${helpToken}`)
         }

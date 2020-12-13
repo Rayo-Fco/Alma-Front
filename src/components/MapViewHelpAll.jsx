@@ -157,7 +157,6 @@ export default function MapViewHelpAll(props) {
                             createData('Hora del ultimo punto', new Date(res.data[0].puntos[index].coordinates[res.data[0].puntos[index].coordinates.length - 1].date).toLocaleTimeString()),
                         ];
                         const coordinates = res.data[0].puntos[index].coordinates[res.data[0].puntos[index].coordinates.length - 1]
-                        console.log(res.data[0].puntos[index].coordinates[res.data[0].puntos[index].coordinates.length - 1])
                         setRows(rows)
                         setAlert({ markersPoint: deleteDuplicatePoints })
                         setIsLoading(false)

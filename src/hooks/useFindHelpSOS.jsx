@@ -27,14 +27,12 @@ export default function useFindHelpSOS() {
                     } else {
                         errores.push(helpsosres)
                     }
-                    console.log(helpsosres)
                     setState({ succeed: false, error: true, errormsj: errores, })
 
                 }
             })
             .catch(err => {
                 setState({ succeed: false, error: true, errormsj: err, })
-                console.log(err)
             })
     }
 

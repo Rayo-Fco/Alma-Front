@@ -28,15 +28,14 @@ export default function useSignup() {
 
                 })
                 .catch(err => {
-
-                    console.log(err)
+                    let errores = []
+                    errores.push("Se ha producido un error desconocido")
+                    setState({ succeed: false, loading: true, error: true, errormsj: errores })
 
                 })
         } else {
             let errores = []
-
             errores.push("No coinciden las contraseñas")
-
             setState({ succeed: false, loading: true, error: true, errormsj: errores })
         }
     }

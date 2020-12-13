@@ -103,12 +103,10 @@ export default function ResetPassword() {
             .then(res => {
                 setIsLoading(false)
                 setValidate(true)
-                console.log(res)
             })
             .catch(function (e) {
                 setIsLoading(false)
                 setValidate(false)
-                console.log(e)
 
             })
         return () => {

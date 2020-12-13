@@ -5,15 +5,12 @@ export default function useFindCheckin() {
     const [state, setState] = useState({ succeed: false, loading: false, error: false, errormsj: '' })
 
     const findhelptoken = ({ helpToken }) => {
-        console.log(helpToken)
         setState({ succeed: false, loading: true, error: false, errormsj: '' })
         findhelptokenServices({ helpToken })
             .then(helptokenres => {
                 if (helptokenres) {
-                    console.log(helptokenres);
                     if (helptokenres === "ok") {
                         setState({ succeed: true, loading: false, error: false, errormsj: '' })
-                        console.log("sd");
                     } else {
                         setState({ succeed: false, loading: false, error: true, errormsj: helptokenres })
                     }
@@ -31,7 +28,6 @@ export default function useFindCheckin() {
             })
             .catch(err => {
                 setState({ succeed: false, loading: false, error: true, errormsj: err })
-                console.log(err)
             })
     }
 

@@ -12,7 +12,6 @@ export default function resetpassword({ password1, email, token }) {
             return "ok"
         })
         .catch(err => {
-            console.log(err)
             return false
         })
 }

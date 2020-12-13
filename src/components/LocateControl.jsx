@@ -8,18 +8,16 @@ export default function LocateControl() {
 
   useEffect(() => {
 
-    // geo locate props
     const locateOptions = {
       position: 'topleft',
       maxZoom: 19,
       strings: {
           title: 'Ir donde estoy'
       },
-      onActivate: () => {} // callback before engine starts retrieving locations
+      onActivate: () => {}
     }
 
     const lc = new Locate(locateOptions);
-    // console.log(lc);
     
     lc.addTo(map);
 
