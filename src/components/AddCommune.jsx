@@ -47,7 +47,7 @@ const usesStyles = makeStyles((theme) => ({
 }))
 
 
-function RegistroComuna() {
+function AddCommune() {
     const { addcommunes, isAddLoading, hasAddError, errorMsj, succeedAdd } = useAddCommunes()
     const [commune, setCommune] = useState('')
     const [phone, setPhone] = useState('')
@@ -194,4 +194,4 @@ function RegistroComuna() {
     );
 }
 
-export default RegistroComuna;
+export default AddCommune

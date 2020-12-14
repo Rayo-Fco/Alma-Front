@@ -3,10 +3,10 @@ import Paper from '@material-ui/core/Paper'
 import { Button, makeStyles, FormControl, Typography } from "@material-ui/core"
 import { TextField, Grid } from '@material-ui/core'
 import LockOpenIcon from '@material-ui/icons/LockOpen'
-import { useLocation } from 'wouter';
-import useFindHelpToken from '../hooks/useFindHelpToken';
-import CircularProgress from '@material-ui/core/CircularProgress';
-import Alert from '@material-ui/lab/Alert';
+import { useLocation } from 'wouter'
+import useFindHelpToken from '../hooks/useFindHelpToken'
+import CircularProgress from '@material-ui/core/CircularProgress'
+import Alert from '@material-ui/lab/Alert'
 
 const useStyles = makeStyles((theme) => ({
     input: {

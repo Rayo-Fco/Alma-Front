@@ -3,7 +3,7 @@ import { Marker, Popup } from 'react-leaflet'
 import { IconCarabineros, IconPdi } from './IconLocation'
 import { selectActiveLatLng } from '../reducers/latLngReducer'
 import { selectActiveMarker } from '../reducers/markerReducer'
-import { connect } from "react-redux";
+import { connect } from 'react-redux'
 import { sendLatLng } from '../actions/latLngAction'
 import { refreshMarker } from '../actions/markerAction'
 import axios from 'axios'

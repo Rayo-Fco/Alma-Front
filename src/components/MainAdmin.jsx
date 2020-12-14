@@ -1,11 +1,11 @@
 import React, { useEffect } from 'react'
 import { Paper, Container, Grid, Typography, GridList } from '@material-ui/core'
 import { makeStyles } from '@material-ui/core/styles'
-import Avatar from '@material-ui/core/Avatar';
-import { deepOrange } from '@material-ui/core/colors';
-import ListCommunes from './ListCommunes';
+import Avatar from '@material-ui/core/Avatar'
+import { deepOrange } from '@material-ui/core/colors'
+import ListCommunes from './ListCommunes'
 import ListCheckIns from './ListCheckIns'
-import { useLocation } from 'wouter';
+import { useLocation } from 'wouter'
 import DataTable from './DataTable'
 
 const useStyles = makeStyles((theme) => ({
@@ -65,20 +65,19 @@ const useStyles = makeStyles((theme) => ({
         padding: theme.spacing(2, 4, 3),
     },
     grDataTable: {
-        margin:'auto'
+        margin: 'auto'
     }
 }))
 
 
-export default function MainAdmin() {
+function MainAdmin( ) {
     const [, navigate] = useLocation()
 
     useEffect(() => {
-        window.scrollTo(0,0)
+        window.scrollTo(0, 0)
         const ac = new AbortController();
         if (!sessionStorage.getItem('tokenadmin')) {
             navigate('/')
-
         }
         return () => ac.abort();
     }, [navigate])
@@ -122,3 +121,4 @@ export default function MainAdmin() {
         </Container>
     )
 }
+export default MainAdmin

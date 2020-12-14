@@ -4,7 +4,7 @@ import 'leaflet/dist/leaflet.css'
 import Markers from './Markers'
 import { sendLatLng } from '../actions/latLngAction'
 import { connect } from "react-redux"
-import LocateControl from './LocateControl';
+import LocateControl from './LocateControl'
 
 function MapView({ sendLatLng }) {
     window.scrollTo(0,0)

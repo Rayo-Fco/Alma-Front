@@ -1,14 +1,14 @@
-import React, { useEffect, useState } from 'react';
-import { withStyles, makeStyles } from '@material-ui/core/styles';
-import Table from '@material-ui/core/Table';
-import TableBody from '@material-ui/core/TableBody';
-import TableCell from '@material-ui/core/TableCell';
-import TableContainer from '@material-ui/core/TableContainer';
-import TableHead from '@material-ui/core/TableHead';
-import TableRow from '@material-ui/core/TableRow';
-import Paper from '@material-ui/core/Paper';
+import React, { useEffect, useState } from 'react'
+import { withStyles, makeStyles } from '@material-ui/core/styles'
+import Table from '@material-ui/core/Table'
+import TableBody from '@material-ui/core/TableBody'
+import TableCell from '@material-ui/core/TableCell'
+import TableContainer from '@material-ui/core/TableContainer'
+import TableHead from '@material-ui/core/TableHead'
+import TableRow from '@material-ui/core/TableRow'
+import Paper from '@material-ui/core/Paper'
 import axios from 'axios'
-import CircularProgress from '@material-ui/core/CircularProgress';
+import CircularProgress from '@material-ui/core/CircularProgress'
 import api from '../services/api'
 
 
@@ -47,7 +47,7 @@ const useStyles = makeStyles({
 });
 
 
-export default function CustomizedTables() {
+ function DataTable() {
   const classes = useStyles();
   const [rows, setRows] = useState([])
   const [isLoading, setIsLoading] = useState(true)
@@ -125,3 +125,5 @@ export default function CustomizedTables() {
     </>
   );
 }
+export default DataTable
+

@@ -13,6 +13,8 @@ import EmailIcon from '@material-ui/icons/Email';
 import { Paper, Grid, FormControl, TextField, Button, Typography, InputAdornment } from '@material-ui/core';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import Alert from '@material-ui/lab/Alert';
+import { sendAuth } from '../actions/authAction'
+import { connect } from "react-redux"
 
 const usesStyles = makeStyles((theme) => ({
     container: {
@@ -57,7 +59,7 @@ const usesStyles = makeStyles((theme) => ({
     }
 }))
 
-export default function LoginForm() {
+ function LoginForm({ sendAuth }) {
     const [email, setEmail] = useState("")
     const [password, setPassword] = useState("")
     const [, navigate] = useLocation()
@@ -70,9 +72,10 @@ export default function LoginForm() {
 
     useEffect(() => {
         if (isLogged) {
+            sendAuth(true)
             navigate('/principal')
         }
-    }, [isLogged, navigate])
+    }, [isLogged, navigate, sendAuth])
 
     const onKeyUpValue = (e) => {
         if (e.charCode === 13) {
@@ -149,3 +152,4 @@ export default function LoginForm() {
         </>
     );
 }
+export default connect(null, { sendAuth })(LoginForm)

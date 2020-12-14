@@ -122,7 +122,6 @@ function AddMarker({ latlng, refreshMarker, marker, }) {
     }
 
 
-
     return (
 
         <div className={classes.root}>
@@ -215,4 +214,4 @@ function AddMarker({ latlng, refreshMarker, marker, }) {
         </div>
     )
 }
-export default connect(mapStateToProps, { sendLatLng, refreshMarker })(AddMarker)
+export default connect(mapStateToProps, { sendLatLng, refreshMarker})(AddMarker)
