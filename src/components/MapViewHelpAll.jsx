@@ -128,7 +128,7 @@ export default function MapViewHelpAll(props) {
 
                         if (isMounted) {
                             let deleteDuplicatePoints = []
-                            let ind = 0
+                            let boo = false
                             for (let i = res.data[0].puntos[index].coordinates.length; i > 0; i--) {
                                 if (i === res.data[0].puntos[index].coordinates.length) {
                                     deleteDuplicatePoints.push(res.data[0].puntos[index].coordinates[res.data[0].puntos[index].coordinates.length - 1])
@@ -136,24 +136,29 @@ export default function MapViewHelpAll(props) {
                                 } else {
                                     for (let j = 0; j < deleteDuplicatePoints.length; j++) {
                                         if (deleteDuplicatePoints[j].latitude !== res.data[0].puntos[index].coordinates[i].latitude && deleteDuplicatePoints[j].longitude !== res.data[0].puntos[index].coordinates[i].longitude) {
-                                            deleteDuplicatePoints.push(res.data[0].puntos[index].coordinates[i])
-
+                                            boo = true
                                         } else {
-                                            ind += 1
+                                            boo = false
+                                           j = deleteDuplicatePoints.length
 
                                         }
 
                                     }
+                                    if (boo){
+                                        deleteDuplicatePoints.push(res.data[0].puntos[index].coordinates[i])
+                                    }
 
                                 }
                             }
+                           
                             const rows = [
                                 createData('Rut', res.data[0].user[0].rut),
                                 createData('Email', res.data[0].user[0].email),
                                 createData('Nombre completo', res.data[0].user[0].nombre + ' ' + res.data[0].user[0].apellido),
                                 createData('Telefono', res.data[0].user[0].telefono),
                                 createData('Alertas', res.data[0].puntos.length),
-                                createData('Puntos', res.data[0].puntos[index].coordinates.length - ind),
+                                createData('Puntos', deleteDuplicatePoints.length),
+                                createData('Puntos Repetidos', res.data[0].puntos[index].coordinates.length - deleteDuplicatePoints.length),
                                 createData('Fecha', new Date(res.data[0].puntos[index].coordinates[0].date).toLocaleDateString()),
                                 createData('Hora del primer punto', new Date(res.data[0].puntos[index].coordinates[0].date).toLocaleTimeString()),
                                 createData('Hora del ultimo punto', new Date(res.data[0].puntos[index].coordinates[res.data[0].puntos[index].coordinates.length - 1].date).toLocaleTimeString()),
