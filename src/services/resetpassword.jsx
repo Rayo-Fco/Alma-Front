@@ -9,7 +9,7 @@ export default function resetpassword({ password1, email, token }) {
     return api.post(`/login/reset_password?email=${email}&token=${token}`, newPassword)
     
         .then(res => {
-            return "ok"
+            return 'ok'
         })
         .catch(err => {
             return false

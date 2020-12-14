@@ -17,10 +17,10 @@ import AccordionDetails from '@material-ui/core/AccordionDetails'
 import AccordionSummary from '@material-ui/core/AccordionSummary'
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore'
 import api from '../services/api'
-import Alert from '@material-ui/lab/Alert';
-import CloseIcon from '@material-ui/icons/Close';
-import IconButton from '@material-ui/core/IconButton';
-import Collapse from '@material-ui/core/Collapse';
+import Alert from '@material-ui/lab/Alert'
+import CloseIcon from '@material-ui/icons/Close'
+import IconButton from '@material-ui/core/IconButton'
+import Collapse from '@material-ui/core/Collapse'
 
 const useStyles = makeStyles((theme) => ({
     typ: {
@@ -164,22 +164,22 @@ function ListCheckIns(props) {
     const handleOpenMap = (checkin) => {
         setResOpen(checkin)
         setOpenMap(true)
-    };
+    }
 
     const handleCloseMap = () => {
         setOpenMap(false)
-    };
+    }
 
 
     const handleOpenPhoto = (checkin) => {
         setResOpen(checkin)
         setOpenPhoto(true)
-    };
+    }
 
 
     const handleClosePhoto = () => {
         setOpenPhoto(false)
-    };
+    }
 
     useEffect(() => {
         window.scrollTo(0, 0)
@@ -187,7 +187,7 @@ function ListCheckIns(props) {
         const token = window.sessionStorage.getItem('tokenadmin')
         const query = async () => {
             await api.get(`/checkin/all`, {
-                headers: { Authorization: "Bearer " + token }
+                headers: { Authorization: 'Bearer ' + token }
             })
                 .then(res => {
                     if (isMounted) {
@@ -203,17 +203,17 @@ function ListCheckIns(props) {
         }
         query()
         return function () {
-            isMounted = false;
+            isMounted = false
         }
     }, [checkin, setCheckins])
 
     useEffect(() => {
-        const ac = new AbortController();
+        const ac = new AbortController()
         if (!sessionStorage.getItem('tokenadmin')) {
             navigate('/')
 
         }
-        return () => ac.abort();
+        return () => ac.abort()
     }, [navigate])
 
     function currentLocation(latitude, longitude) {
@@ -224,10 +224,10 @@ function ListCheckIns(props) {
         return currentLocation
     }
 
-    const [expanded, setExpanded] = React.useState(false);
+    const [expanded, setExpanded] = React.useState(false)
 
     const handleChange = (panel) => (event, isExpanded) => {
-        setExpanded(isExpanded ? panel : false);
+        setExpanded(isExpanded ? panel : false)
     }
 
     const onKeyUpValue = (e) => {
@@ -241,7 +241,7 @@ function ListCheckIns(props) {
         setOpenAlertError(true)
         setOpenAlertSucceed(true)
         findcheckin({ rut })
-    };
+    }
 
     return (
         <>
@@ -264,7 +264,7 @@ function ListCheckIns(props) {
                             <Paper className={classes.cnt} elevation={3}>
                                 <Grid container>
                                     <Grid item xs={12}>
-                                        <Typography className={classes.typ} color="primary">
+                                        <Typography className={classes.typ} color='primary'>
                                             Check ins
                                         </Typography>
                                     </Grid>
@@ -272,15 +272,15 @@ function ListCheckIns(props) {
                                         <TextField
                                             className={classes.input}
                                             onKeyPress={(e) => onKeyUpValue(e)}
-                                            label="Rut"
-                                            variant="outlined"
+                                            label='Rut'
+                                            variant='outlined'
                                             value={formattedValue}
                                             onChange={(e) => setRut(e.target.value)}
                                         />
                                         <Button
                                             className={classes.button}
-                                            variant="contained"
-                                            color="primary"
+                                            variant='contained'
+                                            color='primary'
                                             startIcon={<SearchIcon />}
                                             onClick={() => handleSubmit()}>
                                             Buscar
@@ -294,18 +294,18 @@ function ListCheckIns(props) {
                                                 <Alert
                                                     action={
                                                         <IconButton
-                                                            aria-label="close"
-                                                            color="inherit"
-                                                            size="small"
+                                                            aria-label='close'
+                                                            color='inherit'
+                                                            size='small'
                                                             onClick={() => {
-                                                                setOpenAlertError(false);
+                                                                setOpenAlertError(false)
                                                             }}>
-                                                            <CloseIcon fontSize="inherit" />
+                                                            <CloseIcon fontSize='inherit' />
                                                         </IconButton>
                                                     }
                                                     className={classes.alert}
-                                                    variant="filled"
-                                                    severity="error">
+                                                    variant='filled'
+                                                    severity='error'>
                                                     No se ha encontrado o esta mal ingresado el RUT
                                                 </Alert>
                                             </Collapse>
@@ -316,18 +316,18 @@ function ListCheckIns(props) {
                                                 <Alert
                                                     action={
                                                         <IconButton
-                                                            aria-label="close"
-                                                            color="inherit"
-                                                            size="small"
+                                                            aria-label='close'
+                                                            color='inherit'
+                                                            size='small'
                                                             onClick={() => {
-                                                                setOpenAlertSucceed(false);
+                                                                setOpenAlertSucceed(false)
                                                             }}>
-                                                            <CloseIcon fontSize="inherit" />
+                                                            <CloseIcon fontSize='inherit' />
                                                         </IconButton>
                                                     }
                                                     className={classes.alert}
-                                                    variant="filled"
-                                                    severity="success">
+                                                    variant='filled'
+                                                    severity='success'>
                                                     Se ha encontrado correctamente
                                                 </Alert>
                                             </Collapse>
@@ -346,7 +346,7 @@ function ListCheckIns(props) {
                                                                 <Accordion expanded={expanded === 'panel' + index} onChange={handleChange('panel' + index)}>
                                                                     <AccordionSummary
                                                                         expandIcon={<ExpandMoreIcon />}
-                                                                        id="panel1bh-header"
+                                                                        id='panel1bh-header'
                                                                         className={classes.accordion}
                                                                     >
                                                                         <Typography className={classes.heading}>
@@ -440,11 +440,11 @@ function ListCheckIns(props) {
                                                                                 <Grid item xs={6} className={classes.gridButton} >
                                                                                     <Grid item xs zeroMinWidth>
                                                                                         <div>
-                                                                                            <Button className={classes.modalButton} id="buttonOpenMap" onClick={() => { handleOpenMap(checkin) }} variant="outlined">
+                                                                                            <Button className={classes.modalButton} id='buttonOpenMap' onClick={() => { handleOpenMap(checkin) }} variant='outlined'>
                                                                                                 Abrir mapa
                                                                                     </Button>
                                                                                             {checkin.fotos[0] &&
-                                                                                                <Button className={classes.modalButton} id="buttonOpenPhotos" onClick={() => { handleOpenPhoto(checkin) }} variant="outlined">
+                                                                                                <Button className={classes.modalButton} id='buttonOpenPhotos' onClick={() => { handleOpenPhoto(checkin) }} variant='outlined'>
                                                                                                     Ver foto
                                                                                         </Button>
                                                                                             }
@@ -467,7 +467,7 @@ function ListCheckIns(props) {
                                                         <Accordion expanded={expanded === 'panel' + index} onChange={handleChange('panel' + index)}>
                                                             <AccordionSummary
                                                                 expandIcon={<ExpandMoreIcon />}
-                                                                id="panel1bh-header"
+                                                                id='panel1bh-header'
                                                                 className={classes.accordion}>
                                                                 <Typography className={classes.heading}>
                                                                     <b className={classes.b}>Rut </b>{checkin.user[0].rut}
@@ -558,11 +558,11 @@ function ListCheckIns(props) {
                                                                         <Grid item xs={6} className={classes.gridButton} >
                                                                             <Grid item xs zeroMinWidth>
                                                                                 <div>
-                                                                                    <Button className={classes.modalButton} id="buttonOpenMap" onClick={() => { handleOpenMap(checkin) }} variant="outlined">
+                                                                                    <Button className={classes.modalButton} id='buttonOpenMap' onClick={() => { handleOpenMap(checkin) }} variant='outlined'>
                                                                                         Abrir mapa
                                                                             </Button>
                                                                                     {checkin.fotos[0] &&
-                                                                                        <Button className={classes.modalButton} id="buttonOpenPhotos" onClick={() => { handleOpenPhoto(checkin) }} variant="outlined">
+                                                                                        <Button className={classes.modalButton} id='buttonOpenPhotos' onClick={() => { handleOpenPhoto(checkin) }} variant='outlined'>
                                                                                             Ver foto
                                                                                 </Button>
                                                                                     }
@@ -587,8 +587,8 @@ function ListCheckIns(props) {
                 </>
             }
             <Modal
-                aria-labelledby="transition-modal-title"
-                aria-describedby="transition-modal-description"
+                aria-labelledby='transition-modal-title'
+                aria-describedby='transition-modal-description'
                 className={classes.modal}
                 open={openMap}
                 onClose={handleCloseMap}
@@ -601,8 +601,8 @@ function ListCheckIns(props) {
                     <div className={classes.modalMap}>
                         {resOpen &&
                             <Map center={currentLocation(resOpen.coordinates[0].latitude, resOpen.coordinates[0].longitude)} zoom={25} className={classes.grd} zoomControl={false}>
-                                <TileLayer url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-                                    attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors' />
+                                <TileLayer url='https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png'
+                                    attribution='&copy <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors' />
                                 <Marker
                                     position={currentLocation(resOpen.coordinates[0].latitude, resOpen.coordinates[0].longitude)}
                                     icon={IconPin} >
@@ -617,8 +617,8 @@ function ListCheckIns(props) {
                 </Fade>
             </Modal>
             <Modal
-                aria-labelledby="transition-modal-title"
-                aria-describedby="transition-modal-description"
+                aria-labelledby='transition-modal-title'
+                aria-describedby='transition-modal-description'
                 className={classes.modal}
                 open={openPhoto}
                 onClose={handleClosePhoto}
@@ -633,14 +633,14 @@ function ListCheckIns(props) {
                         {resOpen &&
                             <img className={classes.media}
                                 src={resOpen.fotos[0]}
-                                alt="Paella dish" />
+                                alt='Paella dish' />
                         }
                     </div>
                 </Fade>
             </Modal>
         </>
 
-    );
+    )
 }
 
-export default ListCheckIns;
+export default ListCheckIns

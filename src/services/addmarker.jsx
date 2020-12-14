@@ -4,11 +4,11 @@ export default function addmarker({ category, title, latitude, longitude }) {
 
     let latitudefloat = latitude.toString()
     let longitudefloat = longitude.toString()
-    let categoryid = ""
+    let categoryid = ''
     if(category === 'pdi'){
-        categoryid = "5f5bc46af5b58a4258f0ec78"
+        categoryid = '5f5bc46af5b58a4258f0ec78'
     }else if (category === 'comisaria'){
-        categoryid = "5f5bc481f5b58a4258f0ec79"
+        categoryid = '5f5bc481f5b58a4258f0ec79'
     }
     const marker = {
         category: categoryid,
@@ -20,10 +20,10 @@ export default function addmarker({ category, title, latitude, longitude }) {
     const token = window.sessionStorage.getItem('tokenadmin')
 
     return api.post(`/markers/add`, marker, {
-        headers: { Authorization: "Bearer " + token }
+        headers: { Authorization: 'Bearer ' + token }
     })
         .then(res => {
-            return "ok"
+            return 'ok'
         })
         .catch(err => {
             return err.response.data.error[0]

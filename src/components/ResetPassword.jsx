@@ -74,7 +74,7 @@ const useStyles = makeStyles((theme) => ({
 }))
 
 export default function ResetPassword() {
-    const classes = useStyles();
+    const classes = useStyles()
     const [password1, setPassword1] = useState('')
     const [password2, setPassword2] = useState('')
     const { resetpassword, hasResetError, succeedReset, isResetLoading, errorMsj } = useResetPassword()
@@ -148,14 +148,14 @@ export default function ResetPassword() {
                             <Typography className={classes.paragraph}>
                                 Recuerda que para restablecer la contraseña tienes un tiempo limite de 5 minutos.
                         </Typography>
-                            <Grid container style={{ marginTop: '8px' }} wrap="nowrap" spacing={3}>
+                            <Grid container style={{ marginTop: '8px' }} wrap='nowrap' spacing={3}>
                                 <Grid item xs zeroMinWidth>
                                 </Grid>
                             </Grid>
                             <Button
-                                variant="contained"
-                                color="primary"
-                                size="large"
+                                variant='contained'
+                                color='primary'
+                                size='large'
                                 className={classes.button}
                                 onClick={() => navigate('/')}
                                 startIcon={<SubdirectoryArrowLeftIcon />}>
@@ -182,14 +182,14 @@ export default function ResetPassword() {
                                                 <Typography className={classes.title}>
                                                     ¡Se ha cambiado exitosamente la contraseña!
                                                     </Typography>
-                                                <Grid container style={{ marginTop: '8px' }} wrap="nowrap" spacing={3}>
+                                                <Grid container style={{ marginTop: '8px' }} wrap='nowrap' spacing={3}>
                                                     <Grid item xs zeroMinWidth>
                                                     </Grid>
                                                 </Grid>
                                                 <Button
-                                                    variant="contained"
-                                                    color="primary"
-                                                    size="large"
+                                                    variant='contained'
+                                                    color='primary'
+                                                    size='large'
                                                     className={classes.button}
                                                     onClick={() => navigate('/')}
                                                     startIcon={<SubdirectoryArrowLeftIcon />}>
@@ -201,11 +201,11 @@ export default function ResetPassword() {
                                     :
                                     <Paper className={classes.container} elevation={15}>
                                         <Grid className={classes.cntainer} item xs={12}>
-                                            <Typography className={classes.typ} color="primary">
+                                            <Typography className={classes.typ} color='primary'>
                                                 Restablecer contraseña
                                             </Typography>
                                             {hasResetError &&
-                                                <Alert className={classes.alert} variant="filled" severity="error">
+                                                <Alert className={classes.alert} variant='filled' severity='error'>
                                                     {errorMsj.map(error => {
                                                         return (
                                                             <div key={error}>
@@ -218,22 +218,22 @@ export default function ResetPassword() {
                                             <Grid container spacing={3}>
                                                 <FormControl onKeyPress={(e) => onKeyUpValue(e)} className={classes.grdC}>
                                                     <TextField
-                                                        type="password"
+                                                        type='password'
                                                         className={classes.input}
-                                                        label="Ingrese la nueva contraseña"
-                                                        variant="outlined"
+                                                        label='Ingrese la nueva contraseña'
+                                                        variant='outlined'
                                                         onChange={(e) => setPassword1(e.target.value)} />
                                                     <TextField
-                                                        type="password"
+                                                        type='password'
                                                         className={classes.input}
-                                                        label="Ingrese nuevamente la contraseña"
-                                                        variant="outlined"
+                                                        label='Ingrese nuevamente la contraseña'
+                                                        variant='outlined'
                                                         onChange={(e) => setPassword2(e.target.value)} />
                                                     <Button
-                                                        type="submit"
-                                                        variant="contained"
+                                                        type='submit'
+                                                        variant='contained'
                                                         className={classes.input}
-                                                        color="primary"
+                                                        color='primary'
                                                         startIcon={<EditIcon />}
                                                         onClick={() => handleSubmit()}>
                                                         Cambiar contraseña
@@ -254,7 +254,7 @@ export default function ResetPassword() {
             </div>
 
         </>
-    );
+    )
 }
 
 

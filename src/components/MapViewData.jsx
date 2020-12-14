@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react'
 import { Map, TileLayer, Polygon, Marker, ZoomControl } from 'react-leaflet'
 import 'leaflet/dist/leaflet.css'
 import { sendCommunes } from '../actions/communesAction'
-import { connect } from "react-redux"
+import { connect } from 'react-redux'
 import { selectActiveCommunes } from '../reducers/communesReducer'
 import { IconAlert, IconCheckin } from './IconLocation'
 import { useLocation } from 'wouter'
@@ -86,12 +86,12 @@ const useStyles = makeStyles((theme) => ({
     alert: {
         textAlign: 'left'
     }
-}));
+}))
 function createData(name, info) {
-    return { name, info };
+    return { name, info }
 }
 function MapViewData({ communes }) {
-    const classes = useStyles();
+    const classes = useStyles()
     const [, navigate] = useLocation()
     const [isLoading, setIsLoading] = useState(true)
     const [rows, setRows] = useState([])
@@ -104,7 +104,7 @@ function MapViewData({ communes }) {
     })
 
     useEffect(() => {
-        const ac = new AbortController();
+        const ac = new AbortController()
         window.scrollTo(0, 0)
         let isMounted = true
         let qtyC = 0
@@ -114,7 +114,7 @@ function MapViewData({ communes }) {
             lat: -33.4595661,
             lng: -70.6508881
         }
-        if (communes === "") {
+        if (communes === '') {
             navigate('/')
 
             return function () {
@@ -132,7 +132,7 @@ function MapViewData({ communes }) {
         let arrayCoordinatesAlert = []
         const query = async () => {
             await api.post(`/comuna/coordinates`, communeN, {
-                headers: { Authorization: "Bearer " + token }
+                headers: { Authorization: 'Bearer ' + token }
             })
                 .then(res => {
                     if (isMounted) {
@@ -152,7 +152,7 @@ function MapViewData({ communes }) {
                 })
 
             await api.get(`/checkin/all`, {
-                headers: { Authorization: "Bearer " + token }
+                headers: { Authorization: 'Bearer ' + token }
             })
                 .then(res => {
                     if (isMounted) {
@@ -168,7 +168,7 @@ function MapViewData({ communes }) {
                             createData('Comuna', communes),
                             createData('Cantidad de check in (Amarillo)', qtyC),
                             createData('Cantidad de alertas (Rojo)' , qtyA),
-                        ];
+                        ]
                         setRows(rows)
                     }
                 }).catch(function (e) {
@@ -179,7 +179,7 @@ function MapViewData({ communes }) {
                 })
                 
             await api.get(`/helpSOS/all`, {
-                headers: { Authorization: "Bearer " + token }
+                headers: { Authorization: 'Bearer ' + token }
             })
                 .then(res => {
                     if (isMounted) {
@@ -201,7 +201,7 @@ function MapViewData({ communes }) {
                             createData('Comuna', communes),
                             createData('Cantidad de check in (Amarillo)', qtyC),
                             createData('Cantidad de alertas (Rojo)', qtyA),
-                        ];
+                        ]
                         setRows(rows)
                     }
                 }).catch(function (e) {
@@ -222,7 +222,7 @@ function MapViewData({ communes }) {
             isMounted = false
         }
 
-    }, [communes, navigate]);
+    }, [communes, navigate])
 
     return (
         <>
@@ -238,13 +238,13 @@ function MapViewData({ communes }) {
                             <div style={{ height: '90vh' }}>
 
                                 <Map center={state2.currentLocation} zoom={11} style={{ width: '100%', height: '100%' }} zoomControl={false}>
-                                    <TileLayer url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+                                    <TileLayer url='https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png'
                                         attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors' />
                                     {coordinatesAlert.coorAlert.map((alert, index) => (
                                         <Marker
                                             icon={IconAlert}
                                             key={index}
-                                            position={JSON.parse("[" + alert.latitude + ", " + alert.longitude + "]")}>
+                                            position={JSON.parse('[' + alert.latitude + ', ' + alert.longitude + ']')}>
                                         </Marker>
                                     ))
                                     }
@@ -252,36 +252,36 @@ function MapViewData({ communes }) {
                                         <Marker
                                             icon={IconCheckin}
                                             key={index}
-                                            position={JSON.parse("[" + checkin.latitude + ", " + checkin.longitude + "]")}>
+                                            position={JSON.parse('[' + checkin.latitude + ', ' + checkin.longitude + ']')}>
                                         </Marker>
                                     ))
                                     }
-                                    <Polygon positions={coordinates} color="blue" />
+                                    <Polygon positions={coordinates} color='blue' />
                                     <LocateControl startDirectly />
                                     <ZoomControl position='bottomleft' />
 
                                 </Map>
                             </div>
                         </Grid>
-                        <Grid item xs={12} sm={5} id="tableform">
+                        <Grid item xs={12} sm={5} id='tableform'>
                             <Grid item className={classes.gridform}  >
                                 <Paper className={classes.paperform} elevation={15}>
 
                                     <TableContainer>
-                                        <Table className={classes.table} style={{ backgroundColor: '#fafafa' }} aria-label="simple table">
+                                        <Table className={classes.table} style={{ backgroundColor: '#fafafa' }} aria-label='simple table'>
                                             <TableHead>
                                                 <TableRow>
-                                                    <TableCell align="center"><b>Titulo</b></TableCell>
-                                                    <TableCell align="center"><b>Informacion</b></TableCell>
+                                                    <TableCell align='center'><b>Titulo</b></TableCell>
+                                                    <TableCell align='center'><b>Informacion</b></TableCell>
                                                 </TableRow>
                                             </TableHead>
                                             <TableBody>
                                                 {rows.map((row) => (
                                                     <TableRow className={classes.row} key={row.name}>
-                                                        <TableCell component="th" scope="row">
+                                                        <TableCell component='th' scope='row'>
                                                             {row.name}
                                                         </TableCell>
-                                                        <TableCell align="center"><b style={{ color: 'red' }}>{row.info}</b></TableCell>
+                                                        <TableCell align='center'><b style={{ color: 'red' }}>{row.info}</b></TableCell>
                                                     </TableRow>
                                                 ))}
                                             </TableBody>

@@ -1,10 +1,10 @@
-import { useEffect } from "react";
-import { useLeaflet } from "react-leaflet";
-import Locate from "leaflet.locatecontrol";
+import { useEffect } from 'react'
+import { useLeaflet } from 'react-leaflet'
+import Locate from 'leaflet.locatecontrol'
 
 export default function LocateControl() {
 
-  const { map } = useLeaflet();
+  const { map } = useLeaflet()
 
   useEffect(() => {
 
@@ -17,12 +17,12 @@ export default function LocateControl() {
       onActivate: () => {}
     }
 
-    const lc = new Locate(locateOptions);
+    const lc = new Locate(locateOptions)
     
-    lc.addTo(map);
+    lc.addTo(map)
 
-  }, [map]);
+  }, [map])
 
-  return null;
+  return null
 
 }

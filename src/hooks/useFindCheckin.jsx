@@ -1,5 +1,5 @@
-import { useState } from 'react';
-import findcheckServices from '../services/findcheckin';
+import { useState } from 'react'
+import findcheckServices from '../services/findcheckin'
 
 export default function useFindCheckin() {
     const [state, setState] = useState({ succeed: false, loading: false, error: false, errormsj: '', checkin: '' })

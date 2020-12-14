@@ -1,4 +1,4 @@
-const initialState = { communes: "" };
+const initialState = { communes: "" }
 
 export default (state = initialState, action) => {
     if (action.type === 'SEND_COMMUNES') {
@@ -8,7 +8,7 @@ export default (state = initialState, action) => {
         }
     }
 
-    return state;
-};
+    return state
+}
 
-export const selectActiveCommunes = state => state.CommunesReducer.communes;
+export const selectActiveCommunes = state => state.CommunesReducer.communes

@@ -5,11 +5,11 @@ import Divider from '@material-ui/core/Divider'
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft'
 import ChevronRightIcon from '@material-ui/icons/ChevronRight'
 import ListItemDrawer from './ListItemDrawer'
-import { connect } from "react-redux";
-import { selectActiveOpen } from '../reducers/openDrawerReducer';
+import { connect } from 'react-redux'
+import { selectActiveOpen } from '../reducers/openDrawerReducer'
 import { updateOpen } from '../actions/openDrawerAction'
 
-const drawerWidth = 240;
+const drawerWidth = 240
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -65,7 +65,7 @@ const useStyles = makeStyles((theme) => ({
     }),
     marginLeft: 0,
   },
-}));
+}))
 
 const mapStateToProps = state => {
   return {
@@ -74,15 +74,15 @@ const mapStateToProps = state => {
 }
 function DrawerC({ open, updateOpen }) {
 
-  const theme = useTheme();
-  const classes = useStyles();
+  const theme = useTheme()
+  const classes = useStyles()
 
   return (
     <div>
       <Drawer
         className={classes.drawer}
-        variant="persistent"
-        anchor="left"
+        variant='persistent'
+        anchor='left'
         open={open}
         classes={{
           paper: classes.drawerPaper,

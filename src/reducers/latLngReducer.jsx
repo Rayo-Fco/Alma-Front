@@ -1,4 +1,4 @@
-const initialState = { latlng: "0,0" };
+const initialState = { latlng: "0,0" }
 
 export default (state = initialState, action) => {
     if (action.type === 'SEND_LATLNG') {
@@ -8,7 +8,7 @@ export default (state = initialState, action) => {
         }
     }
 
-    return state;
-};
+    return state
+}
 
-export const selectActiveLatLng = state => state.LatLngReducer.latlng;
+export const selectActiveLatLng = state => state.LatLngReducer.latlng

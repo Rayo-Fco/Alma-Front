@@ -10,12 +10,12 @@ export default function addcommunes({ commune, phone, coordinates }) {
     const token = window.sessionStorage.getItem('tokenadmin')
 
     return api.post(`/comuna/add`, comuna, {
-        headers: { Authorization: "Bearer " + token }
+        headers: { Authorization: 'Bearer ' + token }
     })
         .then(res => {
-            return "ok"
+            return 'ok'
         })
         .catch(err => {
-            return "error"
+            return 'error'
         })
 }

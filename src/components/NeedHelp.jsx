@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import Paper from '@material-ui/core/Paper'
-import { Button, makeStyles, FormControl, Typography } from "@material-ui/core"
+import { Button, makeStyles, FormControl, Typography } from '@material-ui/core'
 import { TextField, Grid } from '@material-ui/core'
 import LockOpenIcon from '@material-ui/icons/LockOpen'
 import { useLocation } from 'wouter'
@@ -46,10 +46,10 @@ const useStyles = makeStyles((theme) => ({
     circular: {
         color: '#fd9eef'
     }
-}));
+}))
 
 export default function NeedHelp() {
-    const classes = useStyles();
+    const classes = useStyles()
     const [helpToken, setHelpToken] = useState('')
     const [, navigate] = useLocation()
     const { findhelptoken, succeedFind, isFindLoading, hasFindError } = useFindHelpToken()
@@ -85,7 +85,7 @@ export default function NeedHelp() {
                                 Ingresa la clave de cifrado
                             </Typography>
                             {hasFindError &&
-                                <Alert variant="filled" severity="error">
+                                <Alert variant='filled' severity='error'>
                                     La clave esta mal escrito o ya ha expirado
                                 </Alert>
                             }
@@ -95,15 +95,15 @@ export default function NeedHelp() {
                             <Typography className={classes.paragraph}>
                                 Si no te funciona la clave, dile al creador del enlace que te lo reenvie.
                             </Typography>
-                            <Grid container style={{ marginTop: '8px' }} wrap="nowrap" spacing={3}>
+                            <Grid container style={{ marginTop: '8px' }} wrap='nowrap' spacing={3}>
                                 <Grid item xs zeroMinWidth>
-                                    <TextField className={classes.input} label="Clave de cifrado" variant="outlined" onChange={(e) => setHelpToken(e.target.value)} />
+                                    <TextField className={classes.input} label='Clave de cifrado' variant='outlined' onChange={(e) => setHelpToken(e.target.value)} />
                                 </Grid>
                             </Grid>
                             <Button
-                                variant="contained"
-                                color="primary"
-                                size="large"
+                                variant='contained'
+                                color='primary'
+                                size='large'
                                 className={classes.button}
                                 onClick={() => handleSubmit()}
                                 startIcon={<LockOpenIcon />}>

@@ -1,5 +1,5 @@
-import { useState } from 'react';
-import addmarkerservices from '../services/addmarker';
+import { useState } from 'react'
+import addmarkerservices from '../services/addmarker'
 export default function useAddMarker() {
     const [state, setState] = useState({ succeed: false, loading: false, error: false, errormsj: '' })
    
@@ -11,7 +11,7 @@ export default function useAddMarker() {
 
             addmarkerservices({ category, title, latitude, longitude })
                 .then(markerres => {
-                    if (markerres === "ok") {
+                    if (markerres === 'ok') {
                         setState({ succeed: true, loading: false, error: false, errormsj: '' })
 
                     } else {
@@ -25,7 +25,7 @@ export default function useAddMarker() {
                     setState({ succeed: false, loading: false, error: true, errormsj: '' })
                 })
         } else {
-            errores.push("Ingrese una Longitud y Latitud")
+            errores.push('Ingrese una Longitud y Latitud')
             setState({ succeed: false, loading: false, error: true, errormsj: errores })
 
         }

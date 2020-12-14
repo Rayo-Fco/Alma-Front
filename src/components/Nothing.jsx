@@ -1,14 +1,17 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 import { Paper, Grid, FormControl, Button, Typography } from '@material-ui/core'
 import { makeStyles } from '@material-ui/core/styles'
 import SubdirectoryArrowLeftIcon from '@material-ui/icons/SubdirectoryArrowLeft'
 import { useLocation } from 'wouter'
+import { selectActiveAuth } from '../reducers/authReducer'
+import { sendAuth } from '../actions/authAction'
+import { connect } from 'react-redux'
 
 const useStyles = makeStyles((theme) => ({
 
     gridform: {
         margin: 'auto',
-        height: '100%',
+        minHeight: 'calc(100vh - 100px - 300px)',
         minWidth: '440px',
         maxWidth: '440px',
         marginBottom: '10%',
@@ -30,9 +33,26 @@ const useStyles = makeStyles((theme) => ({
         textAlign: 'left'
     },
 }))
-export default function Nothing() {
 
-    const classes = useStyles();
+const mapStateToProps = state => {
+    return {
+        auth: selectActiveAuth(state),
+    }
+}
+
+function Nothing({ auth }) {
+    const [url, setUrl] = useState('')
+    useEffect(() => {
+        if (auth) {
+            setUrl('/principal')
+        } else {
+            setUrl('/')
+        }
+        return () => {
+
+        }
+    }, [auth])
+    const classes = useStyles()
     const [, navigate] = useLocation()
 
     return (
@@ -41,21 +61,21 @@ export default function Nothing() {
                 <Paper className={classes.paperform} elevation={15}>
                     <FormControl>
                         <Typography className={classes.title}>
-                            Oops
+                            ¡Oops!. Error 404
                         </Typography>
                         <Typography className={classes.paragraph}>
-                            Lamentablemente la página solicitada no fue encontrada en nuestro servidor web.
+                            Lamentablemente la dirección {window.location.pathname} no fue encontrada en nuestro servidor web.
                        </Typography>
-                        <Grid container style={{ marginTop: '8px' }} wrap="nowrap" spacing={3}>
+                        <Grid container style={{ marginTop: '8px' }} wrap='nowrap' spacing={3}>
                             <Grid item xs zeroMinWidth>
                             </Grid>
                         </Grid>
                         <Button
-                            variant="contained"
-                            color="primary"
-                            size="large"
+                            variant='contained'
+                            color='primary'
+                            size='large'
                             className={classes.button}
-                            onClick={() => navigate('/')}
+                            onClick={() => navigate(`${url}`)}
                             startIcon={<SubdirectoryArrowLeftIcon />}>
                             Volver al inicio
                         </Button>
@@ -65,3 +85,4 @@ export default function Nothing() {
         </div>
     )
 }
+export default connect(mapStateToProps, { sendAuth })(Nothing)

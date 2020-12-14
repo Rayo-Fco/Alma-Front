@@ -20,7 +20,7 @@ const StyledTableCell = withStyles((theme) => ({
   body: {
     fontSize: 14,
   },
-}))(TableCell);
+}))(TableCell)
 
 const StyledTableRow = withStyles((theme) => ({
   root: {
@@ -28,10 +28,10 @@ const StyledTableRow = withStyles((theme) => ({
       backgroundColor: theme.palette.action.hover,
     },
   },
-}))(TableRow);
+}))(TableRow)
 
 function createData(name, quantity) {
-  return { name, quantity };
+  return { name, quantity }
 }
 
 const useStyles = makeStyles({
@@ -44,11 +44,11 @@ const useStyles = makeStyles({
   circular: {
     color: '#fd9eef'
   },
-});
+})
 
 
  function DataTable() {
-  const classes = useStyles();
+  const classes = useStyles()
   const [rows, setRows] = useState([])
   const [isLoading, setIsLoading] = useState(true)
   useEffect(() => {
@@ -57,7 +57,7 @@ const useStyles = makeStyles({
     const query = async () => {
 
       await api.get(`/dashboard`, {
-        headers: { Authorization: "Bearer " + token }
+        headers: { Authorization: 'Bearer ' + token }
       })
         .then(res => {
           if (isMounted) {
@@ -69,7 +69,7 @@ const useStyles = makeStyles({
               createData('Comunas', res.data.numero_comuna),
               createData('Alertas de SOS', res.data.numero_help[0].total_puntos),
 
-            ];
+            ]
             setRows(row)
             setIsLoading(false)
 
@@ -83,7 +83,7 @@ const useStyles = makeStyles({
     }
     query()
     return function () {
-      isMounted = false;
+      isMounted = false
     }
   }, [setRows])
 
@@ -101,20 +101,20 @@ const useStyles = makeStyles({
         <TableContainer component={Paper}>
 
 
-          <Table className={classes.table} aria-label="customized table">
+          <Table className={classes.table} aria-label='customized table'>
             <TableHead style={{ backgroundColor: 'pink' }}>
               <TableRow >
                 <StyledTableCell>Nombre</StyledTableCell>
-                <StyledTableCell align="right">Cantidad Total</StyledTableCell>
+                <StyledTableCell align='right'>Cantidad Total</StyledTableCell>
               </TableRow>
             </TableHead>
             <TableBody>
               {rows.map((row) => (
                 <StyledTableRow key={row.name}>
-                  <StyledTableCell component="th" scope="row">
+                  <StyledTableCell component='th' scope='row'>
                     {row.name}
                   </StyledTableCell>
-                  <StyledTableCell align="right">{row.quantity}</StyledTableCell>
+                  <StyledTableCell align='right'>{row.quantity}</StyledTableCell>
                 </StyledTableRow>
               ))}
             </TableBody>
@@ -123,7 +123,7 @@ const useStyles = makeStyles({
         </TableContainer>
       }
     </>
-  );
+  )
 }
 export default DataTable
 

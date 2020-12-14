@@ -1,5 +1,5 @@
-import { useState } from 'react';
-import signupAdminServices from '../services/signupadmin';
+import { useState } from 'react'
+import signupAdminServices from '../services/signupadmin'
 
 export default function useSignup() {
     const [state, setState] = useState({ succeed: false, loading: false, error: false, errormsj: '' })
@@ -10,7 +10,7 @@ export default function useSignup() {
         if (password1 === password2) {
             signupAdminServices({ email, nombre, apellido, password1 })
                 .then(registeres => {
-                    if (registeres === "ok") {
+                    if (registeres === 'ok') {
                         setState({ succeed: true, loading: true, error: false, errormsj: '' })
 
                     } else {
@@ -29,13 +29,13 @@ export default function useSignup() {
                 })
                 .catch(err => {
                     let errores = []
-                    errores.push("Se ha producido un error desconocido")
+                    errores.push('Se ha producido un error desconocido')
                     setState({ succeed: false, loading: true, error: true, errormsj: errores })
 
                 })
         } else {
             let errores = []
-            errores.push("No coinciden las contraseñas")
+            errores.push('No coinciden las contraseñas')
             setState({ succeed: false, loading: true, error: true, errormsj: errores })
         }
     }

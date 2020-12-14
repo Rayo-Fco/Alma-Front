@@ -80,14 +80,14 @@ const useStyles = makeStyles((theme) => ({
     alert: {
         textAlign: 'left'
     }
-}));
+}))
 
 function createData(name, info) {
-    return { name, info };
+    return { name, info }
 }
 
 export default function MapViewHelpAll(props) {
-    const classes = useStyles();
+    const classes = useStyles()
     const helprut = props.params.helpRut
     const helpalert = props.params.helpalert
     const [, navigate] = useLocation()
@@ -108,7 +108,7 @@ export default function MapViewHelpAll(props) {
             lng: 0
         }
         let isMounted = true
-        let interval = ""
+        let interval = ''
         const token = window.sessionStorage.getItem('tokenadmin')
 
         if (!sessionStorage.getItem('tokenadmin')) {
@@ -116,11 +116,11 @@ export default function MapViewHelpAll(props) {
 
         } else {
 
-            let source = axios.CancelToken.source();
+            let source = axios.CancelToken.source()
             const query = async () => {
 
                 await api.get(`/helpSOS/user/${helprut}`, {
-                    headers: { Authorization: "Bearer " + token },
+                    headers: { Authorization: 'Bearer ' + token },
                     cancelToken: source.token,
                 })
                     .then(res => {
@@ -150,14 +150,14 @@ export default function MapViewHelpAll(props) {
                             const rows = [
                                 createData('Rut', res.data[0].user[0].rut),
                                 createData('Email', res.data[0].user[0].email),
-                                createData('Nombre completo', res.data[0].user[0].nombre + " " + res.data[0].user[0].apellido),
+                                createData('Nombre completo', res.data[0].user[0].nombre + ' ' + res.data[0].user[0].apellido),
                                 createData('Telefono', res.data[0].user[0].telefono),
                                 createData('Alertas', res.data[0].puntos.length),
                                 createData('Puntos', res.data[0].puntos[index].coordinates.length - ind),
                                 createData('Fecha', new Date(res.data[0].puntos[index].coordinates[0].date).toLocaleDateString()),
                                 createData('Hora del primer punto', new Date(res.data[0].puntos[index].coordinates[0].date).toLocaleTimeString()),
                                 createData('Hora del ultimo punto', new Date(res.data[0].puntos[index].coordinates[res.data[0].puntos[index].coordinates.length - 1].date).toLocaleTimeString()),
-                            ];
+                            ]
                             const coordinates = res.data[0].puntos[index].coordinates[res.data[0].puntos[index].coordinates.length - 1]
                             setRows(rows)
                             setAlert({ markersPoint: deleteDuplicatePoints })
@@ -182,11 +182,11 @@ export default function MapViewHelpAll(props) {
             query()
         }
         return function () {
-            isMounted = false;
-            clearInterval(interval);
+            isMounted = false
+            clearInterval(interval)
         }
 
-    }, [helprut, helpalert, navigate, setAlert]);
+    }, [helprut, helpalert, navigate, setAlert])
 
     return (
         <>
@@ -202,13 +202,13 @@ export default function MapViewHelpAll(props) {
                         <Grid item xs={12} sm={7}>
                             <div style={{ height: '90vh' }}>
                                 <Map center={position.currentLocation} zoom={position.zoom} style={{ width: '100%', height: '100%' }} zoomControl={false}>
-                                    <TileLayer url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+                                    <TileLayer url='https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png'
                                         attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors' />
                                     {alert.markersPoint.map((point, index) => (
                                         <Marker
                                             icon={IconPersonHelpAll}
                                             key={index}
-                                            position={JSON.parse("[" + point.latitude + ", " + point.longitude + "]")}>
+                                            position={JSON.parse('[' + point.latitude + ', ' + point.longitude + ']')}>
                                             <Popup>
                                                 Hora: {new Date(point.date).toLocaleTimeString()}
                                             </Popup>
@@ -221,25 +221,25 @@ export default function MapViewHelpAll(props) {
                                 </Map>
                             </div>
                         </Grid>
-                        <Grid item xs={12} sm={5} id="tableform">
+                        <Grid item xs={12} sm={5} id='tableform'>
                             <Grid item className={classes.gridform}  >
                                 <Paper className={classes.paperform} elevation={15}>
 
                                     <TableContainer>
-                                        <Table className={classes.table} style={{ backgroundColor: '#fafafa' }} aria-label="simple table">
+                                        <Table className={classes.table} style={{ backgroundColor: '#fafafa' }} aria-label='simple table'>
                                             <TableHead>
                                                 <TableRow>
-                                                    <TableCell align="center"><b>Titulo</b></TableCell>
-                                                    <TableCell align="center"><b>Informacion</b></TableCell>
+                                                    <TableCell align='center'><b>Titulo</b></TableCell>
+                                                    <TableCell align='center'><b>Informacion</b></TableCell>
                                                 </TableRow>
                                             </TableHead>
                                             <TableBody>
                                                 {rows.map((row) => (
                                                     <TableRow className={classes.row} key={row.name}>
-                                                        <TableCell component="th" scope="row">
+                                                        <TableCell component='th' scope='row'>
                                                             {row.name}
                                                         </TableCell>
-                                                        <TableCell align="center"><b style={{ color: 'red' }}>{row.info}</b></TableCell>
+                                                        <TableCell align='center'><b style={{ color: 'red' }}>{row.info}</b></TableCell>
                                                     </TableRow>
                                                 ))}
                                             </TableBody>

@@ -75,23 +75,23 @@ function MainAdmin( ) {
 
     useEffect(() => {
         window.scrollTo(0, 0)
-        const ac = new AbortController();
+        const ac = new AbortController()
         if (!sessionStorage.getItem('tokenadmin')) {
             navigate('/')
         }
-        return () => ac.abort();
+        return () => ac.abort()
     }, [navigate])
 
     const classes = useStyles()
     return (
-        <Container maxWidth="xl" className={classes.container}>
+        <Container maxWidth='xl' className={classes.container}>
             <Paper elevation={3} className={classes.paper}>
                 <Grid container>
                     <Grid item xs={12}>
                         <Paper className={classes.paperAvatar}>
                             <div className={classes.root}>
                                 <Avatar className={classes.orange}>A</Avatar>
-                                <Typography variant="h4" className={classes.tittle}>
+                                <Typography variant='h4' className={classes.tittle}>
                                     {localStorage.getItem('email')}
                                 </Typography>
                             </div>

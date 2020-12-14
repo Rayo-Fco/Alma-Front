@@ -1,5 +1,5 @@
-import { useState } from 'react';
-import findhelptokenServices from '../services/findhelptoken';
+import { useState } from 'react'
+import findhelptokenServices from '../services/findhelptoken'
 
 export default function useFindCheckin() {
     const [state, setState] = useState({ succeed: false, loading: false, error: false, errormsj: '' })
@@ -9,7 +9,7 @@ export default function useFindCheckin() {
         findhelptokenServices({ helpToken })
             .then(helptokenres => {
                 if (helptokenres) {
-                    if (helptokenres === "ok") {
+                    if (helptokenres === 'ok') {
                         setState({ succeed: true, loading: false, error: false, errormsj: '' })
                     } else {
                         setState({ succeed: false, loading: false, error: true, errormsj: helptokenres })

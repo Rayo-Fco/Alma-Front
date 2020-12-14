@@ -1,5 +1,5 @@
-import { useState } from 'react';
-import findhelsosServices from '../services/findhelpsos';
+import { useState } from 'react'
+import findhelsosServices from '../services/findhelpsos'
 
 export default function useFindHelpSOS() {
     const [state, setState] = useState({ succeed: false, error: false, errormsj: '' })
@@ -10,7 +10,7 @@ export default function useFindHelpSOS() {
         findhelsosServices({ rut })
             .then(helpsosres => {
                 if (helpsosres) {
-                    if (helpsosres === "ok" ){
+                    if (helpsosres === 'ok' ){
                         setState({ succeed: true, error: false, errormsj: '' })
 
                     }else{

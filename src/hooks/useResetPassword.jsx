@@ -1,5 +1,5 @@
-import { useState } from 'react';
-import resetpasswordservices from '../services/resetpassword';
+import { useState } from 'react'
+import resetpasswordservices from '../services/resetpassword'
 export default function useResetPassword() {
     const [state, setState] = useState({ succeed: false, loading: false, error: false, errormsj: '' })
     let pass = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{6,}$/
@@ -12,7 +12,7 @@ export default function useResetPassword() {
                 {
                 resetpasswordservices({ password1, email, token })
                     .then(resetres => {
-                        if (resetres === "ok") {
+                        if (resetres === 'ok') {
                             setState({ succeed: true, loading: false, error: false, errormsj: '' })
 
                         } else {

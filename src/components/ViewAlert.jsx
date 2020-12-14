@@ -9,9 +9,9 @@ import PlayCircleOutlineIcon from '@material-ui/icons/PlayCircleOutline'
 import { useRut } from 'react-rut'
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore'
 import api from '../services/api'
-import Alert from '@material-ui/lab/Alert';
-import CloseIcon from '@material-ui/icons/Close';
-import Collapse from '@material-ui/core/Collapse';
+import Alert from '@material-ui/lab/Alert'
+import CloseIcon from '@material-ui/icons/Close'
+import Collapse from '@material-ui/core/Collapse'
 
 const useStyles = makeStyles((theme) => ({
     typ: {
@@ -105,8 +105,8 @@ function ViewAlert(props) {
     const [openAlertSucceed, setOpenAlertSucceed] = useState(true)
 
     const handleChange = (panel) => (event, isExpanded) => {
-        setExpanded(isExpanded ? panel : false);
-    };
+        setExpanded(isExpanded ? panel : false)
+    }
 
     useEffect(() => {
         window.scrollTo(0, 0)
@@ -115,7 +115,7 @@ function ViewAlert(props) {
         const query = async () => {
 
             await api.get(`/helpSOS/all`, {
-                headers: { Authorization: "Bearer " + token }
+                headers: { Authorization: 'Bearer ' + token }
             })
                 .then(res => {
                     if (isMounted) {
@@ -130,7 +130,7 @@ function ViewAlert(props) {
         }
         query()
         return function () {
-            isMounted = false;
+            isMounted = false
         }
     }, [setHelpSOS])
 
@@ -165,7 +165,7 @@ function ViewAlert(props) {
             <Grid container className={classes.cnt}>
                 <Grid item xs={12}>
                     <Paper elevation={3} className={classes.cnt}>
-                        <Typography className={classes.typ} color="primary">
+                        <Typography className={classes.typ} color='primary'>
                             Ver alertas
                         </Typography>
                         <Grid item xs={12} className={classes.gridForm}>
@@ -175,13 +175,13 @@ function ViewAlert(props) {
                                 onKeyPress={(e) => onKeyUpValue(e)}
                                 value={formattedValue}
                                 onChange={(e) => setRut(e.target.value)}
-                                label="Rut"
-                                variant="outlined"
+                                label='Rut'
+                                variant='outlined'
                             />
                             <Button
                                 className={classes.button}
-                                variant="contained"
-                                color="primary"
+                                variant='contained'
+                                color='primary'
                                 startIcon={<SearchIcon />}
                                 onClick={() => handleSubmit()}>
                                 Buscar
@@ -195,18 +195,18 @@ function ViewAlert(props) {
                                     <Alert
                                         action={
                                             <IconButton
-                                                aria-label="close"
-                                                color="inherit"
-                                                size="small"
+                                                aria-label='close'
+                                                color='inherit'
+                                                size='small'
                                                 onClick={() => {
-                                                    setOpenAlertError(false);
+                                                    setOpenAlertError(false)
                                                 }}>
-                                                <CloseIcon fontSize="inherit" />
+                                                <CloseIcon fontSize='inherit' />
                                             </IconButton>
                                         }
                                         className={classes.alert}
-                                        variant="filled"
-                                        severity="error">
+                                        variant='filled'
+                                        severity='error'>
                                         No se ha encontrado o esta mal ingresado el RUT
                                     </Alert>
                                 </Collapse>
@@ -217,18 +217,18 @@ function ViewAlert(props) {
                                     <Alert
                                         action={
                                             <IconButton
-                                                aria-label="close"
-                                                color="inherit"
-                                                size="small"
+                                                aria-label='close'
+                                                color='inherit'
+                                                size='small'
                                                 onClick={() => {
-                                                    setOpenAlertSucceed(false);
+                                                    setOpenAlertSucceed(false)
                                                 }}>
-                                                <CloseIcon fontSize="inherit" />
+                                                <CloseIcon fontSize='inherit' />
                                             </IconButton>
                                         }
                                         className={classes.alert}
-                                        variant="filled"
-                                        severity="success">
+                                        variant='filled'
+                                        severity='success'>
                                         Se ha encontrado correctamente
                                                 </Alert>
                                 </Collapse>
@@ -245,8 +245,8 @@ function ViewAlert(props) {
                                                     <Accordion expanded={expanded === 'panel' + index} onChange={handleChange('panel' + index)}>
                                                         <AccordionSummary
                                                             expandIcon={<ExpandMoreIcon />}
-                                                            aria-controls="panel1bh-content"
-                                                            id="panel1bh-header"
+                                                            aria-controls='panel1bh-content'
+                                                            id='panel1bh-header'
                                                             className={classes.accordion}
                                                         >
                                                             <Typography className={classes.heading}>Rut: {help.user[0].rut} </Typography>
@@ -259,38 +259,38 @@ function ViewAlert(props) {
                                                                     help.puntos.slice(0).reverse().map((point, index) => (
                                                                         <Grid container className={classes.contUsersMap} key={index}>
                                                                             <Grid item xs={12} sm={1} className={classes.listGrid}>
-                                                                                <Typography className={classes.typho} color="primary">
+                                                                                <Typography className={classes.typho} color='primary'>
                                                                                     <b className={classes.b}>№ </b> <br />
                                                                                     {index + 1}
                                                                                 </Typography>
                                                                             </Grid>
                                                                             <Grid item xs={12} sm={3} className={classes.listGrid}>
-                                                                                <Typography className={classes.typho} color="primary">
+                                                                                <Typography className={classes.typho} color='primary'>
                                                                                     <b className={classes.b}>Email </b> <br />
                                                                                     {help.user[0].email}
                                                                                 </Typography>
                                                                             </Grid>
                                                                             <Grid item xs={12} sm={3} className={classes.listGrid}>
-                                                                                <Typography className={classes.typho} color="primary">
+                                                                                <Typography className={classes.typho} color='primary'>
                                                                                     <b className={classes.b}>Fecha </b>  <br />
                                                                                     {new Date(point.date).toLocaleDateString()}
                                                                                 </Typography>
                                                                             </Grid>
 
                                                                             <Grid item xs={12} sm={3} className={classes.listGrid}>
-                                                                                <Typography className={classes.typho} color="primary">
+                                                                                <Typography className={classes.typho} color='primary'>
                                                                                     <b className={classes.b}>Hora </b>  <br />
                                                                                     {new Date(point.date).toLocaleTimeString()}
                                                                                 </Typography>
                                                                             </Grid>
                                                                             <Grid item xs={12} sm={1} className={classes.listGrid}>
-                                                                                <Typography className={classes.typho} color="primary">
+                                                                                <Typography className={classes.typho} color='primary'>
                                                                                     <b className={classes.b}>Puntos </b>  <br />
                                                                                     {point.coordinates.length}
                                                                                 </Typography>
                                                                             </Grid>
                                                                             <Grid item xs={12} sm={1} className={classes.listGrid} style={{ display: 'flex' }}>
-                                                                                <IconButton edge="end" style={{ margin: 'auto', display: 'flex' }} aria-label="delete" onClick={() => showDatasUser(help.user[0].rut, index)}>
+                                                                                <IconButton edge='end' style={{ margin: 'auto', display: 'flex' }} aria-label='delete' onClick={() => showDatasUser(help.user[0].rut, index)}>
                                                                                     <PlayCircleOutlineIcon />
                                                                                 </IconButton>
                                                                             </Grid>
@@ -311,8 +311,8 @@ function ViewAlert(props) {
                                             <Accordion expanded={expanded === 'panel' + index} onChange={handleChange('panel' + index)}>
                                                 <AccordionSummary
                                                     expandIcon={<ExpandMoreIcon />}
-                                                    aria-controls="panel1bh-content"
-                                                    id="panel1bh-header"
+                                                    aria-controls='panel1bh-content'
+                                                    id='panel1bh-header'
                                                     className={classes.accordion}
                                                 >
                                                     <Typography className={classes.heading}>Rut: {help.user[0].rut} </Typography>
@@ -325,38 +325,38 @@ function ViewAlert(props) {
                                                             help.puntos.slice(0).reverse().map((point, index) => (
                                                                 <Grid container className={classes.contUsersMap} key={index}>
                                                                     <Grid item xs={12} sm={1} className={classes.listGrid}>
-                                                                        <Typography className={classes.typho} color="primary">
+                                                                        <Typography className={classes.typho} color='primary'>
                                                                             <b className={classes.b}>№ </b> <br />
                                                                             {index + 1}
                                                                         </Typography>
                                                                     </Grid>
                                                                     <Grid item xs={12} sm={3} className={classes.listGrid}>
-                                                                        <Typography className={classes.typho} color="primary">
+                                                                        <Typography className={classes.typho} color='primary'>
                                                                             <b className={classes.b}>Email </b> <br />
                                                                             {help.user[0].email}
                                                                         </Typography>
                                                                     </Grid>
                                                                     <Grid item xs={12} sm={3} className={classes.listGrid}>
-                                                                        <Typography className={classes.typho} color="primary">
+                                                                        <Typography className={classes.typho} color='primary'>
                                                                             <b className={classes.b}>Fecha </b>  <br />
                                                                             {new Date(point.date).toLocaleDateString()}
                                                                         </Typography>
                                                                     </Grid>
 
                                                                     <Grid item xs={12} sm={3} className={classes.listGrid}>
-                                                                        <Typography className={classes.typho} color="primary">
+                                                                        <Typography className={classes.typho} color='primary'>
                                                                             <b className={classes.b}>Hora </b>  <br />
                                                                             {new Date(point.date).toLocaleTimeString()}
                                                                         </Typography>
                                                                     </Grid>
                                                                     <Grid item xs={12} sm={1} className={classes.listGrid}>
-                                                                        <Typography className={classes.typho} color="primary">
+                                                                        <Typography className={classes.typho} color='primary'>
                                                                             <b className={classes.b}>Puntos </b>  <br />
                                                                             {point.coordinates.length}
                                                                         </Typography>
                                                                     </Grid>
                                                                     <Grid item xs={12} sm={1} className={classes.listGrid} style={{ display: 'flex' }}>
-                                                                        <IconButton edge="end" style={{ margin: 'auto', display: 'flex' }} aria-label="delete" onClick={() => showDatasUser(help.user[0].rut, index)}>
+                                                                        <IconButton edge='end' style={{ margin: 'auto', display: 'flex' }} aria-label='delete' onClick={() => showDatasUser(help.user[0].rut, index)}>
                                                                             <PlayCircleOutlineIcon />
                                                                         </IconButton>
                                                                     </Grid>
@@ -376,7 +376,7 @@ function ViewAlert(props) {
                 </Grid>
             </Grid>
         </Container>
-    );
+    )
 }
 
-export default ViewAlert;
+export default ViewAlert

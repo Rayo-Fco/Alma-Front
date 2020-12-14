@@ -1,6 +1,6 @@
-import React from 'react';
+import React from 'react'
 import MapViewData from './MapViewData'
-import { TableBody, TableCell, TableContainer, TableHead, TableRow, Grid, makeStyles, Paper, Table } from '@material-ui/core';
+import { TableBody, TableCell, TableContainer, TableHead, TableRow, Grid, makeStyles, Paper, Table } from '@material-ui/core'
 
 
 const useStyles = makeStyles((theme) => ({
@@ -61,10 +61,10 @@ const useStyles = makeStyles((theme) => ({
         marginTop: theme.spacing(3),
         height: '80'
     },
-}));
+}))
 
 function createData(name, info) {
-    return { name, info };
+    return { name, info }
 }
 
 const rows = [
@@ -73,10 +73,10 @@ const rows = [
     createData('Cantidad de comisarias', 262),
     createData('Patrullaje', 305),
     createData('Gingerbread', 356),
-];
+]
 
 function InfoComuna() {
-    const classes = useStyles();
+    const classes = useStyles()
 
     return (
         <div className={classes.root}>
@@ -84,25 +84,25 @@ function InfoComuna() {
             <Grid item xs={12} sm={7}>
                     <MapViewData></MapViewData>
                 </Grid>
-                <Grid item xs={8} sm={5} id="tableform">
+                <Grid item xs={8} sm={5} id='tableform'>
                 <Grid item className={classes.gridform}  >
                         <Paper className={classes.paperform} elevation={15}>
                            
                                 <TableContainer>
-                                    <Table className={classes.table} style={{ backgroundColor: '#fafafa' }} aria-label="simple table">
+                                    <Table className={classes.table} style={{ backgroundColor: '#fafafa' }} aria-label='simple table'>
                                         <TableHead>
                                             <TableRow>
-                                                <TableCell align="center"><b>Titulo</b></TableCell>
-                                                <TableCell align="center"><b>Informacion</b></TableCell>
+                                                <TableCell align='center'><b>Titulo</b></TableCell>
+                                                <TableCell align='center'><b>Informacion</b></TableCell>
                                             </TableRow>
                                         </TableHead>
                                         <TableBody>
                                             {rows.map((row) => (
                                                 <TableRow className={classes.row} key={row.name}>
-                                                    <TableCell component="th" scope="row">
+                                                    <TableCell component='th' scope='row'>
                                                         {row.name}
                                                     </TableCell>
-                                                    <TableCell align="center"><b style={{ color: 'red' }}>{row.info}</b></TableCell>
+                                                    <TableCell align='center'><b style={{ color: 'red' }}>{row.info}</b></TableCell>
                                                 </TableRow>
                                             ))}
                                         </TableBody>
@@ -114,7 +114,7 @@ function InfoComuna() {
                 </Grid>
             </Grid>
         </div>
-    );
+    )
 }
 
-export default InfoComuna;
+export default InfoComuna

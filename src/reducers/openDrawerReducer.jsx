@@ -1,4 +1,4 @@
-const initialState = { open: false };
+const initialState = { open: false }
 
 export default (state = initialState, action) => {
     if (action.type === 'UPDATE_OPEN') {
@@ -8,7 +8,7 @@ export default (state = initialState, action) => {
         }
     }
 
-    return state;
-};
+    return state
+}
 
-export const selectActiveOpen = state => state.OpenReducer.open;
+export const selectActiveOpen = state => state.OpenReducer.open

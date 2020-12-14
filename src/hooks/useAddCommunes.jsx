@@ -1,5 +1,5 @@
-import { useState } from 'react';
-import addcommunesservices from '../services/addcommunes';
+import { useState } from 'react'
+import addcommunesservices from '../services/addcommunes'
 export default function useAddCommune() {
     const [state, setState] = useState({ succeed: false, loading: false, error: false, errormsj: '' })
 
@@ -8,7 +8,7 @@ export default function useAddCommune() {
         if (commune !== '' && phone !== '' && coordinates !== '') {
             addcommunesservices({ commune, phone, coordinates })
                 .then(communeres => {
-                    if (communeres === "ok") {
+                    if (communeres === 'ok') {
                         setState({ succeed: true, loading: false, error: false, errormsj: '' })
 
                     } else {

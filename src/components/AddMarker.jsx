@@ -3,11 +3,11 @@ import { Select, TextField, Grid, MenuItem, InputLabel, Paper, Button, makeStyle
 import SaveIcon from '@material-ui/icons/Save'
 import MapView from './MapView'
 import { selectActiveLatLng } from '../reducers/latLngReducer'
-import { connect } from "react-redux"
+import { connect } from 'react-redux'
 import { sendLatLng } from '../actions/latLngAction'
 import useAddMarker from '../hooks/useAddMarker'
 import { useLocation } from 'wouter'
-import Alert from '@material-ui/lab/Alert';
+import Alert from '@material-ui/lab/Alert'
 import { refreshMarker } from '../actions/markerAction'
 import { selectActiveMarker } from '../reducers/markerReducer'
 
@@ -78,7 +78,7 @@ const useStyles = makeStyles((theme) => ({
     alert: {
         textAlign: 'left'
     }
-}));
+}))
 
 const mapStateToProps = state => {
     return {
@@ -88,7 +88,7 @@ const mapStateToProps = state => {
 }
 
 function AddMarker({ latlng, refreshMarker, marker, }) {
-    const classes = useStyles();
+    const classes = useStyles()
     const [category, setCategory] = useState('')
     const [title, setTitle] = useState('')
     const [latitude, setLatitude] = useState('')
@@ -102,11 +102,11 @@ function AddMarker({ latlng, refreshMarker, marker, }) {
     }, [latlng])
 
     useEffect(() => {
-        const ac = new AbortController();
+        const ac = new AbortController()
         if (!sessionStorage.getItem('tokenadmin')) {
             navigate('/')
         }
-        return () => ac.abort();
+        return () => ac.abort()
     }, [navigate])
 
     const handleSubmit = () => {
@@ -131,7 +131,7 @@ function AddMarker({ latlng, refreshMarker, marker, }) {
                     <MapView>
                     </MapView>
                 </Grid>
-                <Grid item xs={8} sm={5} id="gridAddmarker">
+                <Grid item xs={8} sm={5} id='gridAddmarker'>
                     <Grid item className={classes.gridform}  >
                         <Paper className={classes.paperform} elevation={15}>
                             {isAddLoading &&
@@ -141,11 +141,11 @@ function AddMarker({ latlng, refreshMarker, marker, }) {
                             }
                             {!isAddLoading &&
                                 <FormControl onKeyPress={(e) => onKeyUpValue(e)}>
-                                    <Typography className={classes.typo} color="primary">
+                                    <Typography className={classes.typo} color='primary'>
                                         Agregar marcador
                                 </Typography>
                                     {hasAddError &&
-                                        <Alert className={classes.alert} variant="filled" severity="error">
+                                        <Alert className={classes.alert} variant='filled' severity='error'>
                                             {errorMsj.map(error => {
                                                 return (
                                                     <div key={error}>
@@ -156,37 +156,37 @@ function AddMarker({ latlng, refreshMarker, marker, }) {
                                         </Alert>
                                     }
                                     {succeedAdd &&
-                                        <Alert className={classes.alert} variant="filled" severity="success">
+                                        <Alert className={classes.alert} variant='filled' severity='success'>
                                             Se ha agregado el marcador
                                         </Alert>
                                     }
-                                    <Grid container style={{ marginTop: '8px' }} wrap="nowrap" spacing={3}>
+                                    <Grid container style={{ marginTop: '8px' }} wrap='nowrap' spacing={3}>
                                         <Grid item xs zeroMinWidth>
-                                            <TextField className={classes.input} label="Titulo" variant="outlined" onChange={(e) => setTitle(e.target.value)} />
+                                            <TextField className={classes.input} label='Titulo' variant='outlined' onChange={(e) => setTitle(e.target.value)} />
                                         </Grid>
                                     </Grid>
-                                    <Grid container wrap="nowrap" spacing={3}>
+                                    <Grid container wrap='nowrap' spacing={3}>
                                         <Grid item xs zeroMinWidth>
-                                            <TextField className={classes.input} value={latlng.lng || ''} label="Longitud" variant="outlined" onChange={(e) => setLongitude(e.target.value)} InputProps={{
-                                                startAdornment: <InputAdornment position="start">Lng</InputAdornment>,
+                                            <TextField className={classes.input} value={latlng.lng || ''} label='Longitud' variant='outlined' onChange={(e) => setLongitude(e.target.value)} InputProps={{
+                                                startAdornment: <InputAdornment position='start'>Lng</InputAdornment>,
                                             }} />
                                         </Grid>
                                     </Grid>
-                                    <Grid container wrap="nowrap" spacing={3}>
+                                    <Grid container wrap='nowrap' spacing={3}>
                                         <Grid item xs zeroMinWidth>
-                                            <TextField className={classes.input} value={latlng.lat || ''} label="Latitud" variant="outlined" onChange={(e) => setLatitude(e.target.value)} InputProps={{
-                                                startAdornment: <InputAdornment position="start">Lat</InputAdornment>,
+                                            <TextField className={classes.input} value={latlng.lat || ''} label='Latitud' variant='outlined' onChange={(e) => setLatitude(e.target.value)} InputProps={{
+                                                startAdornment: <InputAdornment position='start'>Lat</InputAdornment>,
                                             }} />
                                         </Grid>
                                     </Grid>
-                                    <FormControl className={classes.formControl} variant="outlined">
-                                        <InputLabel htmlFor="outlined-age-native-simple">Tipo</InputLabel>
+                                    <FormControl className={classes.formControl} variant='outlined'>
+                                        <InputLabel htmlFor='outlined-age-native-simple'>Tipo</InputLabel>
                                         <Select
                                             className={classes.input}
-                                            label="Tipo"
+                                            label='Tipo'
                                             value={category}
                                             onChange={(e) => setCategory(e.target.value)}>
-                                            <MenuItem value="">
+                                            <MenuItem value=''>
                                                 <em>Ninguno</em>
                                             </MenuItem>
                                             <MenuItem value={'comisaria'}>Comisaria</MenuItem>
@@ -194,9 +194,9 @@ function AddMarker({ latlng, refreshMarker, marker, }) {
                                         </Select>
                                     </FormControl>
                                     <Button
-                                        variant="contained"
-                                        color="primary"
-                                        size="large"
+                                        variant='contained'
+                                        color='primary'
+                                        size='large'
                                         className={classes.button}
                                         onClick={() => handleSubmit()}
                                         startIcon={<SaveIcon />}>

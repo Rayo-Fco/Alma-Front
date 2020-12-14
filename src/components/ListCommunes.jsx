@@ -1,13 +1,13 @@
-import React, { useState, useEffect } from 'react';
-import { makeStyles } from '@material-ui/core/styles';
+import React, { useState, useEffect } from 'react'
+import { makeStyles } from '@material-ui/core/styles'
 import { Grid, List, ListItem, ListItemAvatar, Avatar, ListItemText, IconButton, Container, Paper, Typography } from '@material-ui/core'
-import RoomIcon from '@material-ui/icons/Room';
-import PlayCircleOutlineIcon from '@material-ui/icons/PlayCircleOutline';
+import RoomIcon from '@material-ui/icons/Room'
+import PlayCircleOutlineIcon from '@material-ui/icons/PlayCircleOutline'
 import { Link } from 'wouter'
-import { connect } from "react-redux"
+import { connect } from 'react-redux'
 import { sendCommunes } from '../actions/communesAction'
 import axios from 'axios'
-import CircularProgress from '@material-ui/core/CircularProgress';
+import CircularProgress from '@material-ui/core/CircularProgress'
 import api from '../services/api'
 
 const useStyles = makeStyles((theme) => ({
@@ -46,11 +46,11 @@ const useStyles = makeStyles((theme) => ({
     listItemText: {
         fontSize: '13px'
     }
-}));
+}))
 
 
 function ListComunas({ sendCommunes }) {
-    const classes = useStyles();
+    const classes = useStyles()
     const [isLoading, setIsLoading] = useState(true)
     const [communes, setCommunes] = useState({ commune: [] })
 
@@ -61,12 +61,12 @@ function ListComunas({ sendCommunes }) {
     useEffect(() => {
         window.scrollTo(0, 0)
         let isMounted = true
-        let source = axios.CancelToken.source();
+        let source = axios.CancelToken.source()
         const token = window.sessionStorage.getItem('tokenadmin')
         const query = async () => {
 
             await api.get(`/comuna/all`, {
-                headers: { Authorization: "Bearer " + token },
+                headers: { Authorization: 'Bearer ' + token },
                 cancelToken: source.token,
             })
                 .then(res => {
@@ -84,10 +84,10 @@ function ListComunas({ sendCommunes }) {
         }
         query()
         return function () {
-            isMounted = false;
+            isMounted = false
         }
 
-    }, [setCommunes]);
+    }, [setCommunes])
 
 
     return (
@@ -104,13 +104,13 @@ function ListComunas({ sendCommunes }) {
                     <Grid container>
                         <Grid item xs={12}>
                             <Paper elevation={3} className={classes.paper2}>
-                                <Typography className={classes.typ} color="primary">
+                                <Typography className={classes.typ} color='primary'>
                                     Comunas
                     </Typography>
                                 <List>
                                     {
                                         communes.commune.map(commune => (
-                                            <Link to='/info' className="link" key={commune._id} onClick={() => handleMap(commune.comuna)}>
+                                            <Link to='/info' className='link' key={commune._id} onClick={() => handleMap(commune.comuna)}>
                                                 <ListItem button >
                                                     <ListItem>
                                                         <Grid item xs={3}>
@@ -126,7 +126,7 @@ function ListComunas({ sendCommunes }) {
 
                                                     </ListItem>
                                                     <Grid item xs={3}>
-                                                        <IconButton edge="end" aria-label="delete">
+                                                        <IconButton edge='end' aria-label='delete'>
                                                             <PlayCircleOutlineIcon />
                                                         </IconButton>
                                                     </Grid>
@@ -141,7 +141,7 @@ function ListComunas({ sendCommunes }) {
                 </Container>
             }
         </>
-    );
+    )
 }
 
 export default connect(null, { sendCommunes })(ListComunas)

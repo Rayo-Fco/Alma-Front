@@ -1,10 +1,10 @@
-import React, { useState } from 'react';
-import { Paper, Grid, FormControl, TextField, Button, Typography } from '@material-ui/core';
+import React, { useState } from 'react'
+import { Paper, Grid, FormControl, TextField, Button, Typography } from '@material-ui/core'
 import { makeStyles } from '@material-ui/core/styles'
-import useSignup from '../hooks/useSignup';
-import AddBoxIcon from '@material-ui/icons/AddBox';
-import Alert from '@material-ui/lab/Alert';
-import CircularProgress from '@material-ui/core/CircularProgress';
+import useSignup from '../hooks/useSignup'
+import AddBoxIcon from '@material-ui/icons/AddBox'
+import Alert from '@material-ui/lab/Alert'
+import CircularProgress from '@material-ui/core/CircularProgress'
 
 const useStyles = makeStyles((theme) => ({
     container: {
@@ -34,7 +34,7 @@ const useStyles = makeStyles((theme) => ({
 }))
 
 function RegisterAdmin(props) {
-    const classes = useStyles();
+    const classes = useStyles()
     const [email, setEmail] = useState('')
     const [nombre, setNombre] = useState('')
     const [apellido, setApellido] = useState('')
@@ -44,7 +44,7 @@ function RegisterAdmin(props) {
 
     const handleSubmit = (e) => {
         signupadmin({ email, nombre, apellido, password1, password2 })
-    };
+    }
 
     return (
         <>
@@ -55,12 +55,12 @@ function RegisterAdmin(props) {
             }
             {!isSignupLoading &&
                 <Paper className={classes.container} elevation={15}>
-                    <Typography className={classes.typ} color="primary">
+                    <Typography className={classes.typ} color='primary'>
                         Registro de Admin
                      </Typography>
 
                     {hasSignError &&
-                        <Alert className={classes.alert} variant="filled" severity="error">
+                        <Alert className={classes.alert} variant='filled' severity='error'>
                             {errorMsj.map(error => {
                                 return (
                                     <div key={error}>
@@ -71,7 +71,7 @@ function RegisterAdmin(props) {
                         </Alert>
                     }
                     {succeedSign &&
-                        <Alert className={classes.alert} variant="filled" severity="error">
+                        <Alert className={classes.alert} variant='filled' severity='error'>
                             Se ha registrado satisfactoriamente
                 </Alert>
                     }
@@ -79,41 +79,41 @@ function RegisterAdmin(props) {
                         <FormControl className={classes.grdC}>
                             <TextField
                                 className={classes.input}
-                                label="Nombre"
-                                variant="outlined"
+                                label='Nombre'
+                                variant='outlined'
                                 onChange={(e) => setNombre(e.target.value)}
                             />
                             <TextField
                                 className={classes.input}
-                                label="Apellido"
-                                variant="outlined"
+                                label='Apellido'
+                                variant='outlined'
                                 onChange={(e) => setApellido(e.target.value)}
                             />
                             <TextField
                                 className={classes.input}
 
-                                label="Email"
-                                variant="outlined"
+                                label='Email'
+                                variant='outlined'
                                 onChange={(e) => setEmail(e.target.value)}
                             />
                             <TextField
                                 className={classes.input}
-                                label="Contraseña"
-                                type="password"
-                                variant="outlined"
+                                label='Contraseña'
+                                type='password'
+                                variant='outlined'
                                 onChange={(e) => setPassword1(e.target.value)}
                             />
                             <TextField
                                 className={classes.input}
-                                label="Repetir contraseña"
-                                type="password"
-                                variant="outlined"
+                                label='Repetir contraseña'
+                                type='password'
+                                variant='outlined'
                                 onChange={(e) => setPassword2(e.target.value)}
                             />
                             <Button
-                                variant="contained"
+                                variant='contained'
                                 className={classes.input}
-                                color="primary"
+                                color='primary'
                                 onClick={() => handleSubmit()}
                                 startIcon={<AddBoxIcon />}>
                                 Registrar
@@ -123,7 +123,7 @@ function RegisterAdmin(props) {
                 </Paper>
             }
         </>
-    );
+    )
 }
 
 export default RegisterAdmin

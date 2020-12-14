@@ -1,5 +1,5 @@
 
-const initialState = { auth: Boolean(sessionStorage.getItem('tokenadmin')) };
+const initialState = { auth: Boolean(sessionStorage.getItem('tokenadmin')) }
 
 export default (state = initialState, action) => {
     if (action.type === 'SEND_AUTH') {
@@ -9,7 +9,7 @@ export default (state = initialState, action) => {
         }
     }
 
-    return state;
-};
+    return state
+}
 
-export const selectActiveAuth = state => state.AuthReducer.auth;
+export const selectActiveAuth = state => state.AuthReducer.auth

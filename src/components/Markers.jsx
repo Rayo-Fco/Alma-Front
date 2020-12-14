@@ -28,7 +28,7 @@ function Markers({ marker }) {
         const query = async () => {
 
             await api.get(`/markers/comisaria`, {
-                headers: { Authorization: "Bearer " + token },
+                headers: { Authorization: 'Bearer ' + token },
                 cancelToken: source.token,
             })
                 .then(res => {
@@ -44,19 +44,19 @@ function Markers({ marker }) {
         }
         query()
         return function () {
-            isMounted = false;
+            isMounted = false
         }
 
-    }, [setComisaria, marker]);
+    }, [setComisaria, marker])
 
     useEffect(() => {
         let isMounted = true
-        let source = axios.CancelToken.source();
+        let source = axios.CancelToken.source()
         const token = window.sessionStorage.getItem('tokenadmin')
         const query = async () => {
 
             await api.get(`/markers/pdi`, {
-                headers: { Authorization: "Bearer " + token },
+                headers: { Authorization: 'Bearer ' + token },
                 cancelToken: source.token,
             })
                 .then(res => {
@@ -72,10 +72,10 @@ function Markers({ marker }) {
         }
         query()
         return function () {
-            isMounted = false;
+            isMounted = false
         }
 
-    }, [setPdi, marker]);
+    }, [setPdi, marker])
 
     return (
         <div>
@@ -83,7 +83,7 @@ function Markers({ marker }) {
                 <Marker
                     icon={IconCarabineros}
                     key={index}
-                    position={JSON.parse("[" + markerC.latitude + ", " + markerC.longitude + "]")}>
+                    position={JSON.parse('[' + markerC.latitude + ', ' + markerC.longitude + ']')}>
                     <Popup>
                         {markerC.title}
                     </Popup>
@@ -95,7 +95,7 @@ function Markers({ marker }) {
                 <Marker
                     icon={IconPdi}
                     key={index}
-                    position={JSON.parse("[" + markerP.latitude + ", " + markerP.longitude + "]")}>
+                    position={JSON.parse('[' + markerP.latitude + ', ' + markerP.longitude + ']')}>
                     <Popup>
                         {markerP.title}
                     </Popup>

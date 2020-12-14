@@ -1,22 +1,22 @@
-import React, { useState } from 'react';
-import { useEffect } from "react";
-import '../css/App.css';
-import 'bootstrap/dist/css/bootstrap.min.css';
-import logo from '../img/LogoAlma.png';
-import useLogin from '../hooks/useLogin';
-import { useLocation } from 'wouter';
+import React, { useState } from 'react'
+import { useEffect } from 'react'
+import '../css/App.css'
+import 'bootstrap/dist/css/bootstrap.min.css'
+import logo from '../img/LogoAlma.png'
+import useLogin from '../hooks/useLogin'
+import { useLocation } from 'wouter'
 import { makeStyles } from '@material-ui/core/styles'
-import VpnKeyIcon from '@material-ui/icons/VpnKey';
+import VpnKeyIcon from '@material-ui/icons/VpnKey'
 import '../css/login.css'
-import ExitToAppIcon from '@material-ui/icons/ExitToApp';
-import EmailIcon from '@material-ui/icons/Email';
-import { Paper, Grid, FormControl, TextField, Button, Typography, InputAdornment } from '@material-ui/core';
-import CircularProgress from '@material-ui/core/CircularProgress';
-import Alert from '@material-ui/lab/Alert';
+import ExitToAppIcon from '@material-ui/icons/ExitToApp'
+import EmailIcon from '@material-ui/icons/Email'
+import { Paper, Grid, FormControl, TextField, Button, Typography, InputAdornment } from '@material-ui/core'
+import CircularProgress from '@material-ui/core/CircularProgress'
+import Alert from '@material-ui/lab/Alert'
 import { sendAuth } from '../actions/authAction'
-import { connect } from "react-redux"
+import { connect } from 'react-redux'
 
-const usesStyles = makeStyles((theme) => ({
+const useStyles = makeStyles((theme) => ({
     container: {
         margin: 'auto',
         minWidth: '385px'
@@ -29,7 +29,7 @@ const usesStyles = makeStyles((theme) => ({
         marginBottom: theme.spacing(5),
         paddingTop: theme.spacing(4),
         height: 'auto',
-        backgroundColor: "#fd9eef",
+        backgroundColor: '#fd9eef',
         borderRadius: '10px'
     },
     grdC: {
@@ -60,11 +60,11 @@ const usesStyles = makeStyles((theme) => ({
 }))
 
  function LoginForm({ sendAuth }) {
-    const [email, setEmail] = useState("")
-    const [password, setPassword] = useState("")
+    const [email, setEmail] = useState('')
+    const [password, setPassword] = useState('')
     const [, navigate] = useLocation()
     const { login, isLogged, hasLoginError, isLoginLoading } = useLogin()
-    const classes = usesStyles();
+    const classes = useStyles()
 
     const handleSubmit = async (e) => {
         login({ email, password })
@@ -94,12 +94,12 @@ const usesStyles = makeStyles((theme) => ({
                 <Grid container>
                     <Grid item xs={6} sm={6} className={classes.container}>
                         <Paper className={classes.paper} elevation={15}>
-                            <img src={logo} style={{ width: "250px", marginBottom: "30px" }} alt="Logo" />
-                            <Typography className={classes.typograph} variant="h4" color="initial">
+                            <img src={logo} style={{ width: '250px', marginBottom: '30px' }} alt='Logo' />
+                            <Typography className={classes.typograph} variant='h4' color='initial'>
                                 Iniciar sesión
                             </Typography>
                             {hasLoginError &&
-                                <Alert className={classes.alert} variant="filled" severity="error">
+                                <Alert className={classes.alert} variant='filled' severity='error'>
                                     Correo y/o contraseña inválidos
                                   </Alert>
                             }
@@ -107,14 +107,14 @@ const usesStyles = makeStyles((theme) => ({
                             <FormControl className={classes.grdC} onKeyPress={(e) => onKeyUpValue(e)} >
                                 <TextField
                                     className={classes.input}
-                                    label="Correo electrónico"
-                                    type="text"
-                                    variant="filled"
+                                    label='Correo electrónico'
+                                    type='text'
+                                    variant='filled'
                                     onChange={(e) => setEmail(e.target.value)}
                                     value={email}
                                     InputProps={{
                                         startAdornment: (
-                                            <InputAdornment position="start">
+                                            <InputAdornment position='start'>
                                                 <EmailIcon />
                                             </InputAdornment>
                                         ),
@@ -122,23 +122,23 @@ const usesStyles = makeStyles((theme) => ({
                                 />
                                 <TextField
                                     className={classes.input}
-                                    label="Contraseña"
-                                    type="password"
-                                    variant="filled"
+                                    label='Contraseña'
+                                    type='password'
+                                    variant='filled'
                                     onChange={(e) => setPassword(e.target.value)}
                                     value={password}
                                     InputProps={{
                                         startAdornment: (
-                                            <InputAdornment position="start">
+                                            <InputAdornment position='start'>
                                                 <VpnKeyIcon />
                                             </InputAdornment>
                                         ),
                                     }}
                                 />
                                 <Button
-                                    variant="contained"
+                                    variant='contained'
                                     className={classes.button}
-                                    color="primary"
+                                    color='primary'
                                     onClick={() => handleSubmit()}
                                     startIcon={<ExitToAppIcon />}>
                                     Iniciar sesión
@@ -150,6 +150,6 @@ const usesStyles = makeStyles((theme) => ({
 
             }
         </>
-    );
+    )
 }
 export default connect(null, { sendAuth })(LoginForm)

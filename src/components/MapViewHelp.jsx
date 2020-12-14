@@ -26,7 +26,7 @@ const useStyles = makeStyles((theme) => ({
 
 
 function MapViewHelp(props) {
-    const classes = useStyles();
+    const classes = useStyles()
     const helptoken = props.params.helpToken
     const [user, setUser] = useState('')
     const [date, setDate] = useState('')
@@ -35,7 +35,7 @@ function MapViewHelp(props) {
     const [, navigate] = useLocation()
     const [state2, setState2] = useState({
         currentLocation: {
-            "person": [
+            'person': [
                 0, 0
             ]
         },
@@ -51,7 +51,7 @@ function MapViewHelp(props) {
                     .then(res => {
                         if (isMounted) {
                             const currentLocation = {
-                                "person": [
+                                'person': [
                                     res.data.coordinates[res.data.coordinates.length - 1].latitude,
                                     res.data.coordinates[res.data.coordinates.length - 1].longitude
                                 ]
@@ -72,10 +72,10 @@ function MapViewHelp(props) {
                     })
             }
             query()
-        }, 300000);
+        }, 300000)
 
         let isMounted = true
-        let source = axios.CancelToken.source();
+        let source = axios.CancelToken.source()
         const query = async () => {
 
             await api.get(`/gethelp?token=${helptoken}`, {
@@ -85,7 +85,7 @@ function MapViewHelp(props) {
 
                     if (isMounted) {
                         const currentLocation = {
-                            "person": [
+                            'person': [
                                 res.data.coordinates[res.data.coordinates.length - 1].latitude,
                                 res.data.coordinates[res.data.coordinates.length - 1].longitude
                             ]
@@ -110,11 +110,11 @@ function MapViewHelp(props) {
         }
         query()
         return function () {
-            isMounted = false;
-            clearInterval(interval);
+            isMounted = false
+            clearInterval(interval)
         }
 
-    }, [helptoken, navigate]);
+    }, [helptoken, navigate])
 
     return (
         <>
@@ -125,13 +125,13 @@ function MapViewHelp(props) {
             }
             {!isLoading &&
                 <div style={{ height: '90vh' }}>
-                    <Map center={state2.currentLocation.person} zoom="23" style={{ width: '100%', height: '100%' }} zoomControl={false}>
-                        <TileLayer url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-                            attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors' />
+                    <Map center={state2.currentLocation.person} zoom='23' style={{ width: '100%', height: '100%' }} zoomControl={false}>
+                        <TileLayer url='https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png'
+                            attribution='&copy <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors' />
                         <Marker
                             position={state2.currentLocation.person}
                             icon={IconLocation}>
-                            <Tooltip direction="bottom" offset={[0, 20]} opacity={1} permanent>
+                            <Tooltip direction='bottom' offset={[0, 20]} opacity={1} permanent>
                                 Su ultimo punto cuando apreto SOS <br />
                                 Hora: {hour}<br />
                                 Fecha: {date}

@@ -9,7 +9,7 @@ export default function signupadmin({ email, nombre, apellido, password1 }) {
     }
     return api.post(`/admin/add/`, user)
         .then(res => {
-            return "ok"
+            return 'ok'
         })
         .catch(err => {
             return err.response.data.error

@@ -1,4 +1,4 @@
-const initialState = { marker: false };
+const initialState = { marker: false }
 
 export default (state = initialState, action) => {
     if (action.type === 'REFRESH_MARKER') {
@@ -8,7 +8,7 @@ export default (state = initialState, action) => {
         }
     }
 
-    return state;
-};
+    return state
+}
 
-export const selectActiveMarker = state => state.MarkerReducer.marker;
+export const selectActiveMarker = state => state.MarkerReducer.marker
