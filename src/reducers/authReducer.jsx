@@ -1,4 +1,5 @@
-const initialState = { auth: false };
+
+const initialState = { auth: Boolean(sessionStorage.getItem('tokenadmin')) };
 
 export default (state = initialState, action) => {
     if (action.type === 'SEND_AUTH') {

@@ -8,7 +8,7 @@ import useResetPassword from '../hooks/useResetPassword'
 import CircularProgress from '@material-ui/core/CircularProgress'
 import Alert from '@material-ui/lab/Alert'
 import SubdirectoryArrowLeftIcon from '@material-ui/icons/SubdirectoryArrowLeft'
-import { useLocation } from 'wouter';
+import { useLocation } from 'wouter'
 
 const useStyles = makeStyles((theme) => ({
     container: {

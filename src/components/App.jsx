@@ -25,6 +25,7 @@ import 'bootstrap/dist/css/bootstrap.min.css'
 import { UserContextProvider } from '../context/UserContext'
 import CircularProgress from '@material-ui/core/CircularProgress'
 import ResetPassword from './ResetPassword'
+import Nothing from './Nothing'
 import { connect } from "react-redux"
 import { selectActiveAuth } from '../reducers/authReducer'
 import { sendAuth } from '../actions/authAction'
@@ -35,11 +36,9 @@ const mapStateToProps = state => {
   }
 }
 
-
 function App({ auth, sendAuth }) {
 
   useEffect(() => {
-
     if (sessionStorage.getItem('tokenadmin')) {
       sendAuth(true)
     }
@@ -92,7 +91,8 @@ function App({ auth, sendAuth }) {
                   </Route>
                 </>
               }
-
+              <Route component={Nothing}>
+              </Route>
             </Switch>
             <Footer />
           </Suspense>
