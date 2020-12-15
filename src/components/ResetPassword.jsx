@@ -27,8 +27,9 @@ const useStyles = makeStyles((theme) => ({
         marginTop: theme.spacing(1)
     },
     typ: {
-        fontSize: 50,
-        fontFamily: 'Arial',
+        fontSize: 30,
+        paddingBottom:20,
+        fontFamily: 'Arial'
     },
     cntainer: {
         paddingTop: 10
