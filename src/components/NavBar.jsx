@@ -64,7 +64,7 @@ function NavBar({ updateOpen }) {
                                     <IconButton color='inherit' className={classes.btnLogin}>
                                         <ExitToAppIcon>
                                         </ExitToAppIcon>
-                                    Cerrar Sesion
+                                        Cerrar Sesión
                                 </IconButton>
                                 </Link>
                             </>

@@ -306,7 +306,7 @@ function ListCheckIns(props) {
                                                     className={classes.alert}
                                                     variant='filled'
                                                     severity='error'>
-                                                    No se ha encontrado o esta mal ingresado el RUT
+                                                    No se ha encontrado o está mal ingresado el RUT
                                                 </Alert>
                                             </Collapse>
 
@@ -382,13 +382,13 @@ function ListCheckIns(props) {
                                                                                             checkin.info[0].numero_depto
                                                                                                 ?
                                                                                                 <Typography noWrap>
-                                                                                                    <b className={classes.b}>Numero departamento </b><br />
+                                                                                                    <b className={classes.b}>Número departamento </b><br />
                                                                                                     {checkin.info[0].numero_depto}
                                                                                                 </Typography>
 
                                                                                                 :
                                                                                                 <Typography noWrap>
-                                                                                                    <b className={classes.b}>Numero departamento </b><br />
+                                                                                                    <b className={classes.b}>Número departamento </b><br />
                                                                                                        N/A
                                                                                                 </Typography>
                                                                                         }
@@ -398,12 +398,12 @@ function ListCheckIns(props) {
                                                                                             checkin.info[0].numero_piso
                                                                                                 ?
                                                                                                 <Typography noWrap>
-                                                                                                    <b className={classes.b}>Numero de Piso </b> <br />
+                                                                                                    <b className={classes.b}>Número de Piso </b> <br />
                                                                                                     {checkin.info[0].numero_piso}
                                                                                                 </Typography>
                                                                                                 :
                                                                                                 <Typography noWrap>
-                                                                                                    <b className={classes.b}>Numero de Piso </b> <br />
+                                                                                                    <b className={classes.b}>Número de Piso </b> <br />
                                                                                                 N/A
                                                                                             </Typography>
                                                                                         }
@@ -501,13 +501,13 @@ function ListCheckIns(props) {
                                                                                     checkin.info[0].numero_depto
                                                                                         ?
                                                                                         <Typography noWrap>
-                                                                                            <b className={classes.b}>Numero departamento </b><br />
+                                                                                            <b className={classes.b}>Número departamento </b><br />
                                                                                             {checkin.info[0].numero_depto}
                                                                                         </Typography>
 
                                                                                         :
                                                                                         <Typography noWrap>
-                                                                                            <b className={classes.b}>Numero departamento </b><br />
+                                                                                            <b className={classes.b}>Número departamento </b><br />
                                                                                         N/A
                                                                                     </Typography>
                                                                                 }
@@ -517,12 +517,12 @@ function ListCheckIns(props) {
                                                                                     checkin.info[0].numero_piso
                                                                                         ?
                                                                                         <Typography noWrap>
-                                                                                            <b className={classes.b}>Numero de Piso </b> <br />
+                                                                                            <b className={classes.b}>Número de Piso </b> <br />
                                                                                             {checkin.info[0].numero_piso}
                                                                                         </Typography>
                                                                                         :
                                                                                         <Typography noWrap>
-                                                                                            <b className={classes.b}>Numero de Piso </b> <br />
+                                                                                            <b className={classes.b}>Número de Piso </b> <br />
                                                                                             N/A
                                                                                     </Typography>
                                                                                 }

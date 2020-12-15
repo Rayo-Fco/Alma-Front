@@ -132,12 +132,12 @@ function MapViewHelp(props) {
                             position={state2.currentLocation.person}
                             icon={IconLocation}>
                             <Tooltip direction='bottom' offset={[0, 20]} opacity={1} permanent>
-                                Su ultimo punto cuando apreto SOS <br />
+                                El último punto cuando apreto SOS <br />
                                 Hora: {hour}<br />
                                 Fecha: {date}
                             </Tooltip>
                             <Popup>
-                                Aqui esta {user.nombre}
+                                Aquí esta {user.nombre}
                             </Popup>
                         </Marker>
                         <LocateControl startDirectly />

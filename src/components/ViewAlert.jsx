@@ -207,8 +207,8 @@ function ViewAlert(props) {
                                         className={classes.alert}
                                         variant='filled'
                                         severity='error'>
-                                        No se ha encontrado o esta mal ingresado el RUT
-                                    </Alert>
+                                        No se ha encontrado o está mal ingresado el RUT
+                                      </Alert>
                                 </Collapse>
 
                             }
@@ -277,15 +277,15 @@ function ViewAlert(props) {
                                                                                 </Typography>
                                                                             </Grid>
 
-                                                                            <Grid item xs={12} sm={3} className={classes.listGrid}>
+                                                                            <Grid item xs={12} sm={2} className={classes.listGrid}>
                                                                                 <Typography className={classes.typho} color='primary'>
                                                                                     <b className={classes.b}>Hora </b>  <br />
                                                                                     {new Date(point.date).toLocaleTimeString()}
                                                                                 </Typography>
                                                                             </Grid>
-                                                                            <Grid item xs={12} sm={1} className={classes.listGrid}>
+                                                                            <Grid item xs={12} sm={2} className={classes.listGrid}>
                                                                                 <Typography className={classes.typho} color='primary'>
-                                                                                    <b className={classes.b}>Puntos </b>  <br />
+                                                                                    <b className={classes.b}>Puntos Totales </b>  <br />
                                                                                     {point.coordinates.length}
                                                                                 </Typography>
                                                                             </Grid>
@@ -295,7 +295,6 @@ function ViewAlert(props) {
                                                                                 </IconButton>
                                                                             </Grid>
                                                                         </Grid>
-
                                                                     ))
                                                                 }
                                                             </Grid>
@@ -343,15 +342,15 @@ function ViewAlert(props) {
                                                                         </Typography>
                                                                     </Grid>
 
-                                                                    <Grid item xs={12} sm={3} className={classes.listGrid}>
+                                                                    <Grid item xs={12} sm={2} className={classes.listGrid}>
                                                                         <Typography className={classes.typho} color='primary'>
                                                                             <b className={classes.b}>Hora </b>  <br />
                                                                             {new Date(point.date).toLocaleTimeString()}
                                                                         </Typography>
                                                                     </Grid>
-                                                                    <Grid item xs={12} sm={1} className={classes.listGrid}>
+                                                                    <Grid item xs={12} sm={2} className={classes.listGrid}>
                                                                         <Typography className={classes.typho} color='primary'>
-                                                                            <b className={classes.b}>Puntos </b>  <br />
+                                                                            <b className={classes.b}>Puntos Totales </b>  <br />
                                                                             {point.coordinates.length}
                                                                         </Typography>
                                                                     </Grid>

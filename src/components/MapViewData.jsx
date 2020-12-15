@@ -271,8 +271,8 @@ function MapViewData({ communes }) {
                                         <Table className={classes.table} style={{ backgroundColor: '#fafafa' }} aria-label='simple table'>
                                             <TableHead>
                                                 <TableRow>
-                                                    <TableCell align='center'><b>Titulo</b></TableCell>
-                                                    <TableCell align='center'><b>Informacion</b></TableCell>
+                                                    <TableCell align='center'><b>Título</b></TableCell>
+                                                    <TableCell align='center'><b>Información</b></TableCell>
                                                 </TableRow>
                                             </TableHead>
                                             <TableBody>

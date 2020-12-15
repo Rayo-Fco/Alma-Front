@@ -119,7 +119,7 @@ function AddCommune() {
                             </Alert>}
                         {succeedAdd &&
                             <Alert className={classes.alert} variant='filled' severity='success'>
-                                Se ha registrado con exito
+                                Se ha registrado con éxito
                             </Alert>
                         }
                     </Grid>

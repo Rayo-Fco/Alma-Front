@@ -86,14 +86,14 @@ export default function NeedHelp() {
                             </Typography>
                             {hasFindError &&
                                 <Alert variant='filled' severity='error'>
-                                    La clave esta mal escrito o ya ha expirado
+                                    La clave está mal escrita o ya ha expirado
                                 </Alert>
                             }
                             <Typography className={classes.paragraph}>
                                 Para poder acceder al mapa, necesitas la clave de cifrado.
                             </Typography>
                             <Typography className={classes.paragraph}>
-                                Si no te funciona la clave, dile al creador del enlace que te lo reenvie.
+                                Si no te funciona la clave, dile al creador del enlace que te lo reenvíe.
                             </Typography>
                             <Grid container style={{ marginTop: '8px' }} wrap='nowrap' spacing={3}>
                                 <Grid item xs zeroMinWidth>

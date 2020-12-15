@@ -157,7 +157,7 @@ function AddMarker({ latlng, refreshMarker, marker, }) {
                                     }
                                     {succeedAdd &&
                                         <Alert className={classes.alert} variant='filled' severity='success'>
-                                            Se ha agregado el marcador
+                                            Se ha agregado el marcador con éxito
                                         </Alert>
                                     }
                                     <Grid container style={{ marginTop: '8px' }} wrap='nowrap' spacing={3}>

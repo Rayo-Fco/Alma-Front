@@ -106,7 +106,7 @@ function ListComunas({ sendCommunes }) {
                             <Paper elevation={3} className={classes.paper2}>
                                 <Typography className={classes.typ} color='primary'>
                                     Comunas
-                    </Typography>
+                                </Typography>
                                 <List>
                                     {
                                         communes.commune.map(commune => (

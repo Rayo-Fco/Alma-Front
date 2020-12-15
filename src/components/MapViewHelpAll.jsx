@@ -155,7 +155,7 @@ export default function MapViewHelpAll(props) {
                                 createData('Rut', res.data[0].user[0].rut),
                                 createData('Email', res.data[0].user[0].email),
                                 createData('Nombre completo', res.data[0].user[0].nombre + ' ' + res.data[0].user[0].apellido),
-                                createData('Telefono', res.data[0].user[0].telefono),
+                                createData('Teléfono', res.data[0].user[0].telefono),
                                 createData('Alertas', res.data[0].puntos.length),
                                 createData('Puntos', deleteDuplicatePoints.length),
                                 createData('Puntos Repetidos', res.data[0].puntos[index].coordinates.length - deleteDuplicatePoints.length),
@@ -234,8 +234,8 @@ export default function MapViewHelpAll(props) {
                                         <Table className={classes.table} style={{ backgroundColor: '#fafafa' }} aria-label='simple table'>
                                             <TableHead>
                                                 <TableRow>
-                                                    <TableCell align='center'><b>Titulo</b></TableCell>
-                                                    <TableCell align='center'><b>Informacion</b></TableCell>
+                                                    <TableCell align='center'><b>Título</b></TableCell>
+                                                    <TableCell align='center'><b>Información</b></TableCell>
                                                 </TableRow>
                                             </TableHead>
                                             <TableBody>

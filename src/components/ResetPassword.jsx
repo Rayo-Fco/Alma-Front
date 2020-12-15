@@ -85,7 +85,7 @@ export default function ResetPassword() {
     const params = new URLSearchParams(search)
     const email = params.get('email')
     const token = params.get('token')
-    
+
     useEffect(() => {
         window.scrollTo(0, 0)
         const search = window.location.search
@@ -143,11 +143,11 @@ export default function ResetPassword() {
                     <Paper className={classes.paperform} elevation={15}>
                         <FormControl>
                             <Typography className={classes.title}>
-                                El link ha expirado o esta mal escrito
-                        </Typography>
+                                El link ha expirado o está mal escrito
+                            </Typography>
                             <Typography className={classes.paragraph}>
-                                Recuerda que para restablecer la contraseña tienes un tiempo limite de 5 minutos.
-                        </Typography>
+                                Recuerda que para restablecer la contraseña tienes un tiempo límite de 5 minutos.
+                            </Typography>
                             <Grid container style={{ marginTop: '8px' }} wrap='nowrap' spacing={3}>
                                 <Grid item xs zeroMinWidth>
                                 </Grid>

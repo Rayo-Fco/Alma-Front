@@ -46,7 +46,7 @@ export default function Main() {
             <Grid item xs={12} sm={6} className={classes.gr}>
                 <div className={classes.featureText}>
                     <h2 className='feature-heading'>Sientete más segura con esta APP</h2>
-                    <div className='feature-lead'>¿Con desconfianza o miedo en salir a la calle? Usa esta aplicacion movil para poder ver las comisarias cercanas a ti o mandar una alerta a tus contactos en el caso de que te sientas en peligro.</div>
+                    <div className='feature-lead'>¿Con desconfianza o miedo en salir a la calle? Usa esta aplicación móvil para poder ver las comisarias cercanas a ti o mandar una alerta a tus contactos en el caso de que te sientas en peligro.</div>
                 </div>
             </Grid>
             <Grid item xs={12} sm={6} className={classes.gr}>
