@@ -191,6 +191,7 @@ function MapViewData({ communes }) {
                                 }
                             }
                         }
+                       
                         setCoordinatesAlert({ coorAlert: arrayCoordinatesAlert })
 
 
@@ -220,9 +221,10 @@ function MapViewData({ communes }) {
         }
 
     }, [communes, navigate])
-
+    
     return (
         <>
+   
             {isLoading &&
                 <div className={classes.progress}>
                     <CircularProgress className={classes.circular} style={{ width: '30%', height: '30%', }} />
@@ -233,16 +235,18 @@ function MapViewData({ communes }) {
                     <Grid container>
                         <Grid item xs={12} sm={7}>
                             <div style={{ height: '90vh' }}>
-
                                 <Map center={state2.currentLocation} zoom={11} style={{ width: '100%', height: '100%' }} zoomControl={false}>
                                     <TileLayer url='https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png'
                                         attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors' />
                                     {coordinatesAlert.coorAlert.map((alert, index) => (
                                         <Marker
+
                                             icon={IconAlert}
+                                            title={"Latitud: "+alert.latitude+" Longitud"+alert.longitude}
                                             key={index}
                                             position={JSON.parse('[' + alert.latitude + ', ' + alert.longitude + ']')}>
                                         </Marker>
+
                                     ))
                                     }
                                     {coordinatesCheckin.coorCheckin.map((checkin, index) => (
