@@ -187,10 +187,7 @@ function MapViewData({ communes }) {
                             for (let j = 0; j < res.data[i].puntos.length; j++) {
                                 if (communes === res.data[i].puntos[j].comuna) {
                                     qtyA += 1
-                                    for (let h = 0; h < res.data[i].puntos[j].coordinates.length; h++) {
-                                        arrayCoordinatesAlert.push(res.data[i].puntos[j].coordinates[h])
-
-                                    }
+                                    arrayCoordinatesAlert.push(res.data[i].puntos[j].coordinates[0])
                                 }
                             }
                         }
