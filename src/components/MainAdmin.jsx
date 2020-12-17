@@ -92,7 +92,7 @@ function MainAdmin( ) {
                             <div className={classes.root}>
                                 <Avatar className={classes.orange}>A</Avatar>
                                 <Typography variant='h4' className={classes.tittle}>
-                                    {localStorage.getItem('email')}
+                                    Panel de Administrador
                                 </Typography>
                             </div>
                         </Paper>

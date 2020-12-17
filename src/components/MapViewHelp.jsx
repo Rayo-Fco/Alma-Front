@@ -72,7 +72,7 @@ function MapViewHelp(props) {
                     })
             }
             query()
-        }, 300000)
+        }, 100000)
 
         let isMounted = true
         let source = axios.CancelToken.source()
@@ -132,7 +132,7 @@ function MapViewHelp(props) {
                             position={state2.currentLocation.person}
                             icon={IconLocation}>
                             <Tooltip direction='bottom' offset={[0, 20]} opacity={1} permanent>
-                                El último punto cuando apreto SOS <br />
+                                El último punto SOS es a las<br />
                                 Hora: {hour}<br />
                                 Fecha: {date}
                             </Tooltip>

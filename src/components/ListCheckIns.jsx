@@ -37,7 +37,17 @@ const useStyles = makeStyles((theme) => ({
         height: 55,
         marginLeft: '2%',
         fontSize: '70%',
-        minWidth: '80px'
+        minWidth: '80px',
+        
+
+    },
+    button2: {
+        width: '20%',
+        height: 55,
+        marginLeft: '2%',
+        fontSize: '70%',
+        minWidth: '120px',
+        padding:'5px'
 
     },
     typho: {
@@ -275,10 +285,11 @@ function ListCheckIns(props) {
                                             label='Rut'
                                             variant='outlined'
                                             value={formattedValue}
+                                            inputProps={{ maxLength: 12 }}
                                             onChange={(e) => setRut(e.target.value)}
                                         />
                                         <Button
-                                            className={classes.button}
+                                            className={classes.button2}
                                             variant='contained'
                                             color='primary'
                                             startIcon={<SearchIcon />}
